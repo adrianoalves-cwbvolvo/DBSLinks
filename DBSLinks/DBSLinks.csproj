@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C1B7F04C-F3D5-4159-BA52-F8BE0001ABA5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Links</RootNamespace>
+    <AssemblyName>Links</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\vcn.ds.volvo.net\it-cta\ITPROJ02\002378\DESENV\DBS\AUTOMATOR\LINKS FORM\release\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>1</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>true</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <MinimumRequiredVersion>1.0.2.14</MinimumRequiredVersion>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.2.1.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>D0CC7E97C1C6DDAB6A180CB22D328E08C5B86B3B</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>LinksForm_2_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>volvo_logo_icon_vector_RUk_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LinksForm_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controller\Encryption.cs" />
+    <Compile Include="Controller\Validation.cs" />
+    <Compile Include="DAL\DALHelpers.cs" />
+    <Compile Include="FormsAdmin\frmUpdatePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormsAdmin\frmUpdatePassword.Designer.cs">
+      <DependentUpon>frmUpdatePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateApplication.Designer.cs">
+      <DependentUpon>frmAddOrUpdateApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateAppLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateAppLinks.Designer.cs">
+      <DependentUpon>frmAddOrUpdateAppLinks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateCredential.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateCredential.Designer.cs">
+      <DependentUpon>frmAddOrUpdateCredential.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateDealer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateDealer.Designer.cs">
+      <DependentUpon>frmAddOrUpdateDealer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAppLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAppLinks.Designer.cs">
+      <DependentUpon>frmAppLinks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmGeneralSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmGeneralSettings.Designer.cs">
+      <DependentUpon>frmGeneralSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmLinks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmLinks.Designer.cs">
+      <DependentUpon>frmLinks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateContact.Designer.cs">
+      <DependentUpon>frmAddOrUpdateContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Application.cs" />
+    <Compile Include="Model\AppLinks.cs" />
+    <Compile Include="Model\AppSession.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\Credential.cs" />
+    <Compile Include="Model\Dealer.cs" />
+    <Compile Include="Model\DealerContact.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="FormsAdmin\frmUpdatePassword.resx">
+      <DependentUpon>frmUpdatePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateApplication.resx">
+      <DependentUpon>frmAddOrUpdateApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateAppLinks.resx">
+      <DependentUpon>frmAddOrUpdateAppLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateCredential.resx">
+      <DependentUpon>frmAddOrUpdateCredential.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateDealer.resx">
+      <DependentUpon>frmAddOrUpdateDealer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAppLinks.resx">
+      <DependentUpon>frmAppLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmGeneralSettings.resx">
+      <DependentUpon>frmGeneralSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmLinks.resx">
+      <DependentUpon>frmLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateContact.resx">
+      <DependentUpon>frmAddOrUpdateContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="LinksForm_1_TemporaryKey.pfx" />
+    <None Include="LinksForm_2_TemporaryKey.pfx" />
+    <None Include="LinksForm_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Advanced.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Advanced_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Contact.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Truck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Truck2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Application.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Apps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SubApps.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\globe-search-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\categories-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globepng.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\LinksStartup.appref-ms">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\Padlock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CogWheel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Actions-exit-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CogWheel1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CogWheel2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Link1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contact1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Truck1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Truck21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dealer_Truck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SubDealer_Truck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contact2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Contact3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AppsBW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ApplicationList.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globepng1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PadLock_BW.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="volvo_logo_icon_vector_RUk_icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
