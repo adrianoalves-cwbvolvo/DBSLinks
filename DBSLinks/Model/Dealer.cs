@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinksForm.Model
 {
-    class Dealer
+    public class Dealer
     {
         public int DealerId { get; set; }
         public string DealerName { get; set; }
