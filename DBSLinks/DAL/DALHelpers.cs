@@ -193,7 +193,6 @@ namespace LinksForm.DAL
                     contact.TeamId = Convert.ToInt32(reader["TeamId"].ToString());
                     contact.TeamName = reader["TeamName"].ToString();
 
-
                     contactList.Add(contact);
                 }
 
@@ -248,16 +247,18 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "INSERT INTO Contacts (ContactId, Name, Phone, ComputerName) VALUES(@Id, @Name, @Phone, @ComputerName)";
+                command.CommandText = "INSERT INTO Contacts (ContactId, Name, CellPhone, Phone, ComputerName, TeamId) VALUES(@Id, @Name, @CellPhone, @Phone, @ComputerName, @TeamId)";
                 command.Parameters.AddWithValue("@Id", contact.Id);
                 command.Parameters.AddWithValue("@Name", contact.Name);
+                command.Parameters.AddWithValue("@CellPhone", contact.CellPhone);
                 command.Parameters.AddWithValue("@Phone", contact.Phone);
                 command.Parameters.AddWithValue("@ComputerName", contact.Computer);
+                command.Parameters.AddWithValue("@TeamId", contact.TeamId);
                 command.ExecuteNonQuery();
 
                 CloseDBConnection(connection);
@@ -273,15 +274,17 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "UPDATE Contacts SET Name = @name, Phone = @phone, ComputerName = @computerName WHERE ContactId = @id";
+                command.CommandText = "UPDATE Contacts SET Name = @name, Phone = @phone, CellPhone = @cellPhone, ComputerName = @computerName, TeamId = @teamid WHERE ContactId = @id";
                 command.Parameters.AddWithValue("@name", contact.Name);
                 command.Parameters.AddWithValue("@phone", contact.Phone);
+                command.Parameters.AddWithValue("@cellPhone", contact.CellPhone);
                 command.Parameters.AddWithValue("@computerName", contact.Computer);
+                command.Parameters.AddWithValue("@teamid", contact.TeamId);
                 command.Parameters.AddWithValue("@id", contact.Id);
                 command.ExecuteNonQuery();
 
@@ -299,12 +302,10 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-
-                command.Connection = OpenLocalDBConnection();
 
                 command.CommandText = "DELETE FROM Contacts WHERE ContactId=@ID";
                 command.Parameters.AddWithValue("@ID", ID);
@@ -314,8 +315,9 @@ namespace LinksForm.DAL
 
                 return true;
             }
-            catch
+            catch (Exception)
             {
+               
                 return false;
             }
         }
@@ -670,7 +672,7 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "SELECT d.DealerId, d.DealerName, d.Branch, d.CountryId, d.CTDI, d.CNPJ, c.CountryName, d.PhoneNumber, d.IsActive, d.MainDealerId, d.BaldoPartner FROM Dealers d INNER JOIN Countries c ON d.CountryId = c.CountryId";
+                command.CommandText = "SELECT d.DealerId, d.DealerName, d.Branch, d.CountryId, d.CTDI, d.CNPJ, c.CountryName, d.PhoneNumber, d.MainDealerId, d.BaldoPartner FROM Dealers d INNER JOIN Countries c ON d.CountryId = c.CountryId";
 
                 OleDbDataReader reader = command.ExecuteReader();
 
@@ -696,7 +698,6 @@ namespace LinksForm.DAL
                     dealer.CNPJ = reader["CNPJ"].ToString();
                     dealer.CountryName = reader["CountryName"].ToString();
                     dealer.PhoneNumber = reader["PhoneNumber"].ToString();
-                    dealer.IsActive = Convert.ToInt32(reader["IsActive"]);
                     dealer.MainDealerId = Convert.ToInt32(reader["MainDealerId"]);
                     dealer.BaldoPartner = reader["BaldoPartner"].ToString();
 
@@ -723,7 +724,7 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "SELECT * FROM Dealers WHERE IsMainDealer=1 AND CountryId = @countryid";
+                command.CommandText = "SELECT DISTINCT MainDealerId, DealerName, CountryId FROM Dealers WHERE CountryId = @countryid";
                 command.Parameters.AddWithValue("@countryid", CountryId);
                 OleDbDataReader reader = command.ExecuteReader();
 
@@ -733,7 +734,7 @@ namespace LinksForm.DAL
                 {
                     Dealer dealer = new Dealer();
 
-                    dealer.DealerId = Convert.ToInt32(reader["DealerId"]);
+                    dealer.MainDealerId = Convert.ToInt32(reader["MainDealerId"]);
                     dealer.DealerName = reader["DealerName"].ToString();
                     dealer.CountryId = Convert.ToInt32(reader["CountryId"]);
 
@@ -759,7 +760,7 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.Connection = OpenLocalDBConnection();
+                //command.Connection = OpenLocalDBConnection();
 
                 command.CommandText = "DELETE FROM Dealers WHERE DealerId=@ID";
                 command.Parameters.AddWithValue("@ID", ID);
@@ -1553,6 +1554,44 @@ namespace LinksForm.DAL
             }
         }
 
+        #endregion
+
+        #region "TEAMS"
+        public static List<Team> GetTeams()
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenLocalDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "SELECT * FROM Teams";
+                OleDbDataReader reader = command.ExecuteReader();
+
+                var teamList = new List<Team>();
+                teamList.Clear();
+
+                while (reader.Read())
+                {
+                    Team team = new Team();
+
+                    team.TeamId = Convert.ToInt32(reader["TeamId"].ToString());
+                    team.TeamName = reader["TeamName"].ToString();
+
+                    teamList.Add(team);
+                }
+
+                CloseDBConnection(connection);
+
+                return teamList;
+            }
+            catch
+            {
+                throw;
+            }
+        }
         #endregion
 
     }
