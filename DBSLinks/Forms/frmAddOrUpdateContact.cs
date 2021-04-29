@@ -10,33 +10,63 @@ using System.Windows.Forms;
 using LinksForm.Controller;
 using LinksForm.Model;
 using LinksForm.DAL;
+using Links.Model;
 
 namespace LinksForm.Forms
 {
     public partial class frmAddOrUpdateContact : Form
     {
-        public frmAddOrUpdateContact(string ContactId, string Name, string Phone, string Computer)
+        private List<Team> teamList = new List<Team>();
+        public bool HasTheCancelButtonPressed { get; set; }
+
+        public frmAddOrUpdateContact(Contact contact)
         {
             InitializeComponent();
 
-            if (!string.IsNullOrEmpty(ContactId))
+            teamList = DALHelpers.GetTeams();
+            HasTheCancelButtonPressed = false;
+
+            int counter = 0;
+
+            if (!string.IsNullOrEmpty(contact.Id))
             {
+                foreach (Team team in teamList)
+                {
+                    cmbTeam.Items.Add(team.TeamName.ToString());
+
+                    if (contact.TeamId == team.TeamId)
+                    {
+                        cmbTeam.SelectedIndex = counter;
+                    }
+
+                    counter++;
+                }
+
                 this.Text = "Update Contact";
-                txtUserID.Text = ContactId;
+                txtUserID.Text = contact.Id;
                 txtUserID.Enabled = false;
-                txtName.Text = Name;
-                txtPhone.Text = Phone;
-                txtComputer.Text = Computer;
+                txtName.Text = contact.Name;
+                txtPhone.Text = contact.Phone;
+                txtCellPhone.Text = contact.CellPhone;
+                txtComputer.Text = contact.Computer;
             }
             else
             {
+                foreach (Team team in teamList)
+                {
+                    cmbTeam.Items.Add(team.TeamName.ToString());
+                }
+
                 this.Text = "New Contact";
                 txtUserID.Enabled = Enabled;
             }
+
+            cmbTeam.Focus();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            HasTheCancelButtonPressed = true;
             this.Close();
         }
 
@@ -45,17 +75,24 @@ namespace LinksForm.Forms
             Contact contact = new Contact();
             bool ok = false;
 
-            if (Validation.ContactDataValidation(txtUserID.Text, txtName.Text, txtPhone.Text))
+            contact.Id = txtUserID.Text;
+            contact.Name = txtName.Text;
+            contact.CellPhone = txtCellPhone.Text;
+            contact.Phone = txtPhone.Text;
+            contact.Computer = txtComputer.Text;
+
+            foreach (Team team in teamList)
+            {
+                if (cmbTeam.Text == team.TeamName)
+                {
+                    contact.TeamId = team.TeamId;
+                }
+            }
+
+            if (Validation.ContactDataValidation(contact))
             {
                 MessageBox.Show("Please enter the Contact details.");
                 return;
-            }
-            else
-            {
-                contact.Id = txtUserID.Text;
-                contact.Name = txtName.Text;
-                contact.Phone = txtPhone.Text;
-                contact.Computer = txtComputer.Text;
             }
 
             if (txtUserID.Enabled == false)
