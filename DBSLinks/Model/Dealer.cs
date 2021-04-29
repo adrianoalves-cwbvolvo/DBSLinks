@@ -17,7 +17,6 @@ namespace LinksForm.Model
         public string CNPJ { get; set; }
         public string PhoneNumber { get; set; }
         public string BaldoPartner { get; set; }
-        public int IsActive { get; set; }
         public int MainDealerId { get; set; }
 
     }
