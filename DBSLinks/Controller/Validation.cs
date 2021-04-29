@@ -141,8 +141,15 @@ namespace LinksForm.Controller
 
             if (File.Exists(localDatabaseFile) || (reload = true))
             {
-                File.Delete(localDatabaseFile);
-                File.Copy(networkDatabaseFile, localDatabaseFile);
+                try
+                {
+                    File.Delete(localDatabaseFile);
+                    File.Copy(networkDatabaseFile, localDatabaseFile);
+                }
+                catch (IOException e)
+                {
+                    MessageBox.Show(e.Message);
+                }
             }
             else
             {
@@ -205,11 +212,11 @@ namespace LinksForm.Controller
             return true;
 
         }  
-        public static bool ContactDataValidation(string Id, string Name, string Phone)
+        public static bool ContactDataValidation(Contact contact)
         {
             bool IsEmpty = false;
 
-            if ((Id == string.Empty) || (Name == string.Empty) || (Phone == string.Empty))
+            if ((contact.TeamId == 0) || (contact.Id == string.Empty) || (contact.Name == string.Empty) || (contact.Phone == string.Empty))
             {
                 IsEmpty = true;
             }
