@@ -67,24 +67,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Links.exe" size="327592">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Links.exe" size="339880">
       <assemblyIdentity name="Links" version="1.2.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BNw1FZ9aLRfZyiJue3j16HLSQ1OKTTV2leXvvhCt6b0=</dsig:DigestValue>
+        <dsig:DigestValue>+8nb5O6s1DVE2csiR9fV3ilXphAt4ENu84KcwHeCrx4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Links.exe.config" size="2836">
+  <file name="Links.exe.config" size="2033">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>vJ6Kbjd87IE7UagdSWQb+DUUvkmrtisS+txsJfB9C2o=</dsig:DigestValue>
+      <dsig:DigestValue>OiETAUTvPfyuUNtwmlbGKs0sFUCuFkEK5t0TM/oxPEU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Resources\LinksStartup.appref-ms" size="406">

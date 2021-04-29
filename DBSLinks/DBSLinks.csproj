@@ -173,6 +173,7 @@
     <Compile Include="Model\Credential.cs" />
     <Compile Include="Model\Dealer.cs" />
     <Compile Include="Model\DealerContact.cs" />
+    <Compile Include="Model\Team.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
