@@ -29,12 +29,18 @@
         private void InitializeComponent()
         {
             this.grpSubDealer = new System.Windows.Forms.GroupBox();
-            this.txtDealerName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtDealerCode = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblDealer = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtPhoneNumber = new System.Windows.Forms.TextBox();
+            this.txtBranchName = new System.Windows.Forms.TextBox();
+            this.cmbMainDealer = new System.Windows.Forms.ComboBox();
+            this.lblPhoneNumber = new System.Windows.Forms.Label();
             this.cmbCountries = new System.Windows.Forms.ComboBox();
+            this.lblBranch = new System.Windows.Forms.Label();
+            this.txtBaldoPartner = new System.Windows.Forms.TextBox();
+            this.lblBaldoPartner = new System.Windows.Forms.Label();
+            this.txtCTDI = new System.Windows.Forms.TextBox();
+            this.lblCTDI = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.grpSubDealer.SuspendLayout();
@@ -42,87 +48,146 @@
             // 
             // grpSubDealer
             // 
+            this.grpSubDealer.Controls.Add(this.lblDealer);
             this.grpSubDealer.Controls.Add(this.label3);
-            this.grpSubDealer.Controls.Add(this.txtDealerName);
+            this.grpSubDealer.Controls.Add(this.txtPhoneNumber);
+            this.grpSubDealer.Controls.Add(this.txtBranchName);
+            this.grpSubDealer.Controls.Add(this.cmbMainDealer);
+            this.grpSubDealer.Controls.Add(this.lblPhoneNumber);
             this.grpSubDealer.Controls.Add(this.cmbCountries);
-            this.grpSubDealer.Controls.Add(this.label2);
-            this.grpSubDealer.Controls.Add(this.txtDealerCode);
-            this.grpSubDealer.Controls.Add(this.label1);
-            this.grpSubDealer.Location = new System.Drawing.Point(12, 24);
+            this.grpSubDealer.Controls.Add(this.lblBranch);
+            this.grpSubDealer.Controls.Add(this.txtBaldoPartner);
+            this.grpSubDealer.Controls.Add(this.lblBaldoPartner);
+            this.grpSubDealer.Controls.Add(this.txtCTDI);
+            this.grpSubDealer.Controls.Add(this.lblCTDI);
+            this.grpSubDealer.Location = new System.Drawing.Point(12, 12);
             this.grpSubDealer.Name = "grpSubDealer";
-            this.grpSubDealer.Size = new System.Drawing.Size(417, 142);
+            this.grpSubDealer.Size = new System.Drawing.Size(512, 211);
             this.grpSubDealer.TabIndex = 18;
             this.grpSubDealer.TabStop = false;
-            this.grpSubDealer.Text = "Main Dealer";
             // 
-            // txtDealerName
+            // lblDealer
             // 
-            this.txtDealerName.Location = new System.Drawing.Point(102, 98);
-            this.txtDealerName.MaxLength = 25;
-            this.txtDealerName.Name = "txtDealerName";
-            this.txtDealerName.Size = new System.Drawing.Size(269, 20);
-            this.txtDealerName.TabIndex = 9;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Dealer Name:";
-            // 
-            // txtDealerCode
-            // 
-            this.txtDealerCode.Location = new System.Drawing.Point(102, 72);
-            this.txtDealerCode.MaxLength = 5;
-            this.txtDealerCode.Name = "txtDealerCode";
-            this.txtDealerCode.Size = new System.Drawing.Size(54, 20);
-            this.txtDealerCode.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Dealer Code:";
+            this.lblDealer.AutoSize = true;
+            this.lblDealer.Location = new System.Drawing.Point(16, 66);
+            this.lblDealer.Name = "lblDealer";
+            this.lblDealer.Size = new System.Drawing.Size(41, 13);
+            this.lblDealer.TabIndex = 0;
+            this.lblDealer.Text = "Dealer:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 48);
+            this.label3.Location = new System.Drawing.Point(16, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
-            this.label3.TabIndex = 11;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Country:";
+            // 
+            // txtPhoneNumber
+            // 
+            this.txtPhoneNumber.Location = new System.Drawing.Point(102, 116);
+            this.txtPhoneNumber.MaxLength = 25;
+            this.txtPhoneNumber.Name = "txtPhoneNumber";
+            this.txtPhoneNumber.Size = new System.Drawing.Size(195, 20);
+            this.txtPhoneNumber.TabIndex = 3;
+            // 
+            // txtBranchName
+            // 
+            this.txtBranchName.Location = new System.Drawing.Point(102, 90);
+            this.txtBranchName.MaxLength = 25;
+            this.txtBranchName.Name = "txtBranchName";
+            this.txtBranchName.Size = new System.Drawing.Size(379, 20);
+            this.txtBranchName.TabIndex = 2;
+            // 
+            // cmbMainDealer
+            // 
+            this.cmbMainDealer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMainDealer.FormattingEnabled = true;
+            this.cmbMainDealer.Location = new System.Drawing.Point(102, 63);
+            this.cmbMainDealer.Name = "cmbMainDealer";
+            this.cmbMainDealer.Size = new System.Drawing.Size(379, 21);
+            this.cmbMainDealer.TabIndex = 1;
+            // 
+            // lblPhoneNumber
+            // 
+            this.lblPhoneNumber.AutoSize = true;
+            this.lblPhoneNumber.Location = new System.Drawing.Point(16, 119);
+            this.lblPhoneNumber.Name = "lblPhoneNumber";
+            this.lblPhoneNumber.Size = new System.Drawing.Size(81, 13);
+            this.lblPhoneNumber.TabIndex = 0;
+            this.lblPhoneNumber.Text = "Phone Number:";
             // 
             // cmbCountries
             // 
             this.cmbCountries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCountries.FormattingEnabled = true;
-            this.cmbCountries.Location = new System.Drawing.Point(102, 45);
+            this.cmbCountries.Location = new System.Drawing.Point(102, 36);
             this.cmbCountries.Name = "cmbCountries";
             this.cmbCountries.Size = new System.Drawing.Size(151, 21);
-            this.cmbCountries.TabIndex = 10;
+            this.cmbCountries.TabIndex = 1;
+            this.cmbCountries.SelectedIndexChanged += new System.EventHandler(this.cmbCountries_SelectedIndexChanged);
+            this.cmbCountries.SelectionChangeCommitted += new System.EventHandler(this.cmbCountries_SelectionChangeCommitted);
+            // 
+            // lblBranch
+            // 
+            this.lblBranch.AutoSize = true;
+            this.lblBranch.Location = new System.Drawing.Point(16, 93);
+            this.lblBranch.Name = "lblBranch";
+            this.lblBranch.Size = new System.Drawing.Size(75, 13);
+            this.lblBranch.TabIndex = 0;
+            this.lblBranch.Text = "Branch Name:";
+            // 
+            // txtBaldoPartner
+            // 
+            this.txtBaldoPartner.Location = new System.Drawing.Point(102, 168);
+            this.txtBaldoPartner.MaxLength = 5;
+            this.txtBaldoPartner.Name = "txtBaldoPartner";
+            this.txtBaldoPartner.Size = new System.Drawing.Size(136, 20);
+            this.txtBaldoPartner.TabIndex = 5;
+            // 
+            // lblBaldoPartner
+            // 
+            this.lblBaldoPartner.AutoSize = true;
+            this.lblBaldoPartner.Location = new System.Drawing.Point(16, 172);
+            this.lblBaldoPartner.Name = "lblBaldoPartner";
+            this.lblBaldoPartner.Size = new System.Drawing.Size(74, 13);
+            this.lblBaldoPartner.TabIndex = 0;
+            this.lblBaldoPartner.Text = "Baldo Partner:";
+            // 
+            // txtCTDI
+            // 
+            this.txtCTDI.Location = new System.Drawing.Point(102, 142);
+            this.txtCTDI.MaxLength = 5;
+            this.txtCTDI.Name = "txtCTDI";
+            this.txtCTDI.Size = new System.Drawing.Size(76, 20);
+            this.txtCTDI.TabIndex = 4;
+            // 
+            // lblCTDI
+            // 
+            this.lblCTDI.AutoSize = true;
+            this.lblCTDI.Location = new System.Drawing.Point(16, 146);
+            this.lblCTDI.Name = "lblCTDI";
+            this.lblCTDI.Size = new System.Drawing.Size(35, 13);
+            this.lblCTDI.TabIndex = 0;
+            this.lblCTDI.Text = "CTDI:";
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(223, 177);
+            this.btnExit.Location = new System.Drawing.Point(275, 238);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(94, 43);
-            this.btnExit.TabIndex = 17;
+            this.btnExit.TabIndex = 7;
             this.btnExit.Text = "Cancel";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(123, 177);
+            this.btnSave.Location = new System.Drawing.Point(175, 238);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 43);
-            this.btnSave.TabIndex = 16;
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -131,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 231);
+            this.ClientSize = new System.Drawing.Size(536, 293);
             this.Controls.Add(this.grpSubDealer);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSave);
@@ -149,13 +214,19 @@
         #endregion
 
         private System.Windows.Forms.GroupBox grpSubDealer;
-        private System.Windows.Forms.TextBox txtDealerName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtDealerCode;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBranchName;
+        private System.Windows.Forms.Label lblBranch;
+        private System.Windows.Forms.TextBox txtCTDI;
+        private System.Windows.Forms.Label lblCTDI;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbCountries;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblDealer;
+        private System.Windows.Forms.ComboBox cmbMainDealer;
+        private System.Windows.Forms.TextBox txtPhoneNumber;
+        private System.Windows.Forms.Label lblPhoneNumber;
+        private System.Windows.Forms.TextBox txtBaldoPartner;
+        private System.Windows.Forms.Label lblBaldoPartner;
     }
 }
