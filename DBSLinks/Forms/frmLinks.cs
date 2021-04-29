@@ -74,6 +74,10 @@ namespace LinksForm
             setTopMostWindowSetting();
             this.ShowInTaskbar = false;
 
+            StyleContactButtons();
+            StyleDealerButtons();
+            StyleApplicationButtons();
+
         }
 
         #endregion
@@ -111,11 +115,7 @@ namespace LinksForm
 
                 #region "RETRIEVING DATA FROM THE DATABASE"
 
-                contactList = DALHelpers.GetContacts();
-                dealerContactList = DALHelpers.GetDealerContacts();
-                dealerList = DALHelpers.GetDealers();
-                ApplicationsList = DALHelpers.GetApplications();
-                AppLinksFromDatabase = DALHelpers.GetAppLinks();
+                GetDataFromDatabase("AllTables");
 
                 #endregion
 
@@ -241,134 +241,39 @@ namespace LinksForm
 
         #endregion
 
-        #region "DATAGRIDVIEW - LOADING CONTACTS DATA"
+        #region "DATAGRIDVIEW - GET DATA FROM DATABASE"
 
-        private void loadContacts()
+        private void GetDataFromDatabase(string myOption)
         {
-            dgvContacts.DataSource = null;
-            dgvContacts.Rows.Clear();
-            dtContacts.Clear();
-
-            foreach (Contact contact in contactList)
+            switch (myOption)
             {
-                dtContacts.Rows.Add(
-                    contact.Id.ToString(),
-                    contact.Name.ToString(),
-                    contact.Phone.ToString(),
-                    contact.CellPhone.ToString(),
-                    contact.TeamId.ToString(),
-                    contact.TeamName.ToString(),
-                    contact.Computer.ToString(),
-                    contact.Name.ToString() + Validation.RemoveDiacritics(contact.Name.ToString()) + contact.Id + contact.Phone.ToString() + contact.CellPhone.ToString() + contact.TeamName.ToString() + contact.Computer.ToString());
+                case "AllTables":
+
+                    contactList = DALHelpers.GetContacts();
+                    dealerContactList = DALHelpers.GetDealerContacts();
+                    dealerList = DALHelpers.GetDealers();
+                    ApplicationsList = DALHelpers.GetApplications();
+                    AppLinksFromDatabase = DALHelpers.GetAppLinks();
+                    break;
+
+                case "Contact":
+                    contactList = DALHelpers.GetContacts();
+                    break;
+
+                case "Dealer":
+                    dealerList = DALHelpers.GetDealers();
+                    break;
+
+                case "ApplicationList":
+                    ApplicationsList = DALHelpers.GetApplications();
+                    break;
+
+                case "DealerContact":
+                    dealerContactList = DALHelpers.GetDealerContacts();
+                    break;
             }
-
-            dgvContacts.DataSource = dtContacts;
-
-            dgvContacts.Columns[4].Visible = false;
-            dgvContacts.Columns[7].Visible = false;
-
-            dgvContacts.Columns[0].Width = 62;
-            dgvContacts.Columns[1].Width = 120;
-            dgvContacts.Columns[2].Width = 95;
-            dgvContacts.Columns[3].Width = 95;
-            dgvContacts.Columns[4].Width = 80;
-            dgvContacts.Columns[6].Width = 110;
-            dgvContacts.Columns[7].Width = 110;
-
-            dgvContacts.Sort(dgvContacts.Columns["Name"], ListSortDirection.Ascending);
-            dgvContacts.Columns["Phone"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvContacts.Columns["CellPhone"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
         }
 
-        #endregion
-
-        #region "DATAGRIDVIEW - LOADING DEALER CONTACTS DATA"
-        private void loadDealerContacts()
-        {
-            dgvDealers.DataSource = null;
-            dgvDealers.Rows.Clear();
-            dtDealerContacts.Clear();
-
-            foreach (DealerContact dealerContact in dealerContactList)
-            {
-                dtDealerContacts.Rows.Add(
-                    dealerContact.DealerContactId.ToString(),
-                    dealerContact.MainDealerId.ToString(),
-                    dealerContact.Name.ToString(),
-                    dealerContact.Phone.ToString(),
-                    dealerContact.CellPhone.ToString(),
-                    dealerContact.Email.ToString(),
-                    dealerContact.DealerName.ToString(),
-                    dealerContact.Department.ToString(),
-                    dealerContact.CountryId.ToString(),
-                    dealerContact.Country.ToString(),
-                    dealerContact.Name.ToString() + dealerContact.DealerName.ToString() + Validation.RemoveDiacritics(dealerContact.DealerName.ToString())+ Validation.RemoveDiacritics(dealerContact.Name.ToString()) + Validation.RemoveDiacritics(dealerContact.Department.ToString()) + dealerContact.Department.ToString() + dealerContact.Phone.ToString() + dealerContact.CellPhone.ToString() + dealerContact.Country.ToString() + dealerContact.Email.ToString());
-            }
-
-            dgvDealers.DataSource = dtDealerContacts;
-
-            dgvDealers.Columns[0].Visible = false;
-            dgvDealers.Columns[1].Visible = false;
-            dgvDealers.Columns[8].Visible = false;
-            dgvDealers.Columns[10].Visible = false;
-
-            dgvDealers.Columns[2].Width = 150;
-            dgvDealers.Columns[3].Width = 130;
-            dgvDealers.Columns[4].Width = 130;
-            dgvDealers.Columns[5].Width = 180;
-            dgvDealers.Columns[6].Width = 180;
-            dgvDealers.Columns[7].Width = 130;
-            dgvDealers.Columns[9].Width = 50;
-
-            dgvDealers.Sort(dgvDealers.Columns["DealerName"], ListSortDirection.Ascending);
-
-            dgvDealers.ClearSelection();
-        }
-        #endregion
-
-        #region "DATAGRIDVIEW - LOADING DEALERS DATA"
-        private void loadDealers()
-        {
-            dgvDealers.DataSource = null;
-            dgvDealers.Rows.Clear();
-            dtDealers.Clear();
-
-            foreach (Dealer dealer in dealerList)
-            {
-                dtDealers.Rows.Add(
-                    dealer.DealerId.ToString(),
-                    dealer.DealerName.ToString(),
-                    dealer.Branch.ToString(),
-                    dealer.PhoneNumber.ToString(),
-                    dealer.CTDI.ToString(),
-                    dealer.BaldoPartner.ToString(),
-                    dealer.CountryId.ToString(),
-                    dealer.CountryName.ToString(),
-                    dealer.CNPJ.ToString(),
-                    dealer.IsActive.ToString(),
-                    dealer.MainDealerId.ToString(),
-                    dealer.CTDI.ToString() + dealer.PhoneNumber.ToString() + dealer.BaldoPartner.ToString() + dealer.CountryName.ToString() + dealer.DealerName.ToString() + Validation.RemoveDiacritics(dealer.DealerName.ToString()) + dealer.Branch.ToString() + Validation.RemoveDiacritics(dealer.Branch.ToString()),
-                    dealer.DealerName.ToString() + dealer.Branch.ToString());
-            }
-
-            dgvDealers.DataSource = dtDealers;
-
-            dgvDealers.Columns[0].Visible = false;
-            dgvDealers.Columns[6].Visible = false;
-            dgvDealers.Columns[8].Visible = false;
-            dgvDealers.Columns[9].Visible = false;
-            dgvDealers.Columns[10].Visible = false;
-            dgvDealers.Columns[11].Visible = false;
-            dgvDealers.Columns[12].Visible = false;
-
-            dgvDealers.Columns[1].Width = 150;
-            dgvDealers.Columns[2].Width = 150;
-            dgvDealers.Columns[3].Width = 110;
-            dgvDealers.Columns[4].Width = 50;
-            dgvDealers.Columns[7].Width = 70;
-
-            dgvDealers.Sort(dgvDealers.Columns["Sort"], ListSortDirection.Ascending);
-        }
         #endregion
 
         #region "MENUS"
@@ -495,6 +400,49 @@ namespace LinksForm
 
         #region "TAB - CONTACTS"
 
+        #region "DATAGRIDVIEW - LOAD CONTACTS DATA"
+
+        private void loadContacts()
+        {
+            dgvContacts.DataSource = null;
+            dgvContacts.Rows.Clear();
+            dtContacts.Clear();
+
+            foreach (Contact contact in contactList)
+            {
+                dtContacts.Rows.Add(
+                    contact.Id.ToString(),
+                    contact.Name.ToString(),
+                    contact.Phone.ToString(),
+                    contact.CellPhone.ToString(),
+                    contact.TeamId.ToString(),
+                    contact.TeamName.ToString(),
+                    contact.Computer.ToString(),
+                    contact.Name.ToString() + Validation.RemoveDiacritics(contact.Name.ToString()) + contact.Id + contact.Phone.ToString() + contact.CellPhone.ToString() + contact.TeamName.ToString() + contact.Computer.ToString());
+            }
+
+            dgvContacts.DataSource = dtContacts;
+
+            dgvContacts.Columns[4].Visible = false;
+            dgvContacts.Columns[7].Visible = false;
+
+            dgvContacts.Columns[0].Width = 62;
+            dgvContacts.Columns[1].Width = 120;
+            dgvContacts.Columns[2].Width = 95;
+            dgvContacts.Columns[3].Width = 95;
+            dgvContacts.Columns[4].Width = 80;
+            dgvContacts.Columns[6].Width = 110;
+            dgvContacts.Columns[7].Width = 110;
+
+            dgvContacts.Sort(dgvContacts.Columns["Name"], ListSortDirection.Ascending);
+            dgvContacts.Columns["Phone"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvContacts.Columns["CellPhone"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dgvContacts.ClearSelection();
+        }
+
+        #endregion
+
         #region "SEARCH BOX"
 
         private void txtContacts_TextChanged(object sender, EventArgs e)
@@ -543,6 +491,27 @@ namespace LinksForm
 
         #endregion
 
+        #region "BUTTONS STYLE"
+
+        private void StyleContactButtons()
+        {
+            btnNewContact.TabStop = false;
+            btnNewContact.FlatStyle = FlatStyle.Flat;
+            btnNewContact.FlatAppearance.BorderSize = 0;
+
+            btnEditContact.TabStop = false;
+            btnEditContact.FlatStyle = FlatStyle.Flat;
+            btnEditContact.FlatAppearance.BorderSize = 0;
+
+            btnDeleteContact.TabStop = false;
+            btnDeleteContact.FlatStyle = FlatStyle.Flat;
+            btnDeleteContact.FlatAppearance.BorderSize = 0;
+        }
+
+        #endregion
+
+        #region "DATAGRIDVIEW: DGVCONTACTS"
+
         private void dgvContacts_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             //handle the row selection on right click
@@ -577,9 +546,234 @@ namespace LinksForm
             }
         }
 
+        private void dgvContacts_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Tab && dgvContacts.CurrentCell.ColumnIndex == 1)
+            //{
+            //    e.Handled = true;
+            //    DataGridViewCell cell = dgvContacts.Rows[0].Cells[0];
+            //    dgvContacts.CurrentCell = cell;
+            //    dgvContacts.BeginEdit(true);
+            //}
+        }
+        private void dgvContacts_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditContact.Enabled = true;
+            btnDeleteContact.Enabled = true;
+        }
+
+        #endregion
+
+        #region "BUTTONS: NEW/EDIT/DELETE"
+
+        private void btnNewContact_Click(object sender, EventArgs e)
+        {
+            if ((dgvContacts.Rows.Count > 0))
+            {
+                Contact contact = new Contact();
+                bool HasTheCancelButtonPressed;
+
+                frmAddOrUpdateContact _frmAddOrUpdateContact = new frmAddOrUpdateContact(contact);
+                this.TopMost = false;
+                _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
+                _frmAddOrUpdateContact.ShowDialog();
+
+                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheCancelButtonPressed;
+
+                if (HasTheCancelButtonPressed == false)
+                {
+                    Validation.localDatabaseConfig(true);
+                    GetDataFromDatabase("Contact");
+                    loadContacts();
+                }
+
+                dgvContacts.ClearSelection();
+                txtContacts.Clear();
+                btnEditContact.Enabled = false;
+                btnDeleteContact.Enabled = false;
+
+                _frmAddOrUpdateContact.Dispose();
+
+            }
+        }
+
+        private void btnEditContact_Click(object sender, EventArgs e)
+        {
+            if ((dgvContacts.Rows.Count > 0))
+            {
+                Contact contact = new Contact();
+                bool HasTheCancelButtonPressed;
+
+                contact.Id = dgvContacts.CurrentRow.Cells[0].Value.ToString();
+                contact.Name = dgvContacts.CurrentRow.Cells[1].Value.ToString();
+                contact.Phone = dgvContacts.CurrentRow.Cells[2].Value.ToString();
+                contact.CellPhone = dgvContacts.CurrentRow.Cells[3].Value.ToString();
+                contact.TeamId = Convert.ToInt32(dgvContacts.CurrentRow.Cells[4].Value.ToString());
+                contact.TeamName = dgvContacts.CurrentRow.Cells[5].Value.ToString();
+                contact.Computer = dgvContacts.CurrentRow.Cells[6].Value.ToString();
+
+                frmAddOrUpdateContact _frmAddOrUpdateContact = new frmAddOrUpdateContact(contact);
+                this.TopMost = false;
+                _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
+                _frmAddOrUpdateContact.ShowDialog();
+                
+                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheCancelButtonPressed;
+
+                if (HasTheCancelButtonPressed == false)
+                {
+                    Validation.localDatabaseConfig(true);
+                    GetDataFromDatabase("Contact");
+                    loadContacts();
+                }
+
+                dgvContacts.ClearSelection();
+                txtContacts.Clear();
+                btnEditContact.Enabled = false;
+                btnDeleteContact.Enabled = false;
+
+                _frmAddOrUpdateContact.Dispose();
+                
+            }
+        }
+
+        private void btnDeleteContact_Click(object sender, EventArgs e)
+        {
+            string ContactId = dgvContacts.CurrentRow.Cells[0].Value.ToString();
+
+            if (MessageBox.Show("Are you sure you want to delete the contact " + ContactId + "?", "Delete Contact", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DALHelpers.DeleteContact(ContactId);
+
+                Validation.localDatabaseConfig(true);
+                GetDataFromDatabase("Contact");
+                loadContacts();
+
+                dgvContacts.ClearSelection();
+                txtContacts.Clear();
+                btnDeleteContact.Enabled = false;
+                btnEditContact.Enabled = false;
+            }
+            else
+            {
+                dgvContacts.ClearSelection();
+                txtContacts.Clear();
+                btnDeleteContact.Enabled = false;
+                btnEditContact.Enabled = false;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region "TAB - DEALERS"
+
+        #region "BUTTONS STYLE"
+
+        private void StyleDealerButtons()
+        {
+            btnNewDealer.TabStop = false;
+            btnNewDealer.FlatStyle = FlatStyle.Flat;
+            btnNewDealer.FlatAppearance.BorderSize = 0;
+
+            btnEditDealer.TabStop = false;
+            btnEditDealer.FlatStyle = FlatStyle.Flat;
+            btnEditDealer.FlatAppearance.BorderSize = 0;
+
+            btnDeleteDealer.TabStop = false;
+            btnDeleteDealer.FlatStyle = FlatStyle.Flat;
+            btnDeleteDealer.FlatAppearance.BorderSize = 0;
+        }
+
+        #endregion
+
+        #region "DATAGRIDVIEW - LOAD DEALERS DATA"
+        private void loadDealers()
+                {
+                    dgvDealers.DataSource = null;
+                    dgvDealers.Rows.Clear();
+                    dtDealers.Clear();
+
+                    foreach (Dealer dealer in dealerList)
+                    {
+                        dtDealers.Rows.Add(
+                            dealer.DealerId.ToString(),
+                            dealer.DealerName.ToString(),
+                            dealer.Branch.ToString(),
+                            dealer.PhoneNumber.ToString(),
+                            dealer.CTDI.ToString(),
+                            dealer.BaldoPartner.ToString(),
+                            dealer.CountryId.ToString(),
+                            dealer.CountryName.ToString(),
+                            dealer.CNPJ.ToString(),
+                            dealer.MainDealerId.ToString(),
+                            dealer.CTDI.ToString() + dealer.PhoneNumber.ToString() + dealer.BaldoPartner.ToString() + dealer.CountryName.ToString() + dealer.DealerName.ToString() + Validation.RemoveDiacritics(dealer.DealerName.ToString()) + dealer.Branch.ToString() + Validation.RemoveDiacritics(dealer.Branch.ToString()),
+                            dealer.DealerName.ToString() + dealer.Branch.ToString());
+                    }
+
+                    dgvDealers.DataSource = dtDealers;
+
+                    dgvDealers.Columns[0].Visible = false;
+                    dgvDealers.Columns[6].Visible = false;
+                    dgvDealers.Columns[8].Visible = false;
+                    dgvDealers.Columns[9].Visible = false;
+                    dgvDealers.Columns[10].Visible = false;
+                    dgvDealers.Columns[11].Visible = false;
+                    dgvDealers.Columns[12].Visible = false;
+
+                    dgvDealers.Columns[1].Width = 150;
+                    dgvDealers.Columns[2].Width = 150;
+                    dgvDealers.Columns[3].Width = 110;
+                    dgvDealers.Columns[4].Width = 50;
+                    dgvDealers.Columns[7].Width = 70;
+
+                    dgvDealers.Sort(dgvDealers.Columns["Sort"], ListSortDirection.Ascending);
+                }
+                #endregion
+
+        #region "DATAGRIDVIEW - LOAD DEALER CONTACTS DATA"
+                private void loadDealerContacts()
+                {
+                    dgvDealers.DataSource = null;
+                    dgvDealers.Rows.Clear();
+                    dtDealerContacts.Clear();
+
+                    foreach (DealerContact dealerContact in dealerContactList)
+                    {
+                        dtDealerContacts.Rows.Add(
+                            dealerContact.DealerContactId.ToString(),
+                            dealerContact.MainDealerId.ToString(),
+                            dealerContact.Name.ToString(),
+                            dealerContact.Phone.ToString(),
+                            dealerContact.CellPhone.ToString(),
+                            dealerContact.Email.ToString(),
+                            dealerContact.DealerName.ToString(),
+                            dealerContact.Department.ToString(),
+                            dealerContact.CountryId.ToString(),
+                            dealerContact.Country.ToString(),
+                            dealerContact.Name.ToString() + dealerContact.DealerName.ToString() + Validation.RemoveDiacritics(dealerContact.DealerName.ToString())+ Validation.RemoveDiacritics(dealerContact.Name.ToString()) + Validation.RemoveDiacritics(dealerContact.Department.ToString()) + dealerContact.Department.ToString() + dealerContact.Phone.ToString() + dealerContact.CellPhone.ToString() + dealerContact.Country.ToString() + dealerContact.Email.ToString());
+                    }
+
+                    dgvDealers.DataSource = dtDealerContacts;
+
+                    dgvDealers.Columns[0].Visible = false;
+                    dgvDealers.Columns[1].Visible = false;
+                    dgvDealers.Columns[8].Visible = false;
+                    dgvDealers.Columns[10].Visible = false;
+
+                    dgvDealers.Columns[2].Width = 150;
+                    dgvDealers.Columns[3].Width = 130;
+                    dgvDealers.Columns[4].Width = 130;
+                    dgvDealers.Columns[5].Width = 180;
+                    dgvDealers.Columns[6].Width = 180;
+                    dgvDealers.Columns[7].Width = 130;
+                    dgvDealers.Columns[9].Width = 50;
+
+                    dgvDealers.Sort(dgvDealers.Columns["DealerName"], ListSortDirection.Ascending);
+
+                    dgvDealers.ClearSelection();
+                }
+                #endregion
 
         #region "DEALERS - POP UP MENU"
         //DEALERS
@@ -697,6 +891,25 @@ namespace LinksForm
         #endregion
 
         #region "TAB - APPLICATIONS"
+
+        #region "BUTTONS STYLE"
+
+        private void StyleApplicationButtons()
+        {
+            btnNewApplication.TabStop = false;
+            btnNewApplication.FlatStyle = FlatStyle.Flat;
+            btnNewApplication.FlatAppearance.BorderSize = 0;
+
+            btnEditApplication.TabStop = false;
+            btnEditApplication.FlatStyle = FlatStyle.Flat;
+            btnEditApplication.FlatAppearance.BorderSize = 0;
+
+            btnDeleteApplication.TabStop = false;
+            btnDeleteApplication.FlatStyle = FlatStyle.Flat;
+            btnDeleteApplication.FlatAppearance.BorderSize = 0;
+        }
+
+        #endregion
 
         #region "TREVIEW"
 
@@ -1180,15 +1393,78 @@ namespace LinksForm
 
         #endregion
 
-        private void dgvContacts_KeyDown(object sender, KeyEventArgs e)
+        private void dgvDealers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //if (e.KeyCode == Keys.Tab && dgvContacts.CurrentCell.ColumnIndex == 1)
-            //{
-            //    e.Handled = true;
-            //    DataGridViewCell cell = dgvContacts.Rows[0].Cells[0];
-            //    dgvContacts.CurrentCell = cell;
-            //    dgvContacts.BeginEdit(true);
-            //}
+            btnEditDealer.Enabled = true;
+            btnDeleteDealer.Enabled = true;
+        }
+
+        private void btnNewDealer_Click(object sender, EventArgs e)
+        {
+            if ((dgvDealers.Rows.Count > 0))
+            {
+                Dealer dealer = new Dealer();
+                bool HasTheCancelButtonPressed;
+
+                frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(dealer);
+                this.TopMost = false;
+                _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
+                _frmAddOrUpdateDealer.ShowDialog();
+
+                HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+
+                if (HasTheCancelButtonPressed == false)
+                {
+                    Validation.localDatabaseConfig(true);
+                    GetDataFromDatabase("Dealer");
+                    loadDealers();
+                }
+
+                dgvDealers.ClearSelection();
+                txtDealers.Clear();
+                btnEditDealer.Enabled = false;
+                btnDeleteDealer.Enabled = false;
+
+                _frmAddOrUpdateDealer.Dispose();
+
+            }
+        }
+
+        private void btnEditDealer_Click(object sender, EventArgs e)
+        {
+            if ((dgvDealers.Rows.Count > 0))
+            {
+                Dealer dealer = new Dealer();
+                bool HasTheCancelButtonPressed;
+
+                dealer.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                dealer.DealerName = dgvDealers.CurrentRow.Cells[1].Value.ToString();
+                dealer.PhoneNumber = dgvDealers.CurrentRow.Cells[2].Value.ToString();
+                dealer.CTDI = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+                dealer.BaldoPartner = dgvDealers.CurrentRow.Cells[4].Value.ToString();
+
+                frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(dealer);
+                this.TopMost = false;
+                _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
+                _frmAddOrUpdateDealer.ShowDialog();
+
+                HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+
+                if (HasTheCancelButtonPressed == false)
+                {
+                    Validation.localDatabaseConfig(true);
+                    GetDataFromDatabase("Dealer");
+                    loadDealers();
+                }
+
+                dgvDealers.ClearSelection();
+                txtDealers.Clear();
+                btnEditDealer.Enabled = false;
+                btnDeleteDealer.Enabled = false;
+
+                _frmAddOrUpdateDealer.Dispose();
+
+            }
         }
     }
 }
