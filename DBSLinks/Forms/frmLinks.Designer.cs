@@ -34,15 +34,25 @@ namespace LinksForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLinks));
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnDeleteContact = new System.Windows.Forms.Button();
+            this.imageListButtons = new System.Windows.Forms.ImageList(this.components);
+            this.btnEditContact = new System.Windows.Forms.Button();
+            this.btnNewContact = new System.Windows.Forms.Button();
             this.lblClearContactsSearch = new System.Windows.Forms.Label();
             this.dgvContacts = new System.Windows.Forms.DataGridView();
             this.txtContacts = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnDeleteDealer = new System.Windows.Forms.Button();
+            this.btnEditDealer = new System.Windows.Forms.Button();
+            this.btnNewDealer = new System.Windows.Forms.Button();
             this.chkDealerContacts = new System.Windows.Forms.CheckBox();
             this.lblClearDealersSearch = new System.Windows.Forms.Label();
             this.txtDealers = new System.Windows.Forms.TextBox();
             this.dgvDealers = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btnEditApplication = new System.Windows.Forms.Button();
+            this.btnNewApplication = new System.Windows.Forms.Button();
+            this.btnDeleteApplication = new System.Windows.Forms.Button();
             this.lblClearAppSearch = new System.Windows.Forms.Label();
             this.chkHidePasswords = new System.Windows.Forms.CheckBox();
             this.txtAppSearch = new System.Windows.Forms.TextBox();
@@ -101,21 +111,70 @@ namespace LinksForm
             this.tabMain.Location = new System.Drawing.Point(4, 2);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(520, 475);
+            this.tabMain.Size = new System.Drawing.Size(623, 491);
             this.tabMain.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnDeleteContact);
+            this.tabPage1.Controls.Add(this.btnEditContact);
+            this.tabPage1.Controls.Add(this.btnNewContact);
             this.tabPage1.Controls.Add(this.lblClearContactsSearch);
             this.tabPage1.Controls.Add(this.dgvContacts);
             this.tabPage1.Controls.Add(this.txtContacts);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(512, 447);
+            this.tabPage1.Size = new System.Drawing.Size(615, 463);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Phone Contacts";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteContact
+            // 
+            this.btnDeleteContact.Enabled = false;
+            this.btnDeleteContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteContact.ImageIndex = 2;
+            this.btnDeleteContact.ImageList = this.imageListButtons;
+            this.btnDeleteContact.Location = new System.Drawing.Point(568, 7);
+            this.btnDeleteContact.Name = "btnDeleteContact";
+            this.btnDeleteContact.Size = new System.Drawing.Size(36, 35);
+            this.btnDeleteContact.TabIndex = 6;
+            this.btnDeleteContact.UseVisualStyleBackColor = true;
+            this.btnDeleteContact.Click += new System.EventHandler(this.btnDeleteContact_Click);
+            // 
+            // imageListButtons
+            // 
+            this.imageListButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButtons.ImageStream")));
+            this.imageListButtons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListButtons.Images.SetKeyName(0, "New.png");
+            this.imageListButtons.Images.SetKeyName(1, "Edit.png");
+            this.imageListButtons.Images.SetKeyName(2, "Delete.png");
+            // 
+            // btnEditContact
+            // 
+            this.btnEditContact.Enabled = false;
+            this.btnEditContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditContact.ImageIndex = 1;
+            this.btnEditContact.ImageList = this.imageListButtons;
+            this.btnEditContact.Location = new System.Drawing.Point(526, 7);
+            this.btnEditContact.Name = "btnEditContact";
+            this.btnEditContact.Size = new System.Drawing.Size(36, 35);
+            this.btnEditContact.TabIndex = 6;
+            this.btnEditContact.UseVisualStyleBackColor = true;
+            this.btnEditContact.Click += new System.EventHandler(this.btnEditContact_Click);
+            // 
+            // btnNewContact
+            // 
+            this.btnNewContact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewContact.ImageIndex = 0;
+            this.btnNewContact.ImageList = this.imageListButtons;
+            this.btnNewContact.Location = new System.Drawing.Point(484, 7);
+            this.btnNewContact.Name = "btnNewContact";
+            this.btnNewContact.Size = new System.Drawing.Size(36, 35);
+            this.btnNewContact.TabIndex = 6;
+            this.btnNewContact.UseVisualStyleBackColor = true;
+            this.btnNewContact.Click += new System.EventHandler(this.btnNewContact_Click);
             // 
             // lblClearContactsSearch
             // 
@@ -139,12 +198,13 @@ namespace LinksForm
             this.dgvContacts.AllowUserToDeleteRows = false;
             this.dgvContacts.AllowUserToResizeRows = false;
             this.dgvContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvContacts.Location = new System.Drawing.Point(5, 40);
+            this.dgvContacts.Location = new System.Drawing.Point(5, 50);
             this.dgvContacts.Name = "dgvContacts";
             this.dgvContacts.RowHeadersVisible = false;
             this.dgvContacts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvContacts.Size = new System.Drawing.Size(500, 400);
+            this.dgvContacts.Size = new System.Drawing.Size(604, 410);
             this.dgvContacts.TabIndex = 3;
+            this.dgvContacts.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvContacts_CellClick);
             this.dgvContacts.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvContacts_CellMouseDown);
             this.dgvContacts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvContacts_KeyDown);
             this.dgvContacts.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvContacts_MouseClick);
@@ -159,6 +219,9 @@ namespace LinksForm
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnDeleteDealer);
+            this.tabPage2.Controls.Add(this.btnEditDealer);
+            this.tabPage2.Controls.Add(this.btnNewDealer);
             this.tabPage2.Controls.Add(this.chkDealerContacts);
             this.tabPage2.Controls.Add(this.lblClearDealersSearch);
             this.tabPage2.Controls.Add(this.txtDealers);
@@ -166,10 +229,47 @@ namespace LinksForm
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(512, 447);
+            this.tabPage2.Size = new System.Drawing.Size(615, 463);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Dealers";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteDealer
+            // 
+            this.btnDeleteDealer.Enabled = false;
+            this.btnDeleteDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteDealer.ImageIndex = 2;
+            this.btnDeleteDealer.ImageList = this.imageListButtons;
+            this.btnDeleteDealer.Location = new System.Drawing.Point(568, 7);
+            this.btnDeleteDealer.Name = "btnDeleteDealer";
+            this.btnDeleteDealer.Size = new System.Drawing.Size(36, 35);
+            this.btnDeleteDealer.TabIndex = 8;
+            this.btnDeleteDealer.UseVisualStyleBackColor = true;
+            // 
+            // btnEditDealer
+            // 
+            this.btnEditDealer.Enabled = false;
+            this.btnEditDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditDealer.ImageIndex = 1;
+            this.btnEditDealer.ImageList = this.imageListButtons;
+            this.btnEditDealer.Location = new System.Drawing.Point(526, 7);
+            this.btnEditDealer.Name = "btnEditDealer";
+            this.btnEditDealer.Size = new System.Drawing.Size(36, 35);
+            this.btnEditDealer.TabIndex = 9;
+            this.btnEditDealer.UseVisualStyleBackColor = true;
+            this.btnEditDealer.Click += new System.EventHandler(this.btnEditDealer_Click);
+            // 
+            // btnNewDealer
+            // 
+            this.btnNewDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewDealer.ImageIndex = 0;
+            this.btnNewDealer.ImageList = this.imageListButtons;
+            this.btnNewDealer.Location = new System.Drawing.Point(484, 7);
+            this.btnNewDealer.Name = "btnNewDealer";
+            this.btnNewDealer.Size = new System.Drawing.Size(36, 35);
+            this.btnNewDealer.TabIndex = 10;
+            this.btnNewDealer.UseVisualStyleBackColor = true;
+            this.btnNewDealer.Click += new System.EventHandler(this.btnNewDealer_Click);
             // 
             // chkDealerContacts
             // 
@@ -212,18 +312,22 @@ namespace LinksForm
             this.dgvDealers.AllowUserToOrderColumns = true;
             this.dgvDealers.AllowUserToResizeRows = false;
             this.dgvDealers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDealers.Location = new System.Drawing.Point(5, 40);
+            this.dgvDealers.Location = new System.Drawing.Point(5, 50);
             this.dgvDealers.Name = "dgvDealers";
             this.dgvDealers.ReadOnly = true;
             this.dgvDealers.RowHeadersVisible = false;
             this.dgvDealers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvDealers.Size = new System.Drawing.Size(500, 400);
+            this.dgvDealers.Size = new System.Drawing.Size(604, 410);
             this.dgvDealers.TabIndex = 3;
+            this.dgvDealers.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDealers_CellClick);
             this.dgvDealers.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvDealers_CellMouseDown);
             this.dgvDealers.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvDealers_MouseClick);
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.btnEditApplication);
+            this.tabPage3.Controls.Add(this.btnNewApplication);
+            this.tabPage3.Controls.Add(this.btnDeleteApplication);
             this.tabPage3.Controls.Add(this.lblClearAppSearch);
             this.tabPage3.Controls.Add(this.chkHidePasswords);
             this.tabPage3.Controls.Add(this.txtAppSearch);
@@ -231,10 +335,45 @@ namespace LinksForm
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(512, 447);
+            this.tabPage3.Size = new System.Drawing.Size(615, 463);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Applications";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnEditApplication
+            // 
+            this.btnEditApplication.Enabled = false;
+            this.btnEditApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditApplication.ImageIndex = 1;
+            this.btnEditApplication.ImageList = this.imageListButtons;
+            this.btnEditApplication.Location = new System.Drawing.Point(526, 7);
+            this.btnEditApplication.Name = "btnEditApplication";
+            this.btnEditApplication.Size = new System.Drawing.Size(36, 35);
+            this.btnEditApplication.TabIndex = 10;
+            this.btnEditApplication.UseVisualStyleBackColor = true;
+            // 
+            // btnNewApplication
+            // 
+            this.btnNewApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewApplication.ImageIndex = 0;
+            this.btnNewApplication.ImageList = this.imageListButtons;
+            this.btnNewApplication.Location = new System.Drawing.Point(484, 7);
+            this.btnNewApplication.Name = "btnNewApplication";
+            this.btnNewApplication.Size = new System.Drawing.Size(36, 35);
+            this.btnNewApplication.TabIndex = 11;
+            this.btnNewApplication.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteApplication
+            // 
+            this.btnDeleteApplication.Enabled = false;
+            this.btnDeleteApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteApplication.ImageIndex = 2;
+            this.btnDeleteApplication.ImageList = this.imageListButtons;
+            this.btnDeleteApplication.Location = new System.Drawing.Point(568, 7);
+            this.btnDeleteApplication.Name = "btnDeleteApplication";
+            this.btnDeleteApplication.Size = new System.Drawing.Size(36, 35);
+            this.btnDeleteApplication.TabIndex = 9;
+            this.btnDeleteApplication.UseVisualStyleBackColor = true;
             // 
             // lblClearAppSearch
             // 
@@ -276,10 +415,10 @@ namespace LinksForm
             this.treeView1.ImageList = this.imageList;
             this.treeView1.Indent = 20;
             this.treeView1.ItemHeight = 18;
-            this.treeView1.Location = new System.Drawing.Point(5, 40);
+            this.treeView1.Location = new System.Drawing.Point(5, 50);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 1;
-            this.treeView1.Size = new System.Drawing.Size(500, 400);
+            this.treeView1.Size = new System.Drawing.Size(604, 410);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
@@ -550,7 +689,7 @@ namespace LinksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 482);
+            this.ClientSize = new System.Drawing.Size(631, 497);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -629,6 +768,16 @@ namespace LinksForm
         private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkDealerContacts;
         private System.Windows.Forms.Label lblClearAppSearch;
+        private System.Windows.Forms.Button btnNewContact;
+        private System.Windows.Forms.ImageList imageListButtons;
+        private System.Windows.Forms.Button btnDeleteContact;
+        private System.Windows.Forms.Button btnEditContact;
+        private System.Windows.Forms.Button btnDeleteDealer;
+        private System.Windows.Forms.Button btnEditDealer;
+        private System.Windows.Forms.Button btnNewDealer;
+        private System.Windows.Forms.Button btnEditApplication;
+        private System.Windows.Forms.Button btnNewApplication;
+        private System.Windows.Forms.Button btnDeleteApplication;
     }
 }
 
