@@ -39,10 +39,10 @@
             this.txtComputer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtCellPhone = new System.Windows.Forms.TextBox();
-            this.lblCellPhone = new System.Windows.Forms.Label();
             this.lblTeam = new System.Windows.Forms.Label();
             this.cmbTeam = new System.Windows.Forms.ComboBox();
+            this.lblCellPhone = new System.Windows.Forms.Label();
+            this.txtCellPhone = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(82, 85);
-            this.txtName.MaxLength = 40;
+            this.txtName.MaxLength = 200;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(301, 20);
             this.txtName.TabIndex = 3;
@@ -66,7 +66,7 @@
             // txtPhone
             // 
             this.txtPhone.Location = new System.Drawing.Point(82, 111);
-            this.txtPhone.MaxLength = 25;
+            this.txtPhone.MaxLength = 100;
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(207, 20);
             this.txtPhone.TabIndex = 4;
@@ -113,7 +113,7 @@
             // 
             this.txtUserID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUserID.Location = new System.Drawing.Point(82, 59);
-            this.txtUserID.MaxLength = 9;
+            this.txtUserID.MaxLength = 10;
             this.txtUserID.Name = "txtUserID";
             this.txtUserID.Size = new System.Drawing.Size(83, 20);
             this.txtUserID.TabIndex = 2;
@@ -121,7 +121,7 @@
             // txtComputer
             // 
             this.txtComputer.Location = new System.Drawing.Point(82, 163);
-            this.txtComputer.MaxLength = 25;
+            this.txtComputer.MaxLength = 100;
             this.txtComputer.Name = "txtComputer";
             this.txtComputer.Size = new System.Drawing.Size(207, 20);
             this.txtComputer.TabIndex = 6;
@@ -155,23 +155,6 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             // 
-            // txtCellPhone
-            // 
-            this.txtCellPhone.Location = new System.Drawing.Point(82, 137);
-            this.txtCellPhone.MaxLength = 25;
-            this.txtCellPhone.Name = "txtCellPhone";
-            this.txtCellPhone.Size = new System.Drawing.Size(207, 20);
-            this.txtCellPhone.TabIndex = 5;
-            // 
-            // lblCellPhone
-            // 
-            this.lblCellPhone.AutoSize = true;
-            this.lblCellPhone.Location = new System.Drawing.Point(16, 140);
-            this.lblCellPhone.Name = "lblCellPhone";
-            this.lblCellPhone.Size = new System.Drawing.Size(61, 13);
-            this.lblCellPhone.TabIndex = 0;
-            this.lblCellPhone.Text = "Cell Phone:";
-            // 
             // lblTeam
             // 
             this.lblTeam.AutoSize = true;
@@ -189,6 +172,23 @@
             this.cmbTeam.Name = "cmbTeam";
             this.cmbTeam.Size = new System.Drawing.Size(301, 21);
             this.cmbTeam.TabIndex = 1;
+            // 
+            // lblCellPhone
+            // 
+            this.lblCellPhone.AutoSize = true;
+            this.lblCellPhone.Location = new System.Drawing.Point(16, 140);
+            this.lblCellPhone.Name = "lblCellPhone";
+            this.lblCellPhone.Size = new System.Drawing.Size(61, 13);
+            this.lblCellPhone.TabIndex = 0;
+            this.lblCellPhone.Text = "Cell Phone:";
+            // 
+            // txtCellPhone
+            // 
+            this.txtCellPhone.Location = new System.Drawing.Point(82, 137);
+            this.txtCellPhone.MaxLength = 100;
+            this.txtCellPhone.Name = "txtCellPhone";
+            this.txtCellPhone.Size = new System.Drawing.Size(207, 20);
+            this.txtCellPhone.TabIndex = 5;
             // 
             // frmAddOrUpdateContact
             // 

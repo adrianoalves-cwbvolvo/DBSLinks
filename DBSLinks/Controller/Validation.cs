@@ -133,9 +133,11 @@ namespace LinksForm.Controller
 
         public static void localDatabaseConfig(bool reload)
         {
+
             string localDatabaseFolder = "C:\\Temp\\Links";
-            string localDatabaseFile = "C:\\Temp\\Links\\Links.accdb";
-            string networkDatabaseFile = "//vcn.ds.volvo.net/it-cta/ITPROJ02/002378/DESENV/DBS/AUTOMATOR/LINKS FORM/Database/Links.accdb";
+            string localDatabaseFile = "C:\\Temp\\Links\\NewLinksDB.accdb";
+            string networkDatabaseFile = "//vcn.ds.volvo.net/it-cta/ITPROJ02/002378/DESENV/DBS/AUTOMATOR/LINKS FORM/Database/NewLinksDB.accdb";
+
 
             Directory.CreateDirectory(localDatabaseFolder);
 
@@ -257,6 +259,16 @@ namespace LinksForm.Controller
             bool IsEmpty = false;
 
             if ((DealerCode == string.Empty) || (DealerName == string.Empty) || (comboCountries == string.Empty))
+            {
+                IsEmpty = true;
+            }
+            return IsEmpty;
+        }
+        public static bool DealerBranchDataValidation(DealerBranch dealerBranch)
+        {
+            bool IsEmpty = false;
+
+            if ((dealerBranch.DealerId == 0) || (dealerBranch.DealerName == string.Empty) || (dealerBranch.CountryId == 0) || (dealerBranch.CTDI == 0) || (dealerBranch.BaldoPartner == string.Empty))
             {
                 IsEmpty = true;
             }

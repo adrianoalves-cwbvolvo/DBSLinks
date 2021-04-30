@@ -662,7 +662,7 @@ namespace LinksForm.DAL
 
         #region "DEALERS"
 
-       public static List<Dealer> GetDealers()
+        public static List<Dealer> GetDealersByCountry(int CountryId)
         {
             try
             {
@@ -672,11 +672,66 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "SELECT d.DealerId, d.DealerName, d.Branch, d.CountryId, d.CTDI, d.CNPJ, c.CountryName, d.PhoneNumber, d.MainDealerId, d.BaldoPartner FROM Dealers d INNER JOIN Countries c ON d.CountryId = c.CountryId";
-
+                command.CommandText = "SELECT DealerId, DealerName, CountryId FROM Dealer WHERE CountryId = @countryid";
+                command.Parameters.AddWithValue("@countryid", CountryId);
                 OleDbDataReader reader = command.ExecuteReader();
 
                 var dealerList = new List<Dealer>();
+
+                while (reader.Read())
+                {
+                    Dealer dealer = new Dealer();
+
+                    dealer.DealerId = Convert.ToInt32(reader["DealerId"]);
+                    dealer.DealerName = reader["DealerName"].ToString();
+                    dealer.CountryId = Convert.ToInt32(reader["CountryId"]);
+
+                    dealerList.Add(dealer);
+                }
+
+                CloseDBConnection(connection);
+
+                return dealerList;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region "DEALER BRANCHS"
+
+        public static List<DealerBranch> GetDealerBranchs()
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenLocalDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "SELECT " +
+                                        "B.DealerBranchId, " +
+                                        "D.DealerId, " +
+                                        "B.Branch, " +
+                                        "B.CountryId, " +
+                                        "B.CTDI, " +
+                                        "B.PhoneNumber, " +
+                                        "B.BaldoPartner, " +
+                                        "D.DealerName, " +
+                                        "C.CountryName " +
+                                        "FROM (DealerBranch B " +
+                                        "INNER JOIN Dealer D " +
+                                        "ON B.DealerId = D.DealerId) " +
+                                        "INNER JOIN Countries C " +
+                                        "ON B.CountryId = C.CountryId ";
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                var dealerList = new List<DealerBranch>();
 
                 var columns = new List<string>();
 
@@ -688,17 +743,20 @@ namespace LinksForm.DAL
                 while (reader.Read())
                 {
 
-                    Dealer dealer = new Dealer();
+                    DealerBranch dealer = new DealerBranch();
 
+                    dealer.DealerBranchId = Convert.ToInt32(reader["DealerBranchId"]);
                     dealer.DealerId = Convert.ToInt32(reader["DealerId"]);
-                    dealer.DealerName = reader["DealerName"].ToString();
-                    dealer.Branch = reader["Branch"].ToString();
+                    dealer.BranchName = reader["Branch"].ToString();
                     dealer.CountryId = Convert.ToInt32(reader["CountryId"]);
-                    dealer.CTDI = reader["CTDI"].ToString();
-                    dealer.CNPJ = reader["CNPJ"].ToString();
-                    dealer.CountryName = reader["CountryName"].ToString();
+                    dealer.DealerName = reader["DealerName"].ToString();
+                    dealer.CTDI = Convert.ToInt32(reader["CTDI"].ToString());
                     dealer.PhoneNumber = reader["PhoneNumber"].ToString();
-                    dealer.MainDealerId = Convert.ToInt32(reader["MainDealerId"]);
+                    dealer.BaldoPartner = reader["BaldoPartner"].ToString();
+                    dealer.DealerName = reader["DealerName"].ToString();
+                    dealer.CountryName = reader["CountryName"].ToString();
+                   
+                    //dealer.MainDealerId = Convert.ToInt32(reader["MaiDealerId"]);
                     dealer.BaldoPartner = reader["BaldoPartner"].ToString();
 
                     dealerList.Add(dealer);
@@ -713,56 +771,76 @@ namespace LinksForm.DAL
                 throw;
             }
         }
-
-        public static List<Dealer> GetMainDealersByCountry(int CountryId)
+        public static bool UpdateDealerBranch(DealerBranch dealerBranch)
         {
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-
-                command.CommandText = "SELECT DISTINCT MainDealerId, DealerName, CountryId FROM Dealers WHERE CountryId = @countryid";
-                command.Parameters.AddWithValue("@countryid", CountryId);
-                OleDbDataReader reader = command.ExecuteReader();
-
-                var dealerList = new List<Dealer>();
-
-                while (reader.Read())
-                {
-                    Dealer dealer = new Dealer();
-
-                    dealer.MainDealerId = Convert.ToInt32(reader["MainDealerId"]);
-                    dealer.DealerName = reader["DealerName"].ToString();
-                    dealer.CountryId = Convert.ToInt32(reader["CountryId"]);
-
-                    dealerList.Add(dealer);
-                }
+                                        //UPDATE Contacts SET Name = @name, Phone = @phone, CellPhone = @cellPhone, ComputerName = @computerName, TeamId = @teamid WHERE ContactId = @id
+                command.CommandText = "UPDATE DealerBranch SET DealerId = @dealerId, Branch = @branch, CountryId = @countryId, CTDI = @ctdi, PhoneNumber = @phoneNumber, BaldoPartner = @baldoPartner WHERE DealerBranchId = @id";
+                command.Parameters.AddWithValue("@dealerId", dealerBranch.DealerId);
+                command.Parameters.AddWithValue("@branch", dealerBranch.BranchName);
+                command.Parameters.AddWithValue("@countryId", dealerBranch.CountryId);
+                command.Parameters.AddWithValue("@ctdi", dealerBranch.CTDI);
+                command.Parameters.AddWithValue("@phoneNumber", dealerBranch.PhoneNumber);
+                command.Parameters.AddWithValue("@baldoPartner", dealerBranch.BaldoPartner);
+                command.Parameters.AddWithValue("@id", dealerBranch.DealerBranchId);
+                command.ExecuteNonQuery();
 
                 CloseDBConnection(connection);
 
-                return dealerList;
+                return true;
             }
             catch
             {
-                throw;
+                return false;
             }
         }
-        public static bool DeleteDealer(int ID)
+
+        public static bool AddDealerBranch(DealerBranch dealerBranch)
         {
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+                                        //INSERT INTO Contacts (ContactId, Name, CellPhone, Phone, ComputerName, TeamId) VALUES(@Id, @Name, @CellPhone, @Phone, @ComputerName, @TeamId)
+                command.CommandText = "INSERT INTO DealerBranch (DealerId, Branch, CountryId, CTDI, PhoneNumber, BaldoPartner) VALUES (@dealerId, @branch, @countryId, @ctdi, @phoneNumber, @baldoPartner)";
+                command.Parameters.AddWithValue("@dealerId", dealerBranch.DealerId);
+                command.Parameters.AddWithValue("@branch", dealerBranch.BranchName);
+                command.Parameters.AddWithValue("@countryId", dealerBranch.CountryId);
+                command.Parameters.AddWithValue("@ctdi", dealerBranch.CTDI);
+                command.Parameters.AddWithValue("@phoneNumber", dealerBranch.PhoneNumber);
+                command.Parameters.AddWithValue("@baldoPartner", dealerBranch.BaldoPartner);
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool DeleteDealerBranch(int ID)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                //command.Connection = OpenLocalDBConnection();
-
-                command.CommandText = "DELETE FROM Dealers WHERE DealerId=@ID";
+                command.CommandText = "DELETE FROM DealerBranch WHERE DealerBranchId=@ID";
                 command.Parameters.AddWithValue("@ID", ID);
                 command.ExecuteNonQuery();
 
@@ -790,7 +868,7 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "SELECT DISTINCT dc.DealerContactId, dc.MainDealerId, dc.Description, dc.Phone, dc.CellPhone, dc.Email, dc.Department, d.DealerName, c.CountryId, c.CountryName FROM (DealerContacts dc INNER JOIN Dealers d ON dc.MainDealerId = d.MainDealerId) INNER JOIN Countries c ON d.CountryId = c.CountryId";
+                command.CommandText = "SELECT DISTINCT dc.DealerContactId, dc.MainDealerId, dc.Description, dc.Phone, dc.CellPhone, dc.Email, dc.Department, d.DealerName, c.CountryId, c.CountryName FROM (DealerContacts dc INNER JOIN DealerBranch d ON dc.MainDealerId = d.MainDealerId) INNER JOIN Countries c ON d.CountryId = c.CountryId";
                 OleDbDataReader reader = command.ExecuteReader();
 
                 var dealerContactList = new List<DealerContact>();

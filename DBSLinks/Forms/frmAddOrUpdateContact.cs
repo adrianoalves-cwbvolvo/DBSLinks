@@ -11,6 +11,7 @@ using LinksForm.Controller;
 using LinksForm.Model;
 using LinksForm.DAL;
 using Links.Model;
+using Links.Logger;
 
 namespace LinksForm.Forms
 {
@@ -86,6 +87,7 @@ namespace LinksForm.Forms
                 if (cmbTeam.Text == team.TeamName)
                 {
                     contact.TeamId = team.TeamId;
+                    contact.TeamName = team.TeamName;
                 }
             }
 
@@ -109,6 +111,7 @@ namespace LinksForm.Forms
                     MessageBox.Show("Error: An error has ocurred when trying to update the Contact!");
                 }
 
+                ActivityLog.ContactLogger(contact, "UPDATE", "Contact", Environment.UserName);
                 this.Close();
             }
             else //NEW CONTACT
@@ -118,7 +121,8 @@ namespace LinksForm.Forms
                 contactList = DALHelpers.GetContactById(contact.Id);
                 if (contactList.Count > 0)
                 {
-                    MessageBox.Show("Error: The ID: " + contact.Id + " ,already exists in the database!");
+                    MessageBox.Show("Error: The ID: " + contact.Id + " already exists in the database!");
+                    return;
                 }
                 else
                 {
@@ -126,6 +130,7 @@ namespace LinksForm.Forms
 
                     if (ok == true)
                     {
+                        ActivityLog.ContactLogger(contact, "CREATE", "Contact", Environment.UserName);
                         MessageBox.Show("The record was successfully saved!");
                     }
                 }

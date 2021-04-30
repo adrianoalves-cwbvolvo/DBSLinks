@@ -42,9 +42,9 @@ namespace LinksForm
             this.dgvContacts = new System.Windows.Forms.DataGridView();
             this.txtContacts = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnDeleteDealer = new System.Windows.Forms.Button();
-            this.btnEditDealer = new System.Windows.Forms.Button();
-            this.btnNewDealer = new System.Windows.Forms.Button();
+            this.btnDeleteDealerBranch = new System.Windows.Forms.Button();
+            this.btnEditDealerBranch = new System.Windows.Forms.Button();
+            this.btnNewDealerBranch = new System.Windows.Forms.Button();
             this.chkDealerContacts = new System.Windows.Forms.CheckBox();
             this.lblClearDealersSearch = new System.Windows.Forms.Label();
             this.txtDealers = new System.Windows.Forms.TextBox();
@@ -113,6 +113,7 @@ namespace LinksForm
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(623, 491);
             this.tabMain.TabIndex = 0;
+            this.tabMain.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabMain_MouseClick);
             // 
             // tabPage1
             // 
@@ -219,9 +220,9 @@ namespace LinksForm
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.btnDeleteDealer);
-            this.tabPage2.Controls.Add(this.btnEditDealer);
-            this.tabPage2.Controls.Add(this.btnNewDealer);
+            this.tabPage2.Controls.Add(this.btnDeleteDealerBranch);
+            this.tabPage2.Controls.Add(this.btnEditDealerBranch);
+            this.tabPage2.Controls.Add(this.btnNewDealerBranch);
             this.tabPage2.Controls.Add(this.chkDealerContacts);
             this.tabPage2.Controls.Add(this.lblClearDealersSearch);
             this.tabPage2.Controls.Add(this.txtDealers);
@@ -234,42 +235,43 @@ namespace LinksForm
             this.tabPage2.Text = "Dealers";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // btnDeleteDealer
+            // btnDeleteDealerBranch
             // 
-            this.btnDeleteDealer.Enabled = false;
-            this.btnDeleteDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteDealer.ImageIndex = 2;
-            this.btnDeleteDealer.ImageList = this.imageListButtons;
-            this.btnDeleteDealer.Location = new System.Drawing.Point(568, 7);
-            this.btnDeleteDealer.Name = "btnDeleteDealer";
-            this.btnDeleteDealer.Size = new System.Drawing.Size(36, 35);
-            this.btnDeleteDealer.TabIndex = 8;
-            this.btnDeleteDealer.UseVisualStyleBackColor = true;
+            this.btnDeleteDealerBranch.Enabled = false;
+            this.btnDeleteDealerBranch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteDealerBranch.ImageIndex = 2;
+            this.btnDeleteDealerBranch.ImageList = this.imageListButtons;
+            this.btnDeleteDealerBranch.Location = new System.Drawing.Point(568, 7);
+            this.btnDeleteDealerBranch.Name = "btnDeleteDealerBranch";
+            this.btnDeleteDealerBranch.Size = new System.Drawing.Size(36, 35);
+            this.btnDeleteDealerBranch.TabIndex = 8;
+            this.btnDeleteDealerBranch.UseVisualStyleBackColor = true;
+            this.btnDeleteDealerBranch.Click += new System.EventHandler(this.btnDeleteDealerBranch_Click);
             // 
-            // btnEditDealer
+            // btnEditDealerBranch
             // 
-            this.btnEditDealer.Enabled = false;
-            this.btnEditDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditDealer.ImageIndex = 1;
-            this.btnEditDealer.ImageList = this.imageListButtons;
-            this.btnEditDealer.Location = new System.Drawing.Point(526, 7);
-            this.btnEditDealer.Name = "btnEditDealer";
-            this.btnEditDealer.Size = new System.Drawing.Size(36, 35);
-            this.btnEditDealer.TabIndex = 9;
-            this.btnEditDealer.UseVisualStyleBackColor = true;
-            this.btnEditDealer.Click += new System.EventHandler(this.btnEditDealer_Click);
+            this.btnEditDealerBranch.Enabled = false;
+            this.btnEditDealerBranch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditDealerBranch.ImageIndex = 1;
+            this.btnEditDealerBranch.ImageList = this.imageListButtons;
+            this.btnEditDealerBranch.Location = new System.Drawing.Point(526, 7);
+            this.btnEditDealerBranch.Name = "btnEditDealerBranch";
+            this.btnEditDealerBranch.Size = new System.Drawing.Size(36, 35);
+            this.btnEditDealerBranch.TabIndex = 9;
+            this.btnEditDealerBranch.UseVisualStyleBackColor = true;
+            this.btnEditDealerBranch.Click += new System.EventHandler(this.btnEditDealerBranch_Click);
             // 
-            // btnNewDealer
+            // btnNewDealerBranch
             // 
-            this.btnNewDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewDealer.ImageIndex = 0;
-            this.btnNewDealer.ImageList = this.imageListButtons;
-            this.btnNewDealer.Location = new System.Drawing.Point(484, 7);
-            this.btnNewDealer.Name = "btnNewDealer";
-            this.btnNewDealer.Size = new System.Drawing.Size(36, 35);
-            this.btnNewDealer.TabIndex = 10;
-            this.btnNewDealer.UseVisualStyleBackColor = true;
-            this.btnNewDealer.Click += new System.EventHandler(this.btnNewDealer_Click);
+            this.btnNewDealerBranch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewDealerBranch.ImageIndex = 0;
+            this.btnNewDealerBranch.ImageList = this.imageListButtons;
+            this.btnNewDealerBranch.Location = new System.Drawing.Point(484, 7);
+            this.btnNewDealerBranch.Name = "btnNewDealerBranch";
+            this.btnNewDealerBranch.Size = new System.Drawing.Size(36, 35);
+            this.btnNewDealerBranch.TabIndex = 10;
+            this.btnNewDealerBranch.UseVisualStyleBackColor = true;
+            this.btnNewDealerBranch.Click += new System.EventHandler(this.btnNewDealerBranch_Click);
             // 
             // chkDealerContacts
             // 
@@ -772,9 +774,9 @@ namespace LinksForm
         private System.Windows.Forms.ImageList imageListButtons;
         private System.Windows.Forms.Button btnDeleteContact;
         private System.Windows.Forms.Button btnEditContact;
-        private System.Windows.Forms.Button btnDeleteDealer;
-        private System.Windows.Forms.Button btnEditDealer;
-        private System.Windows.Forms.Button btnNewDealer;
+        private System.Windows.Forms.Button btnDeleteDealerBranch;
+        private System.Windows.Forms.Button btnEditDealerBranch;
+        private System.Windows.Forms.Button btnNewDealerBranch;
         private System.Windows.Forms.Button btnEditApplication;
         private System.Windows.Forms.Button btnNewApplication;
         private System.Windows.Forms.Button btnDeleteApplication;

@@ -87,7 +87,7 @@
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.Location = new System.Drawing.Point(102, 116);
-            this.txtPhoneNumber.MaxLength = 25;
+            this.txtPhoneNumber.MaxLength = 100;
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(195, 20);
             this.txtPhoneNumber.TabIndex = 3;
@@ -95,7 +95,7 @@
             // txtBranchName
             // 
             this.txtBranchName.Location = new System.Drawing.Point(102, 90);
-            this.txtBranchName.MaxLength = 25;
+            this.txtBranchName.MaxLength = 200;
             this.txtBranchName.Name = "txtBranchName";
             this.txtBranchName.Size = new System.Drawing.Size(379, 20);
             this.txtBranchName.TabIndex = 2;
@@ -126,7 +126,6 @@
             this.cmbCountries.Name = "cmbCountries";
             this.cmbCountries.Size = new System.Drawing.Size(151, 21);
             this.cmbCountries.TabIndex = 1;
-            this.cmbCountries.SelectedIndexChanged += new System.EventHandler(this.cmbCountries_SelectedIndexChanged);
             this.cmbCountries.SelectionChangeCommitted += new System.EventHandler(this.cmbCountries_SelectionChangeCommitted);
             // 
             // lblBranch
@@ -141,7 +140,7 @@
             // txtBaldoPartner
             // 
             this.txtBaldoPartner.Location = new System.Drawing.Point(102, 168);
-            this.txtBaldoPartner.MaxLength = 5;
+            this.txtBaldoPartner.MaxLength = 20;
             this.txtBaldoPartner.Name = "txtBaldoPartner";
             this.txtBaldoPartner.Size = new System.Drawing.Size(136, 20);
             this.txtBaldoPartner.TabIndex = 5;
@@ -158,10 +157,11 @@
             // txtCTDI
             // 
             this.txtCTDI.Location = new System.Drawing.Point(102, 142);
-            this.txtCTDI.MaxLength = 5;
+            this.txtCTDI.MaxLength = 10;
             this.txtCTDI.Name = "txtCTDI";
             this.txtCTDI.Size = new System.Drawing.Size(76, 20);
             this.txtCTDI.TabIndex = 4;
+            this.txtCTDI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCTDI_KeyPress);
             // 
             // lblCTDI
             // 

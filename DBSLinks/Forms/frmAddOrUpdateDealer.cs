@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LinksForm.Controller;
 using LinksForm.DAL;
@@ -15,52 +9,84 @@ namespace LinksForm.Forms
 {
     public partial class frmAddOrUpdateDealer : Form
     {
+        List<DealerBranch> dealerBranchList = new List<DealerBranch>();
         List<Dealer> dealerList = new List<Dealer>();
-        List<Dealer> mainDealerList = new List<Dealer>();
         List<Country> countryList = new List<Country>();
 
         int CountryId;
 
+        int DealerBranchId;
+
         public bool HasTheCancelButtonPressed { get; set; }
 
-        public frmAddOrUpdateDealer(Dealer dealer)
+        public frmAddOrUpdateDealer(DealerBranch dealerBranch)
         {
             InitializeComponent();
 
-            CountryId = dealer.CountryId;
+            CountryId = dealerBranch.CountryId;
+            DealerBranchId = dealerBranch.DealerBranchId;
 
-            dealerList = DALHelpers.GetDealers();
+            dealerBranchList = DALHelpers.GetDealerBranchs();
             countryList = DALHelpers.GetCountries();
 
             HasTheCancelButtonPressed = false;
 
             int counter = 0;
 
-            if (dealer.DealerId != 0)
+            if (dealerBranch.DealerBranchId != 0)
             {
-                foreach (Country country in countryList)
+                foreach (Country _country in countryList)
                 {
-                    cmbCountries.Items.Add(country.CountryName.ToString());
+                    cmbCountries.Items.Add(_country.CountryName.ToString());
 
-                    if (dealer.CountryId == country.CountryId)
+                    if (dealerBranch.CountryId == _country.CountryId)
                     {
                         cmbCountries.SelectedIndex = counter;
+                        dealerList = DALHelpers.GetDealersByCountry(_country.CountryId);
+                    }
+
+                    counter++;
+                }
+
+                counter = 0;
+
+                foreach (Dealer dealer in dealerList)
+                {
+                    cmbMainDealer.Items.Add(dealer.DealerName.ToString());
+
+                    if (dealerBranch.CountryId == dealer.CountryId)
+                    {
+                        cmbMainDealer.SelectedIndex = counter;
                     }
 
                     counter++;
                 }
 
                 this.Text = "Update Dealer Branch";
-                txtBranchName.Text = dealer.DealerName;
-                txtPhoneNumber.Text = dealer.PhoneNumber;
-                txtCTDI.Text = dealer.CTDI;
-                txtBaldoPartner.Text = dealer.BaldoPartner;
+                txtBranchName.Text = dealerBranch.BranchName;
+                txtPhoneNumber.Text = dealerBranch.PhoneNumber;
+                txtCTDI.Text = dealerBranch.CTDI.ToString();
+                txtBaldoPartner.Text = dealerBranch.BaldoPartner;
             }
             else
             {
                 foreach (Country country in countryList)
                 {
                     cmbCountries.Items.Add(country.CountryName.ToString());
+                }
+
+                counter = 0;
+
+                foreach (Dealer dealer in dealerList)
+                {
+                    cmbMainDealer.Items.Add(dealer.DealerName.ToString());
+
+                    if (dealerBranch.CountryId == dealer.CountryId)
+                    {
+                        cmbMainDealer.SelectedIndex = counter;
+                    }
+
+                    counter++;
                 }
 
                 this.Text = "New Dealer Brach";
@@ -78,7 +104,102 @@ namespace LinksForm.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            DealerBranch dealerBranch = new DealerBranch();
+            bool ok = false;
 
+            if (txtCTDI.Text == "")
+            {
+                dealerBranch.CTDI = 0;
+            }
+            else
+            {
+                dealerBranch.CTDI = Convert.ToInt32(txtCTDI.Text);
+            }
+            dealerBranch.BranchName = txtBranchName.Text;
+            dealerBranch.PhoneNumber = txtPhoneNumber.Text;
+            
+            dealerBranch.BaldoPartner = txtBaldoPartner.Text;
+
+            foreach (Country country in countryList)
+            {
+                if (cmbCountries.Text == country.CountryName)
+                {
+                    dealerBranch.CountryId = country.CountryId;
+                }
+            }
+
+            foreach (Dealer dealer in dealerList)
+            {
+                if (cmbMainDealer.Text == dealer.DealerName)
+                {
+                    dealerBranch.DealerId = dealer.DealerId;
+                }
+            }
+
+            if (Validation.DealerBranchDataValidation(dealerBranch))
+            {
+                MessageBox.Show("All fields are required.");
+                return;
+            }
+
+            if (DealerBranchId != 0)
+            {
+                dealerBranch.DealerBranchId = DealerBranchId;
+                //UPDATE
+                ok = DALHelpers.UpdateDealerBranch(dealerBranch);
+
+                if (ok == true)
+                {
+                    MessageBox.Show("The record was successfully saved!");
+                }
+                else
+                {
+                    MessageBox.Show("Error: An error has ocurred when trying to update the Branch!");
+                }
+
+                this.Close();
+            }
+            else //NEW CONTACT
+            {
+                bool CTDI = false;
+                bool BranchName = false;
+                bool BaldoPartner = false;
+
+                foreach (DealerBranch db in dealerBranchList)
+                {
+                    if (dealerBranch.CTDI == db.CTDI)
+                    {
+                        CTDI = true;
+                    }
+
+                    if (dealerBranch.BranchName == db.BranchName)
+                    {
+                        BranchName = true;
+                    }
+
+                    if (dealerBranch.BaldoPartner == db.BaldoPartner)
+                    {
+                        BaldoPartner = true;
+                    }
+                }
+
+                if (CTDI == true || BranchName == true || BaldoPartner == true)
+                {
+                    MessageBox.Show("Error: The Branch Name, CTDI or Baldo Partner already exists in the database!");
+                    return;
+                }
+                else
+                {
+                    ok = DALHelpers.AddDealerBranch(dealerBranch);
+
+                    if (ok == true)
+                    {
+                        MessageBox.Show("The record was successfully saved!");
+                    }
+                }
+
+                this.Close();
+            }
         }
 
         private void cmbCountries_SelectionChangeCommitted(object sender, EventArgs e)
@@ -88,20 +209,20 @@ namespace LinksForm.Forms
                 if (cmbCountries.SelectedItem.ToString() == country.CountryName)
                 {
                     cmbMainDealer.Items.Clear();
-                    mainDealerList.Clear();
-                    mainDealerList = DALHelpers.GetMainDealersByCountry(country.CountryId);
+                    dealerList.Clear();
+                    dealerList = DALHelpers.GetDealersByCountry(country.CountryId);
                 }
             }
 
-            foreach (Dealer mainDealer in mainDealerList)
+            foreach (Dealer dealer in dealerList)
             {
-                cmbMainDealer.Items.Add(mainDealer.DealerName.ToString());
+                cmbMainDealer.Items.Add(dealer.DealerName.ToString());
             }
         }
 
-        private void cmbCountries_SelectedIndexChanged(object sender, EventArgs e)
+        private void txtCTDI_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
     }
 }
