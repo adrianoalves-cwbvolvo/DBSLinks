@@ -642,8 +642,6 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.Connection = OpenLocalDBConnection();
-
                 command.CommandText = "DELETE FROM Credentials WHERE CredentialId=@ID";
                 command.Parameters.AddWithValue("@ID", ID);
                 command.ExecuteNonQuery();
@@ -868,7 +866,21 @@ namespace LinksForm.DAL
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "SELECT DISTINCT dc.DealerContactId, dc.MainDealerId, dc.Description, dc.Phone, dc.CellPhone, dc.Email, dc.Department, d.DealerName, c.CountryId, c.CountryName FROM (DealerContacts dc INNER JOIN DealerBranch d ON dc.MainDealerId = d.MainDealerId) INNER JOIN Countries c ON d.CountryId = c.CountryId";
+                 command.CommandText = "SELECT DISTINCT " +
+                                            "dc.DealerContactId, " +
+                                            "dc.DealerId, " +
+                                            "dc.Description, " +
+                                            "dc.Phone,  " +
+                                            "dc.CellPhone,  " +
+                                            "dc.Email,  " +
+                                            "dc.Department,  " +
+                                            "d.DealerName, " +
+                                            "c.CountryId, " +
+                                            "c.CountryName " +
+                                            "FROM (DealerContacts dc INNER JOIN Dealer d " +
+                                            "ON dc.DealerId = d.DealerId) INNER JOIN Countries c " +
+                                            "ON d.CountryId = c.CountryId ";
+
                 OleDbDataReader reader = command.ExecuteReader();
 
                 var dealerContactList = new List<DealerContact>();
@@ -878,8 +890,8 @@ namespace LinksForm.DAL
                     DealerContact dealerContact = new DealerContact();
 
                     dealerContact.DealerContactId = Convert.ToInt32(reader["DealerContactId"].ToString());
-                    dealerContact.MainDealerId = Convert.ToInt32(reader["MainDealerId"].ToString());
-                    dealerContact.Name = reader["Description"].ToString();
+                    dealerContact.DealerId = Convert.ToInt32(reader["DealerId"].ToString());
+                    dealerContact.DealerContactName = reader["Description"].ToString();
                     dealerContact.Phone = reader["Phone"].ToString();
                     dealerContact.CellPhone = reader["CellPhone"].ToString();
                     dealerContact.Email = reader["Email"].ToString();
@@ -895,9 +907,9 @@ namespace LinksForm.DAL
 
                 return dealerContactList;
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         public static List<DealerContact> GetDealerContactByDealerId(int Id)
@@ -921,8 +933,8 @@ namespace LinksForm.DAL
                     DealerContact dealerContact = new DealerContact();
 
                     dealerContact.DealerContactId = Convert.ToInt32(reader["DealerContactId"].ToString());
-                    dealerContact.MainDealerId = Convert.ToInt32(reader["MainDealerId"].ToString());
-                    dealerContact.Name = reader["Description"].ToString();
+                    dealerContact.DealerId = Convert.ToInt32(reader["MainDealerId"].ToString());
+                    dealerContact.DealerContactName = reader["Description"].ToString();
                     dealerContact.Department = reader["Department"].ToString();
                     dealerContact.Phone = reader["Phone"].ToString();
                     dealerContact.CellPhone = reader["CellPhone"].ToString();
@@ -961,8 +973,8 @@ namespace LinksForm.DAL
                     DealerContact dealerContact = new DealerContact();
 
                     dealerContact.DealerContactId = Convert.ToInt32(reader["DealerContactId"].ToString());
-                    dealerContact.MainDealerId = Convert.ToInt32(reader["MainDealerId"].ToString());
-                    dealerContact.Name = reader["Description"].ToString();
+                    dealerContact.DealerId = Convert.ToInt32(reader["MainDealerId"].ToString());
+                    dealerContact.DealerContactName = reader["Description"].ToString();
                     dealerContact.Department = reader["Department"].ToString();
                     dealerContact.Phone = reader["Phone"].ToString();
                     dealerContact.CellPhone = reader["CellPhone"].ToString();
@@ -985,14 +997,14 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "INSERT INTO DealerContacts (MainDealerId, Description, Department, Phone, CellPhone, Email) VALUES(@mainDealerid, @description, @department, @phone, @cellPhone, @email)";
-                command.Parameters.AddWithValue("@mainDealerid", dealerContact.MainDealerId);
-                command.Parameters.AddWithValue("@description", dealerContact.Name);
+                command.CommandText = "INSERT INTO DealerContacts (DealerId, Description, Department, Phone, CellPhone, Email) VALUES(@dealerid, @description, @department, @phone, @cellPhone, @email)";
+                command.Parameters.AddWithValue("@dealerid", dealerContact.DealerId);
+                command.Parameters.AddWithValue("@description", dealerContact.DealerContactName);
                 command.Parameters.AddWithValue("@department", dealerContact.Department);
                 command.Parameters.AddWithValue("@phone", dealerContact.Phone);
                 command.Parameters.AddWithValue("@cellPhone", dealerContact.CellPhone);
@@ -1012,13 +1024,14 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
 
-                command.CommandText = "UPDATE DealerContacts SET Description = @description, Department = @department, Phone = @phone, CellPhone = @cellphone, Email = @email WHERE DealerContactId = @id";
-                command.Parameters.AddWithValue("@description", dealerContact.Name);
+                command.CommandText = "UPDATE DealerContacts SET DealerId = @dealerId, Description = @description, Department = @department, Phone = @phone, CellPhone = @cellphone, Email = @email WHERE DealerContactId = @id";
+                command.Parameters.AddWithValue("@dealerId", dealerContact.DealerId);
+                command.Parameters.AddWithValue("@description", dealerContact.DealerContactName);
                 command.Parameters.AddWithValue("@department", dealerContact.Department);
                 command.Parameters.AddWithValue("@phone", dealerContact.Phone);
                 command.Parameters.AddWithValue("@cellPhone", dealerContact.CellPhone);
@@ -1040,12 +1053,10 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-
-                command.Connection = OpenLocalDBConnection();
 
                 command.CommandText = "DELETE FROM DealerContacts WHERE DealerContactId=@ID";
                 command.Parameters.AddWithValue("@ID", Id);
@@ -1615,8 +1626,6 @@ namespace LinksForm.DAL
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
-
-                command.Connection = OpenLocalDBConnection();
 
                 command.CommandText = "DELETE FROM AppLinks WHERE ListId=@ID";
                 command.Parameters.AddWithValue("@ID", ID);

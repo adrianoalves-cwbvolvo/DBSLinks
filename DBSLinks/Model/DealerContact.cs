@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Links.Model
+namespace LinksForm.Model
 {
-    class DealerContact
+    public class DealerContact
     {
         public int DealerContactId { get; set; }
-        public int MainDealerId { get; set; }
+        public int DealerId { get; set; }
         public string DealerName { get; set; }
-        public string Name { get; set; }
+        public string DealerContactName { get; set; }
         public string Department { get; set; }
         public string Phone { get; set; }
         public string CellPhone { get; set; }

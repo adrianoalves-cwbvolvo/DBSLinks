@@ -130,7 +130,6 @@ namespace LinksForm.Controller
                 }
             }
         }
-
         public static void localDatabaseConfig(bool reload)
         {
 
@@ -269,6 +268,16 @@ namespace LinksForm.Controller
             bool IsEmpty = false;
 
             if ((dealerBranch.DealerId == 0) || (dealerBranch.DealerName == string.Empty) || (dealerBranch.CountryId == 0) || (dealerBranch.CTDI == 0) || (dealerBranch.BaldoPartner == string.Empty))
+            {
+                IsEmpty = true;
+            }
+            return IsEmpty;
+        }
+        public static bool DealerContacthDataValidation(DealerContact dealerContact)
+        {
+            bool IsEmpty = false;
+
+            if ((dealerContact.DealerId == 0) || (dealerContact.CountryId == 0) || (dealerContact.DealerContactName == string.Empty) || (dealerContact.Department == string.Empty))
             {
                 IsEmpty = true;
             }

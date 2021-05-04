@@ -128,6 +128,12 @@
     <Compile Include="Forms\frmAddOrUpdateAppLinks.Designer.cs">
       <DependentUpon>frmAddOrUpdateAppLinks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmAddOrUpdateDealerContact.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateDealerContact.Designer.cs">
+      <DependentUpon>frmAddOrUpdateDealerContact.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmAddOrUpdateCredential.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddOrUpdateAppLinks.resx">
       <DependentUpon>frmAddOrUpdateAppLinks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateDealerContact.resx">
+      <DependentUpon>frmAddOrUpdateDealerContact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddOrUpdateCredential.resx">
       <DependentUpon>frmAddOrUpdateCredential.cs</DependentUpon>
