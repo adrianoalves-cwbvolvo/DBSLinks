@@ -223,11 +223,11 @@ namespace LinksForm.Controller
             }
             return IsEmpty;
         }
-        public static bool AppLinkDataValidation(string cmbCountries, string cmbApplication, string cmbCategory, string Description, string Link, string CredendialUsername)
+        public static bool AppLinkDataValidation(string cmbCountries, string cmbApplication, string cmbCategory, string Description, string Link)
         {
             bool IsEmpty = false;
 
-            if ((cmbCountries == string.Empty) || (cmbApplication == string.Empty) || (cmbCategory == string.Empty) || (Description == string.Empty) || (Link == string.Empty) || (CredendialUsername == string.Empty))
+            if ((cmbCountries == string.Empty) || (cmbApplication == string.Empty) || (cmbCategory == string.Empty) || (Description == string.Empty) || (Link == string.Empty))
             {
                 IsEmpty = true;
             }
@@ -253,11 +253,11 @@ namespace LinksForm.Controller
             }
             return IsEmpty;
         }
-        public static bool DealerDataValidation(string DealerCode, string DealerName, string comboCountries)
+        public static bool DealerDataValidation(string DealerName, string comboCountries)
         {
             bool IsEmpty = false;
 
-            if ((DealerCode == string.Empty) || (DealerName == string.Empty) || (comboCountries == string.Empty))
+            if ((DealerName == string.Empty) || (comboCountries == string.Empty))
             {
                 IsEmpty = true;
             }
@@ -267,17 +267,27 @@ namespace LinksForm.Controller
         {
             bool IsEmpty = false;
 
-            if ((dealerBranch.DealerId == 0) || (dealerBranch.DealerName == string.Empty) || (dealerBranch.CountryId == 0) || (dealerBranch.CTDI == 0) || (dealerBranch.BaldoPartner == string.Empty))
+            if ((dealerBranch.CountryName == string.Empty) || (dealerBranch.DealerName == string.Empty) || (dealerBranch.BranchName == string.Empty) || (dealerBranch.PhoneNumber == string.Empty) || (dealerBranch.CTDI > 0) || (dealerBranch.BaldoPartner == string.Empty))
             {
                 IsEmpty = true;
             }
             return IsEmpty;
         }
-        public static bool DealerContacthDataValidation(DealerContact dealerContact)
+        public static bool DealerContactDataValidation(DealerContact dealerContact)
         {
             bool IsEmpty = false;
 
             if ((dealerContact.DealerId == 0) || (dealerContact.CountryId == 0) || (dealerContact.DealerContactName == string.Empty) || (dealerContact.Department == string.Empty))
+            {
+                IsEmpty = true;
+            }
+            return IsEmpty;
+        }
+        public static bool CountryDataValidation(Country country)
+        {
+            bool IsEmpty = false;
+
+            if ((country.CountryId == 0) || (country.CountryName == string.Empty))
             {
                 IsEmpty = true;
             }

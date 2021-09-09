@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Links.Logger;
 using LinksForm.DAL;
 using LinksForm.Model;
 
@@ -15,18 +16,29 @@ namespace LinksForm.Forms
     public partial class frmAddOrUpdateApplication : Form
     {
         int GlobalApplicationId;
+        string GlobalApplicationName;
+
         string GlobalEditOrNew = "";
 
-        public frmAddOrUpdateApplication(int ApplicationId, string ApplicationName)
+        public bool HasTheCancelButtonPressed { get; set; }
+
+        public frmAddOrUpdateApplication(int left, int top, int width, int height, App app)
         {
             InitializeComponent();
 
-            GlobalApplicationId = ApplicationId;
+            left = (left - 130) + (width / 4);
+            top = (top - 20) + (height / 4);
 
-            if (ApplicationId > 0)
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(left, top);
+
+            GlobalApplicationId = app.ApplicationId;
+            GlobalApplicationName = app.ApplicationName;
+
+            if (GlobalApplicationId > 0)
             {
                 this.Text = "Update Application";
-                txtApplicationName.Text = ApplicationName;
+                txtApplicationName.Text = app.ApplicationName;
                 GlobalEditOrNew = "Edit";
             }
             else
@@ -34,6 +46,8 @@ namespace LinksForm.Forms
                 this.Text = "New Application";
                 GlobalEditOrNew = "New";
             }
+
+            txtApplicationName.Focus();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -71,6 +85,7 @@ namespace LinksForm.Forms
                     MessageBox.Show("Error: An error has ocurred when trying to update the Application!");
                 }
 
+                ActivityLog.ApplicationLogger(application, "UPDATE", GlobalApplicationName, Environment.UserName);
                 this.Close();
             }
             else //NEW APPLICATION
@@ -80,9 +95,9 @@ namespace LinksForm.Forms
 
                 if (ok == true)
                 {
+                    ActivityLog.ApplicationLogger(application, "CREATE", "", Environment.UserName);
                     MessageBox.Show("The record was successfully saved!");
                 }
-
 
                 this.Close();
             }

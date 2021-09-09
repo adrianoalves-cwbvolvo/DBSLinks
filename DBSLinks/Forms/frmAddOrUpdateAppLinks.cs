@@ -16,25 +16,31 @@ namespace LinksForm.Forms
     public partial class frmAddOrUpdateAppLinks : Form
     {
         private int GlobalLinkId = 0;
+        private int CredentialId = 0;
+
         private DataTable dtCredentials = new DataTable();
+        private string FilterContactField = "StringToSearch";
 
         private List<Country> countryList = new List<Country>();
         private List<App> appList = new List<App>();
         private List<Category> categoryList = new List<Category>();
         private List<Credential> credentialList = new List<Credential>();
 
-        public frmAddOrUpdateAppLinks(int LinkId, int CountryId, int ApplicationId, int CategoryId, string Description, string Link, int CredentialId)
+        public bool HasTheCancelButtonPressed { get; set; }
+
+        public frmAddOrUpdateAppLinks(AppLinks appLinks)
         {
             InitializeComponent();
 
-            GlobalLinkId = LinkId;
+            GlobalLinkId = appLinks.AppLinkId;
 
             #region "Loading Credentials"
 
             dtCredentials.Columns.Add("CredentialId", typeof(int));
+            dtCredentials.Columns.Add("CredentialDescription", typeof(string));
             dtCredentials.Columns.Add("Username", typeof(string));
             dtCredentials.Columns.Add("Password", typeof(string));
-            dtCredentials.Columns.Add("CredentialDescription", typeof(string));
+            dtCredentials.Columns.Add("StringToSearch", typeof(string));
 
             #endregion
 
@@ -42,10 +48,10 @@ namespace LinksForm.Forms
             appList = DALHelpers.GetApplications();
             categoryList = DALHelpers.GetCategories();
 
-            if (LinkId > 0)
+            if (GlobalLinkId > 0)
             {
-                txtDescription.Text = Description;
-                txtURL.Text = Link;
+                txtDescription.Text = appLinks.Description;
+                txtURL.Text = appLinks.Link;
 
                 int counter = 0;
 
@@ -53,7 +59,7 @@ namespace LinksForm.Forms
                 {
                     cmbCountry.Items.Add(country.CountryName.ToString());
 
-                    if (CountryId == country.CountryId)
+                    if (appLinks.CountryId == country.CountryId)
                     {
                         cmbCountry.SelectedIndex = counter;
                     }
@@ -66,7 +72,7 @@ namespace LinksForm.Forms
                 {
                     cmbApplication.Items.Add(app.ApplicationName.ToString());
 
-                    if (ApplicationId == app.ApplicationId)
+                    if (appLinks.ApplicationId == app.ApplicationId)
                     {
                         cmbApplication.SelectedIndex = counter;
                     }
@@ -79,7 +85,7 @@ namespace LinksForm.Forms
                 {
                     cmbCategory.Items.Add(category.CategoryName.ToString());
 
-                    if (CategoryId == category.CategoryId)
+                    if (appLinks.AppCategoryId == category.CategoryId)
                     {
                         cmbCategory.SelectedIndex = counter;
                     }
@@ -92,11 +98,11 @@ namespace LinksForm.Forms
                 counter = 0;
                 foreach (Credential credential in credentialList)
                 {
-                    if (CredentialId == credential.CredentialId)
+                    if (appLinks.CredentialId == credential.CredentialId)
                     {
-                        txtCredentialUsername.Text = credential.Username;
-                        txtCredentialId.Text = credential.CredentialId.ToString();
-                        lblOk.Visible = true;
+                        CredentialId = credential.CredentialId;
+                        txtCredentialId.Text = credential.Username;
+                        btnRemoveCredential.Text = "Remove Credential";
                     }
                 }
                 dgvCredentials.ClearSelection();
@@ -119,14 +125,13 @@ namespace LinksForm.Forms
                 }
 
                 credentialList = loadCredentials();
-
                 dgvCredentials.ClearSelection();
             }
-
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            HasTheCancelButtonPressed = true;
             this.Close();
         }
 
@@ -136,7 +141,7 @@ namespace LinksForm.Forms
 
             AppLinks appLinks = new AppLinks();
 
-            if (Validation.AppLinkDataValidation(cmbCountry.Text, cmbApplication.Text, cmbCategory.Text,txtDescription.Text, txtURL.Text, txtCredentialUsername.Text))
+            if (Validation.AppLinkDataValidation(cmbCountry.Text, cmbApplication.Text, cmbCategory.Text,txtDescription.Text, txtURL.Text))
             {
                 MessageBox.Show("Please enter the AppLink details.");
                 return;
@@ -145,7 +150,15 @@ namespace LinksForm.Forms
             {
                 appLinks.Description = txtDescription.Text;
                 appLinks.Link = txtURL.Text;
-                appLinks.CredentialId = Convert.ToInt32(txtCredentialId.Text);
+
+                if (txtCredentialId.Text == "")
+                {
+                    appLinks.CredentialId = 0;
+                }
+                else
+                {
+                    appLinks.CredentialId = CredentialId;
+                }
 
                 foreach (Country country in countryList)
                 {
@@ -170,7 +183,6 @@ namespace LinksForm.Forms
                         appLinks.AppCategoryId = category.CategoryId;
                     }
                 }
-
             }
 
             #region "UPDATE"
@@ -178,7 +190,7 @@ namespace LinksForm.Forms
             //UPDATE
             if (GlobalLinkId > 0)
             {
-                appLinks.ListId = GlobalLinkId;
+                appLinks.AppLinkId = GlobalLinkId;
 
                 ok = DALHelpers.UpdateAppLink(appLinks);
 
@@ -230,15 +242,22 @@ namespace LinksForm.Forms
 
             foreach (Credential credential in credentialList)
             {
-                dtCredentials.Rows.Add(credential.CredentialId.ToString(), credential.Username.ToString(), Encryption.Decrypt(credential.Password.ToString()), credential.CredentialDescription.ToString());
+                dtCredentials.Rows.Add(
+                    
+                    credential.CredentialId.ToString(),
+                    credential.CredentialDescription.ToString(),
+                    credential.Username.ToString(), 
+                    Encryption.Decrypt(credential.Password.ToString()), 
+                    credential.Username.ToString() + credential.CredentialDescription.ToString());
             }
 
             dgvCredentials.DataSource = dtCredentials;
-            dgvCredentials.Columns[0].Width = 135;
-            dgvCredentials.Columns[1].Width = 75;
-            dgvCredentials.Columns[2].Width = 60;
-            dgvCredentials.Columns[3].Width = 120;
+            dgvCredentials.Columns[1].Width = 200;
+            dgvCredentials.Columns[2].Width = 150;
+            dgvCredentials.Columns[3].Width = 150;
+
             dgvCredentials.Columns[0].Visible = false;
+            dgvCredentials.Columns[4].Visible = false;
 
             dgvCredentials.Sort(dgvCredentials.Columns["Username"], ListSortDirection.Ascending);
 
@@ -254,20 +273,68 @@ namespace LinksForm.Forms
         {
             if((dgvCredentials.Rows.Count > 0) || (dgvCredentials.SelectedRows.Count > 0))
             {
-                if (btnSelectCredential.Text == "Select")
-                {
-                    txtCredentialId.Text = dgvCredentials.CurrentRow.Cells[0].Value.ToString();
-                    txtCredentialUsername.Text = dgvCredentials.CurrentRow.Cells[1].Value.ToString();
-                    lblOk.Visible = true;
-                    btnSelectCredential.Text = "UnSelect";
-                }
-                else
-                {
-                    txtCredentialId.Clear();
-                    txtCredentialUsername.Clear();
-                    lblOk.Visible = false;
-                    btnSelectCredential.Text = "Select";
-                }
+                CredentialId = Convert.ToInt32(dgvCredentials.CurrentRow.Cells[0].Value.ToString());
+                txtCredentialId.Text = dgvCredentials.CurrentRow.Cells[2].Value.ToString();
+
+                btnRemoveCredential.Text = "Remove Credential";
+
+                grpAppLink.Visible = true;
+                grpCredential.Visible = false;
+
+                btnSave.Enabled = true;
+            }
+        }
+
+        private void txSearchCredential_TextChanged(object sender, EventArgs e)
+        {
+            string oldText = string.Empty;
+
+            oldText = txtSearchCredential.Text;
+
+            if ((txtSearchCredential.Text.All(chr => char.IsLetterOrDigit(chr))) || (txtSearchCredential.Text.Contains(" ")) || (txtSearchCredential.Text.Contains("-")) || (txtSearchCredential.Text.Contains(".")))
+            {
+
+                txtSearchCredential.Text = oldText;
+            }
+            else
+            {
+                txtSearchCredential.Text = oldText.Remove(oldText.Length - 1);
+            }
+
+            txtSearchCredential.SelectionStart = txtSearchCredential.Text.Length;
+
+            dtCredentials.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterContactField, txtSearchCredential.Text);
+
+            if (string.IsNullOrEmpty(txtSearchCredential.Text))
+            {
+                lblClearSearchCredential.Visible = false;
+            }
+            else
+            {
+                lblClearSearchCredential.Visible = true;
+            }
+        }
+
+        private void lblClearSearchCredential_Click(object sender, EventArgs e)
+        {
+            txtSearchCredential.Clear();
+        }
+
+        private void btnRemoveCredential_Click(object sender, EventArgs e)
+        {
+            if (btnRemoveCredential.Text == "Remove Credential")
+            {
+                btnRemoveCredential.Text = "Select Credential";
+                txtCredentialId.Clear();
+                CredentialId = 0;
+                
+            }
+            else
+            {   
+                btnRemoveCredential.Text = "Remove Credential";
+                grpAppLink.Visible = false;
+                grpCredential.Visible = true;
+                btnSave.Enabled = false;
             }
         }
     }

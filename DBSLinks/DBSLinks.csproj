@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Encryption.cs" />
+    <Compile Include="Controller\Services.cs" />
     <Compile Include="Controller\Validation.cs" />
     <Compile Include="DAL\DALHelpers.cs" />
     <Compile Include="FormsAdmin\frmUpdatePassword.cs">
@@ -128,6 +129,18 @@
     <Compile Include="Forms\frmAddOrUpdateAppLinks.Designer.cs">
       <DependentUpon>frmAddOrUpdateAppLinks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmAddOrUpdateCountry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateCountry.Designer.cs">
+      <DependentUpon>frmAddOrUpdateCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateDealer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAddOrUpdateDealer.Designer.cs">
+      <DependentUpon>frmAddOrUpdateDealer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmAddOrUpdateDealerContact.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,17 +153,35 @@
     <Compile Include="Forms\frmAddOrUpdateCredential.Designer.cs">
       <DependentUpon>frmAddOrUpdateCredential.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAddOrUpdateDealer.cs">
+    <Compile Include="Forms\frmAddOrUpdateDealerBranch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAddOrUpdateDealer.Designer.cs">
-      <DependentUpon>frmAddOrUpdateDealer.cs</DependentUpon>
+    <Compile Include="Forms\frmAddOrUpdateDealerBranch.Designer.cs">
+      <DependentUpon>frmAddOrUpdateDealerBranch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmAppLinks.cs">
+    <Compile Include="Forms\frmApplication.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmAppLinks.Designer.cs">
-      <DependentUpon>frmAppLinks.cs</DependentUpon>
+    <Compile Include="Forms\frmApplication.Designer.cs">
+      <DependentUpon>frmApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCountry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCountry.Designer.cs">
+      <DependentUpon>frmCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCredential.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCredential.Designer.cs">
+      <DependentUpon>frmCredential.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDealer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDealer.Designer.cs">
+      <DependentUpon>frmDealer.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmGeneralSettings.cs">
       <SubType>Form</SubType>
@@ -170,6 +201,12 @@
     <Compile Include="Forms\frmAddOrUpdateContact.Designer.cs">
       <DependentUpon>frmAddOrUpdateContact.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmDataReload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDataReload.Designer.cs">
+      <DependentUpon>frmDataReload.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logger\ActivityLog.cs" />
     <Compile Include="Model\Application.cs" />
     <Compile Include="Model\AppLinks.cs" />
@@ -181,6 +218,7 @@
     <Compile Include="Model\Dealer.cs" />
     <Compile Include="Model\DealerBranch.cs" />
     <Compile Include="Model\DealerContact.cs" />
+    <Compile Include="Model\ModelView\DatabaseViewModel.cs" />
     <Compile Include="Model\Team.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,17 +235,32 @@
     <EmbeddedResource Include="Forms\frmAddOrUpdateAppLinks.resx">
       <DependentUpon>frmAddOrUpdateAppLinks.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateCountry.resx">
+      <DependentUpon>frmAddOrUpdateCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateDealer.resx">
+      <DependentUpon>frmAddOrUpdateDealer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddOrUpdateDealerContact.resx">
       <DependentUpon>frmAddOrUpdateDealerContact.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAddOrUpdateCredential.resx">
       <DependentUpon>frmAddOrUpdateCredential.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAddOrUpdateDealer.resx">
-      <DependentUpon>frmAddOrUpdateDealer.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmAddOrUpdateDealerBranch.resx">
+      <DependentUpon>frmAddOrUpdateDealerBranch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmAppLinks.resx">
-      <DependentUpon>frmAppLinks.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmApplication.resx">
+      <DependentUpon>frmApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCountry.resx">
+      <DependentUpon>frmCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmCredential.resx">
+      <DependentUpon>frmCredential.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDealer.resx">
+      <DependentUpon>frmDealer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmGeneralSettings.resx">
       <DependentUpon>frmGeneralSettings.cs</DependentUpon>
@@ -243,6 +296,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\frmDataReload.resx">
+      <DependentUpon>frmDataReload.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -283,6 +339,15 @@
     <None Include="Resources\Globepng.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\CogWheelNoBoarder.png" />
+    <None Include="Resources\DataAdmin30.png" />
+    <None Include="Resources\Credential30.png" />
+    <None Include="Resources\Countries30,.png" />
+    <None Include="Resources\Applications.png" />
+    <None Include="Resources\CogWheelBoarder.png" />
+    <None Include="Resources\About-30.png" />
+    <None Include="Resources\Circled-thin-20.png" />
+    <None Include="Resources\Checked-20.png" />
     <Content Include="Resources\LinksStartup.appref-ms">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -358,6 +423,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shuttdown.png" />
+    <None Include="Resources\Shutdown-30.png" />
+    <None Include="Resources\SettingsBar.png" />
+    <None Include="Resources\Settings30.png" />
+    <None Include="Resources\Reload-30.png" />
+    <None Include="Resources\Menu-30.png" />
+    <None Include="Resources\Menu-squared-30.png" />
+    <None Include="Resources\Truck-30.png" />
+    <None Include="Resources\Spinner.gif" />
     <Content Include="volvo_logo_icon_vector_RUk_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

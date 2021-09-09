@@ -62,32 +62,28 @@ namespace LinksForm
             this.contextMenuSystemTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.refreshDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripContacts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.tspExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tspConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspMenuContacts = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.dataAdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.countriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dealersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.subDealersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.applicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.appLinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.applicationsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.credentialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.reloadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStripDealers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripApps = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripPwdSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.updatePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -151,6 +147,8 @@ namespace LinksForm
             this.imageListButtons.Images.SetKeyName(0, "New.png");
             this.imageListButtons.Images.SetKeyName(1, "Edit.png");
             this.imageListButtons.Images.SetKeyName(2, "Delete.png");
+            this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
+            this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
             // 
             // btnEditContact
             // 
@@ -353,6 +351,7 @@ namespace LinksForm
             this.btnEditApplication.Size = new System.Drawing.Size(36, 35);
             this.btnEditApplication.TabIndex = 10;
             this.btnEditApplication.UseVisualStyleBackColor = true;
+            this.btnEditApplication.Click += new System.EventHandler(this.btnEditApplication_Click);
             // 
             // btnNewApplication
             // 
@@ -364,6 +363,7 @@ namespace LinksForm
             this.btnNewApplication.Size = new System.Drawing.Size(36, 35);
             this.btnNewApplication.TabIndex = 11;
             this.btnNewApplication.UseVisualStyleBackColor = true;
+            this.btnNewApplication.Click += new System.EventHandler(this.btnNewApplication_Click);
             // 
             // btnDeleteApplication
             // 
@@ -422,9 +422,9 @@ namespace LinksForm
             this.treeView1.SelectedImageIndex = 1;
             this.treeView1.Size = new System.Drawing.Size(604, 410);
             this.treeView1.TabIndex = 0;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseDoubleClick);
-            this.treeView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView1_KeyDown);
             // 
             // imageList
             // 
@@ -463,50 +463,25 @@ namespace LinksForm
             this.contextMenuSystemTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.toolStripSeparator6,
-            this.refreshDataToolStripMenuItem,
-            this.configurationToolStripMenuItem,
-            this.toolStripSeparator5,
-            this.exitToolStripMenuItem});
+            this.toolStripSeparator5});
             this.contextMenuSystemTray.Name = "contextMenuStrip1";
-            this.contextMenuSystemTray.Size = new System.Drawing.Size(160, 104);
+            this.contextMenuSystemTray.Size = new System.Drawing.Size(108, 38);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(156, 6);
-            // 
-            // refreshDataToolStripMenuItem
-            // 
-            this.refreshDataToolStripMenuItem.Name = "refreshDataToolStripMenuItem";
-            this.refreshDataToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.refreshDataToolStripMenuItem.Text = "Refresh Data";
-            this.refreshDataToolStripMenuItem.Click += new System.EventHandler(this.refreshDataToolStripMenuItem_Click);
-            // 
-            // configurationToolStripMenuItem
-            // 
-            this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.configurationToolStripMenuItem.Text = "General Settings";
-            this.configurationToolStripMenuItem.Click += new System.EventHandler(this.generalSettingsToolStripMenuItem_Click);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(104, 6);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(156, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(104, 6);
             // 
             // contextMenuStripContacts
             // 
@@ -525,117 +500,126 @@ namespace LinksForm
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspExit,
             this.tspConfig});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 469);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 495);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(449, 32);
+            this.menuStrip1.Size = new System.Drawing.Size(631, 32);
             this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Visible = false;
-            // 
-            // tspExit
-            // 
-            this.tspExit.Image = global::Links.Properties.Resources.Exit;
-            this.tspExit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tspExit.Name = "tspExit";
-            this.tspExit.Size = new System.Drawing.Size(36, 28);
-            this.tspExit.Click += new System.EventHandler(this.tspExit_Click);
             // 
             // tspConfig
             // 
             this.tspConfig.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tspConfig.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspMenuContacts,
-            this.toolStripSeparator2,
-            this.dealersToolStripMenuItem,
-            this.subDealersToolStripMenuItem,
+            this.dataAdminToolStripMenuItem,
             this.toolStripSeparator1,
-            this.applicationToolStripMenuItem});
-            this.tspConfig.Image = global::Links.Properties.Resources.CogWheel;
+            this.reloadDataToolStripMenuItem,
+            this.settingsToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.aboutToolStripMenuItem1,
+            this.toolStripSeparator3,
+            this.exitApplicationToolStripMenuItem});
+            this.tspConfig.Image = global::Links.Properties.Resources.Menu_squared_30;
             this.tspConfig.Name = "tspConfig";
-            this.tspConfig.Size = new System.Drawing.Size(32, 28);
-            this.tspConfig.Visible = false;
+            this.tspConfig.Size = new System.Drawing.Size(36, 28);
             // 
-            // tspMenuContacts
+            // dataAdminToolStripMenuItem
             // 
-            this.tspMenuContacts.Image = ((System.Drawing.Image)(resources.GetObject("tspMenuContacts.Image")));
-            this.tspMenuContacts.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tspMenuContacts.Name = "tspMenuContacts";
-            this.tspMenuContacts.Size = new System.Drawing.Size(140, 30);
-            this.tspMenuContacts.Text = "Contacts";
+            this.dataAdminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.countriesToolStripMenuItem,
+            this.applicationsToolStripMenuItem,
+            this.dealersToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.credentialsToolStripMenuItem});
+            this.dataAdminToolStripMenuItem.Image = global::Links.Properties.Resources.DataAdmin30;
+            this.dataAdminToolStripMenuItem.Name = "dataAdminToolStripMenuItem";
+            this.dataAdminToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.dataAdminToolStripMenuItem.Text = "Data Admin";
+            // 
+            // countriesToolStripMenuItem
+            // 
+            this.countriesToolStripMenuItem.Image = global::Links.Properties.Resources.Countries30_;
+            this.countriesToolStripMenuItem.Name = "countriesToolStripMenuItem";
+            this.countriesToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.countriesToolStripMenuItem.Text = "Countries";
+            this.countriesToolStripMenuItem.Click += new System.EventHandler(this.countriesToolStripMenuItem_Click_1);
+            // 
+            // applicationsToolStripMenuItem
+            // 
+            this.applicationsToolStripMenuItem.Image = global::Links.Properties.Resources.Applications;
+            this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
+            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.applicationsToolStripMenuItem.Text = "Applications";
+            this.applicationsToolStripMenuItem.Click += new System.EventHandler(this.applicationsToolStripMenuItem_Click);
+            // 
+            // dealersToolStripMenuItem
+            // 
+            this.dealersToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
+            this.dealersToolStripMenuItem.Name = "dealersToolStripMenuItem";
+            this.dealersToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.dealersToolStripMenuItem.Text = "Dealers";
+            this.dealersToolStripMenuItem.Click += new System.EventHandler(this.dealersToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(137, 6);
             // 
-            // dealersToolStripMenuItem
+            // credentialsToolStripMenuItem
             // 
-            this.dealersToolStripMenuItem.Image = global::Links.Properties.Resources.Dealer_Truck;
-            this.dealersToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.dealersToolStripMenuItem.Name = "dealersToolStripMenuItem";
-            this.dealersToolStripMenuItem.Size = new System.Drawing.Size(140, 30);
-            this.dealersToolStripMenuItem.Text = "Dealers";
-            // 
-            // subDealersToolStripMenuItem
-            // 
-            this.subDealersToolStripMenuItem.Image = global::Links.Properties.Resources.SubDealer_Truck;
-            this.subDealersToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.subDealersToolStripMenuItem.Name = "subDealersToolStripMenuItem";
-            this.subDealersToolStripMenuItem.Size = new System.Drawing.Size(140, 30);
-            this.subDealersToolStripMenuItem.Text = "SubDealers";
+            this.credentialsToolStripMenuItem.Image = global::Links.Properties.Resources.Credential30;
+            this.credentialsToolStripMenuItem.Name = "credentialsToolStripMenuItem";
+            this.credentialsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.credentialsToolStripMenuItem.Text = "Credentials";
+            this.credentialsToolStripMenuItem.Click += new System.EventHandler(this.credentialsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(137, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
             // 
-            // applicationToolStripMenuItem
+            // reloadDataToolStripMenuItem
             // 
-            this.applicationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.appLinksToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.applicationsListToolStripMenuItem,
-            this.toolStripSeparator4,
-            this.credentialsToolStripMenuItem});
-            this.applicationToolStripMenuItem.Image = global::Links.Properties.Resources.AppsBW;
-            this.applicationToolStripMenuItem.Name = "applicationToolStripMenuItem";
-            this.applicationToolStripMenuItem.Size = new System.Drawing.Size(140, 30);
-            this.applicationToolStripMenuItem.Text = "Links";
+            this.reloadDataToolStripMenuItem.Image = global::Links.Properties.Resources.Reload_30;
+            this.reloadDataToolStripMenuItem.Name = "reloadDataToolStripMenuItem";
+            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.reloadDataToolStripMenuItem.Text = "Data Reload";
+            this.reloadDataToolStripMenuItem.Click += new System.EventHandler(this.reloadDataToolStripMenuItem_Click);
             // 
-            // appLinksToolStripMenuItem
+            // settingsToolStripMenuItem
             // 
-            this.appLinksToolStripMenuItem.Image = global::Links.Properties.Resources.Link;
-            this.appLinksToolStripMenuItem.Name = "appLinksToolStripMenuItem";
-            this.appLinksToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.appLinksToolStripMenuItem.Text = "Application Links";
-            this.appLinksToolStripMenuItem.Click += new System.EventHandler(this.appLinksToolStripMenuItem_Click);
+            this.settingsToolStripMenuItem.Image = global::Links.Properties.Resources.Settings30;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(154, 6);
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Image = global::Links.Properties.Resources.About_30;
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
+            this.aboutToolStripMenuItem1.Text = "About";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(154, 6);
             // 
-            // applicationsListToolStripMenuItem
+            // exitApplicationToolStripMenuItem
             // 
-            this.applicationsListToolStripMenuItem.Image = global::Links.Properties.Resources.ApplicationList;
-            this.applicationsListToolStripMenuItem.Name = "applicationsListToolStripMenuItem";
-            this.applicationsListToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.applicationsListToolStripMenuItem.Text = "Applications";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(162, 6);
-            // 
-            // credentialsToolStripMenuItem
-            // 
-            this.credentialsToolStripMenuItem.Image = global::Links.Properties.Resources.PadLock_BW;
-            this.credentialsToolStripMenuItem.Name = "credentialsToolStripMenuItem";
-            this.credentialsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.exitApplicationToolStripMenuItem.Image = global::Links.Properties.Resources.Shutdown_30;
+            this.exitApplicationToolStripMenuItem.Name = "exitApplicationToolStripMenuItem";
+            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.exitApplicationToolStripMenuItem.Text = "Exit Application";
+            this.exitApplicationToolStripMenuItem.Click += new System.EventHandler(this.exitApplicationToolStripMenuItem_Click);
             // 
             // toolTip1
             // 
@@ -659,25 +643,10 @@ namespace LinksForm
             // contextMenuStripApps
             // 
             this.contextMenuStripApps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem2,
-            this.toolStripPwdSeparator,
             this.updatePasswordToolStripMenuItem});
             this.contextMenuStripApps.Name = "contextMenuStripApps";
-            this.contextMenuStripApps.Size = new System.Drawing.Size(166, 54);
+            this.contextMenuStripApps.Size = new System.Drawing.Size(166, 26);
             this.contextMenuStripApps.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStripApps_Closed);
-            // 
-            // copyToolStripMenuItem2
-            // 
-            this.copyToolStripMenuItem2.Name = "copyToolStripMenuItem2";
-            this.copyToolStripMenuItem2.Size = new System.Drawing.Size(165, 22);
-            this.copyToolStripMenuItem2.Text = "Copy";
-            this.copyToolStripMenuItem2.Click += new System.EventHandler(this.copyToolStripMenuItem2_Click);
-            // 
-            // toolStripPwdSeparator
-            // 
-            this.toolStripPwdSeparator.Name = "toolStripPwdSeparator";
-            this.toolStripPwdSeparator.Size = new System.Drawing.Size(162, 6);
-            this.toolStripPwdSeparator.Visible = false;
             // 
             // updatePasswordToolStripMenuItem
             // 
@@ -691,7 +660,7 @@ namespace LinksForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 497);
+            this.ClientSize = new System.Drawing.Size(631, 527);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.tabMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -728,7 +697,6 @@ namespace LinksForm
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuSystemTray;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView dgvContacts;
         private System.Windows.Forms.TextBox txtContacts;
@@ -739,35 +707,20 @@ namespace LinksForm
         private System.Windows.Forms.ContextMenuStrip contextMenuStripContacts;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tspConfig;
-        private System.Windows.Forms.ToolStripMenuItem tspMenuContacts;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem dealersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem subDealersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem applicationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem appLinksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem applicationsListToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem credentialsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tspExit;
         private System.Windows.Forms.TextBox txtAppSearch;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDealers;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripApps;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem refreshDataToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkHidePasswords;
         private System.Windows.Forms.Label lblClearContactsSearch;
         private System.Windows.Forms.Label lblClearDealersSearch;
-        private System.Windows.Forms.ToolStripSeparator toolStripPwdSeparator;
         private System.Windows.Forms.ToolStripMenuItem updatePasswordToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkDealerContacts;
         private System.Windows.Forms.Label lblClearAppSearch;
         private System.Windows.Forms.Button btnNewContact;
@@ -780,6 +733,18 @@ namespace LinksForm
         private System.Windows.Forms.Button btnEditApplication;
         private System.Windows.Forms.Button btnNewApplication;
         private System.Windows.Forms.Button btnDeleteApplication;
+        private System.Windows.Forms.ToolStripMenuItem exitApplicationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem reloadDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataAdminToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem countriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applicationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem credentialsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem dealersToolStripMenuItem;
     }
 }
 

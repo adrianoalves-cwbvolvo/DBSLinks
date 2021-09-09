@@ -15,20 +15,27 @@ namespace LinksForm.Forms
 {
     public partial class frmAddOrUpdateCredential : Form
     {
-        private int globalCredentialId = 0;
-        public frmAddOrUpdateCredential(int Credentialid, string Username, string Password, string Description)
+        private int CredentialId = 0;
+        public bool HasTheCancelButtonPressed { get; set; }
+        public frmAddOrUpdateCredential(int left, int top, int width, int height, Credential credential)
         {
             InitializeComponent();
 
-            globalCredentialId = Credentialid;
+            left = (left ) + (width / 4);
+            top = (top - 20) + (height / 4);
 
-            if (!string.IsNullOrEmpty(Username))
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(left, top);
+
+            CredentialId = credential.CredentialId;
+
+            if (credential.CredentialId > 0)
             {
                 this.Text = "Update Credential";
-                txtDescription.Text = Description;
-                txtUsername.Text = Username;
+                txtDescription.Text = credential.CredentialDescription;
+                txtUsername.Text = credential.Username;
                 txtUsername.Enabled = false;
-                txtPassword.Text = Password;
+                txtPassword.Text = credential.Password;
             }
             else
             {
@@ -51,13 +58,13 @@ namespace LinksForm.Forms
             {
                 credential.CredentialDescription = txtDescription.Text;
                 credential.Username = txtUsername.Text;
-                credential.Password = Encryption.Encrypt(txtPassword.Text);
+                credential.Password = txtPassword.Text;
             }
 
-            if (globalCredentialId > 0)
+            if (CredentialId > 0)
             {
                 //UPDATE
-                credential.CredentialId = globalCredentialId;
+                credential.CredentialId = CredentialId;
                 ok = DALHelpers.UpdateCredential(credential);
 
                 if (ok == true)
@@ -97,6 +104,7 @@ namespace LinksForm.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            HasTheCancelButtonPressed = true;
             this.Close();
         }
     }

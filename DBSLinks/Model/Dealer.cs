@@ -11,5 +11,6 @@ namespace LinksForm.Model
         public int DealerId { get; set; }
         public string DealerName { get; set; }
         public int CountryId { get; set; }
+        public string CountryName { get; set; }
     }
 }

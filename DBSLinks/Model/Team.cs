@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Links.Model
+namespace LinksForm.Model
 {
     public class Team
     {

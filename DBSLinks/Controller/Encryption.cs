@@ -44,6 +44,8 @@ namespace LinksForm.Controller
                     {
                         byte[] cipherBytes = Convert.FromBase64String(cipher);
                         byte[] bytes = transform.TransformFinalBlock(cipherBytes, 0, cipherBytes.Length);
+
+                        string test = UTF8Encoding.UTF8.GetString(bytes);
                         return UTF8Encoding.UTF8.GetString(bytes);
                     }
                 }

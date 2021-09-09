@@ -12,10 +12,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+using Links.Controller;
 using Links.Forms;
 using Links.FormsAdmin;
 using Links.Logger;
 using Links.Model;
+using Links.Model.ModelView;
 using Links.Properties;
 using LinksForm.Controller;
 using LinksForm.DAL;
@@ -42,11 +44,14 @@ namespace LinksForm
         private List<string> links = new List<string>();
 
         //VARIABLES TO STORE DATA FROM THE DATABASE
-        private List<App> ApplicationsList = new List<App>();
-        private List<AppLinks> AppLinksFromDatabase = new List<AppLinks>();
-        private List<Contact> contactList = new List<Contact>();
-        private List<DealerContact> dealerContactList = new List<DealerContact>();
-        private List<DealerBranch> dealerList = new List<DealerBranch>();
+        //private List<App> ApplicationsList = new List<App>();
+        //private List<AppLinks> AppLinksFromDatabase = new List<AppLinks>();
+        //private List<Contact> contactList = new List<Contact>();
+        //private List<DealerContact> dealerContactList = new List<DealerContact>();
+        //private List<DealerBranch> dealerList = new List<DealerBranch>();
+        private List<Country> countryList = new List<Country>();
+
+        private DatabaseViewModel databaseViewModel = new DatabaseViewModel();
 
         //SEARCH BOXES VARIABLES
         private string FilterContactField = "StringToSearch";
@@ -120,7 +125,7 @@ namespace LinksForm
 
                 #region "RETRIEVING DATA FROM THE DATABASE"
 
-                GetDataFromDatabase("AllTables");
+                databaseViewModel = Services.GetDataFromDatabase();
 
                 #endregion
 
@@ -255,47 +260,16 @@ namespace LinksForm
             this.WindowState = FormWindowState.Normal;
             setTopMostWindowSetting();
         }
-
-        #endregion
-
-        #region "DATAGRIDVIEW - GET DATA FROM DATABASE"
-
-        private void GetDataFromDatabase(string myOption)
+        private void tabMain_MouseClick(object sender, MouseEventArgs e)
         {
-            switch (myOption)
-            {
-                case "AllTables":
-
-                    contactList = DALHelpers.GetContacts();
-                    dealerContactList = DALHelpers.GetDealerContacts();
-                    dealerList = DALHelpers.GetDealerBranchs();
-                    ApplicationsList = DALHelpers.GetApplications();
-                    AppLinksFromDatabase = DALHelpers.GetAppLinks();
-                    break;
-
-                case "Contact":
-                    contactList = DALHelpers.GetContacts();
-                    break;
-
-                case "DealerBranch":
-                    dealerList = DALHelpers.GetDealerBranchs();
-                    break;
-
-                case "ApplicationList":
-                    ApplicationsList = DALHelpers.GetApplications();
-                    break;
-
-                case "DealerContact":
-                    dealerContactList = DALHelpers.GetDealerContacts();
-                    break;
-            }
+            dgvContacts.ClearSelection();
+            dgvDealers.ClearSelection();
         }
-
         #endregion
 
         #region "MENUS"
 
-        private void tspExit_Click(object sender, EventArgs e)
+        private void exitApplicationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult dialog = new DialogResult();
 
@@ -308,124 +282,119 @@ namespace LinksForm
                 //System.Environment.Exit(1);
             }
         }
-
-        private void appLinksToolStripMenuItem_Click(object sender, EventArgs e)
+        private void updatePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            frmAppLinks _frmAppLinks = new frmAppLinks();
-            _frmAppLinks.ShowDialog();
-            this.Show();
-            _frmAppLinks.Dispose();
-        }
+            string ReturnedUsername;
+            int CredentialId=0;
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult dialog = new DialogResult();
+            TreeNode tn = treeView1.SelectedNode;
 
-            dialog = MessageBox.Show("Do you want to Exit the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dialog == DialogResult.Yes)
+            if (tn != null)
             {
-                notifyIcon.Visible = false;
-                Application.Exit();
+                foreach (var password in PasswordList)
+                {
+                    if (treeView1.SelectedNode.Text.ToString() == password.Value.ToString())
+                    {
+                        CredentialId = password.Key;
+                        break;
+                    }
+                }
+
+                frmUpdatePassword _frmUpdatePassword = new frmUpdatePassword(CredentialId, left, top, width, height);
+                _frmUpdatePassword.TopMost = true;
+                _frmUpdatePassword.ShowDialog();
+
+                ReturnedUsername = _frmUpdatePassword.UsernameToBeReturned;
+
+                _frmUpdatePassword.Dispose();
+
+                txtAppSearch.Text = ReturnedUsername;
+                PasswordList.Clear();
             }
         }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void contextMenuStripApps_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
-            this.Hide();
-            frmAbout aboutWindow = new frmAbout();
-            aboutWindow.ShowDialog();
-            this.Show();
+            updatePasswordToolStripMenuItem.Visible = false;
         }
-
-        private void refreshDataToolStripMenuItem_Click(object sender, EventArgs e)
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dealerList = DALHelpers.GetDealerBranchs();
-            dealerContactList = DALHelpers.GetDealerContacts();
-            loadDealerBranches();
-
-            //contactList = DALHelpers.GetContacts();
-            //loadContacts();
-
-            //ApplicationsList = DALHelpers.GetApplications();
-            //AppLinksFromDatabase = DALHelpers.GetAppLinks();
-            //loadTreeview(false, null);
-
-            MessageBox.Show("Data Refreshed!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void generalSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Hide();
+            //this.Hide();
             frmGeneralSettings _frmConfig = new frmGeneralSettings(left, top, width, height);
+
+            _frmConfig.TopMost = true;
             _frmConfig.ShowDialog();
 
             setTopMostWindowSetting();
 
-            this.Show();
+            //this.Show();
         }
-
-        private void updatePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            foreach (var password in PasswordList)
+            frmAbout aboutWindow = new frmAbout(left, top, width, height);
+            aboutWindow.TopMost = true;
+            aboutWindow.ShowDialog();
+        }
+        private void reloadDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //DatabaseViewModel _databaseViewModel = new DatabaseViewModel();
+
+            bool HasTheCancelButtonPressed;
+
+            frmDataReload _frmDataReload = new frmDataReload(left, top, width, height);
+
+            //_frmReloadData.MdiParent = this;
+            _frmDataReload.TopMost = true;
+            _frmDataReload.ShowDialog();
+
+            HasTheCancelButtonPressed = _frmDataReload.HasTheCancelButtonPressed;
+
+            if (HasTheCancelButtonPressed == false)
             {
-                TreeNode tn = treeView1.SelectedNode;
+                databaseViewModel = _frmDataReload.databaseViewModel;
 
-                if (tn != null)
-                {
-                    if (treeView1.SelectedNode.Text.ToString() == password.Value.ToString())
-                    {
-
-                        frmUpdatePassword _frmUpdatePassword = new frmUpdatePassword(password.Key, left, top, width, height);
-
-                        this.TopMost = false;
-
-                        _frmUpdatePassword.ShowDialog();
-                        //loadAppLinks();
-
-                        setTopMostWindowSetting();
-
-                        _frmUpdatePassword.Dispose();
-
-                        PasswordList.Clear();
-                        ApplicationsList = DALHelpers.GetApplications();
-                        AppLinksFromDatabase = DALHelpers.GetAppLinks();
-
-                        if (txtAppSearch.Text.Length > 1)
-                        {
-                            loadAppsFromSearchBox();
-                        }
-                        else
-                        {
-                            loadTreeview(false, null);
-                        }
-
-                        break;
-                    }
-                }
+                loadContacts();
+                loadDealerContacts();
+                loadDealerBranches();
+                loadTreeview(false, null);
             }
         }
-
-        private void contextMenuStripApps_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        private void countriesToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            updatePasswordToolStripMenuItem.Visible = false;
-            toolStripPwdSeparator.Visible = false;
+            frmCountry _frmCountry = new frmCountry(left, top, width, height);
+            _frmCountry.TopMost = true;
+            _frmCountry.ShowDialog();
         }
-
+        private void credentialsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmCredential _frmCredential = new frmCredential(left, top, width, height);
+            _frmCredential.TopMost = true;
+            _frmCredential.ShowDialog();
+        }
+        private void applicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmApplication _frmApplication = new frmApplication(left, top, width, height);
+            _frmApplication.TopMost = true;
+            _frmApplication.ShowDialog();
+        }
+        private void dealersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDealer _frmDealer = new frmDealer(left, top, width, height);
+            _frmDealer.TopMost = true;
+            _frmDealer.ShowDialog();
+        }
         #endregion
 
         #region "TAB - CONTACTS"
 
         #region "DATAGRIDVIEW - LOAD CONTACTS DATA"
 
-        private void loadContacts()
+        public void loadContacts()
         {
             dgvContacts.DataSource = null;
             dgvContacts.Rows.Clear();
             dtContacts.Clear();
 
-            foreach (Contact contact in contactList)
+            foreach (Contact contact in databaseViewModel.ContactList)
             {
                 dtContacts.Rows.Add(
                     contact.Id.ToString(),
@@ -600,7 +569,7 @@ namespace LinksForm
                 if (HasTheCancelButtonPressed == false)
                 {
                     Validation.localDatabaseConfig(true);
-                    GetDataFromDatabase("Contact");
+                    databaseViewModel = Services.GetDataFromDatabase();
                     loadContacts();
                 }
 
@@ -639,7 +608,7 @@ namespace LinksForm
                 if (HasTheCancelButtonPressed == false)
                 {
                     Validation.localDatabaseConfig(true);
-                    GetDataFromDatabase("Contact");
+                    databaseViewModel = Services.GetDataFromDatabase();
                     loadContacts();
                 }
 
@@ -676,7 +645,7 @@ namespace LinksForm
                     ActivityLog.ContactLogger(contact, "DELETE", "Contact", Environment.UserName);
 
                     Validation.localDatabaseConfig(true);
-                    GetDataFromDatabase("Contact");
+                    databaseViewModel = Services.GetDataFromDatabase();
                     loadContacts();
                 }
 
@@ -713,13 +682,13 @@ namespace LinksForm
         #endregion
 
         #region "DATAGRIDVIEW - LOAD DEALERS DATA"
-        private void loadDealerBranches()
+        public void loadDealerBranches()
         {
             dgvDealers.DataSource = null;
             dgvDealers.Rows.Clear();
             dtDealers.Clear();
 
-            foreach (DealerBranch dealer in dealerList)
+            foreach (DealerBranch dealer in databaseViewModel.DealerBranchesList)
             {
                 dtDealers.Rows.Add(
                     dealer.DealerBranchId.ToString(),
@@ -757,13 +726,13 @@ namespace LinksForm
         #endregion
 
         #region "DATAGRIDVIEW - LOAD DEALER CONTACTS DATA"
-        private void loadDealerContacts()
+        public void loadDealerContacts()
         {
             dgvDealers.DataSource = null;
             dgvDealers.Rows.Clear();
             dtDealerContacts.Clear();
 
-            foreach (DealerContact dealerContact in dealerContactList)
+            foreach (DealerContact dealerContact in databaseViewModel.DealerContactList)
             {
                 dtDealerContacts.Rows.Add(
                     dealerContact.DealerContactId.ToString(),
@@ -888,19 +857,16 @@ namespace LinksForm
                 }
             }
         }
-
         //DEALERS SEARCH BOX X, CLEAR TEXTBOX DATA
         private void lblClearDealersSearch_Click(object sender, EventArgs e)
         {
             txtDealers.Clear();
         }
-
         //DEALERS SEARCH BOX X COLOR EFFECT
         private void lblClearDealersSearch_MouseHover(object sender, EventArgs e)
         {
             lblClearDealersSearch.ForeColor = Color.SteelBlue;
         }
-
         private void lblClearDealersSearch_MouseLeave(object sender, EventArgs e)
         {
             lblClearDealersSearch.ForeColor = Color.Gray;
@@ -918,7 +884,194 @@ namespace LinksForm
                 loadDealerBranches();
             }
         }
+        private void dgvDealers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnEditDealerBranch.Enabled = true;
+            btnDeleteDealerBranch.Enabled = true;
+        }
+        private void btnNewDealerBranch_Click(object sender, EventArgs e)
+        {
+            if ((dgvDealers.Rows.Count > 0))
+            {
+                if (IsDealerContactView == true)
+                {
+                    DealerContact dealerContact = new DealerContact();
+                    bool HasTheCancelButtonPressed;
 
+                    frmAddOrUpdateDealerContact _frmAddOrUpdateDealerContact = new frmAddOrUpdateDealerContact(dealerContact);
+                    this.TopMost = false;
+                    _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
+                    _frmAddOrUpdateDealerContact.ShowDialog();
+
+                    HasTheCancelButtonPressed = _frmAddOrUpdateDealerContact.HasTheCancelButtonPressed;
+
+                    if (HasTheCancelButtonPressed == false)
+                    {
+                        Validation.localDatabaseConfig(true);
+                        databaseViewModel = Services.GetDataFromDatabase();
+                        loadDealerContacts();
+                    }
+
+                    dgvDealers.ClearSelection();
+                    txtDealers.Clear();
+                    btnEditDealerBranch.Enabled = false;
+                    btnDeleteDealerBranch.Enabled = false;
+
+                    _frmAddOrUpdateDealerContact.Dispose();
+
+                }
+                else
+                {
+                    DealerBranch dealer = new DealerBranch();
+                    bool HasTheCancelButtonPressed;
+
+                    frmAddOrUpdateDealerBranch _frmAddOrUpdateDealer = new frmAddOrUpdateDealerBranch(dealer);
+                    this.TopMost = false;
+                    _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
+                    _frmAddOrUpdateDealer.ShowDialog();
+
+                    HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+
+                    if (HasTheCancelButtonPressed == false)
+                    {
+                        Validation.localDatabaseConfig(true);
+                        databaseViewModel = Services.GetDataFromDatabase();
+                        loadDealerBranches();
+                    }
+
+                    dgvDealers.ClearSelection();
+                    txtDealers.Clear();
+                    btnEditDealerBranch.Enabled = false;
+                    btnDeleteDealerBranch.Enabled = false;
+
+                    _frmAddOrUpdateDealer.Dispose();
+
+                }
+            }
+        }
+        private void btnEditDealerBranch_Click(object sender, EventArgs e)
+        {
+            if ((dgvDealers.Rows.Count > 0))
+            {
+                if (IsDealerContactView == true) //DealerContact
+                {
+                    DealerContact dealerContact = new DealerContact();
+                    bool HasTheCancelButtonPressed;
+
+                    dealerContact.DealerContactId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                    dealerContact.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
+                    dealerContact.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
+                    dealerContact.DealerContactName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+                    dealerContact.Department = dgvDealers.CurrentRow.Cells[4].Value.ToString();
+                    dealerContact.Phone = dgvDealers.CurrentRow.Cells[5].Value.ToString();
+                    dealerContact.CellPhone = dgvDealers.CurrentRow.Cells[6].Value.ToString();
+                    dealerContact.Email = dgvDealers.CurrentRow.Cells[7].Value.ToString();
+                    dealerContact.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
+                    dealerContact.Country = dgvDealers.CurrentRow.Cells[9].Value.ToString();
+
+                    frmAddOrUpdateDealerContact _frmAddOrUpdateDealerContact = new frmAddOrUpdateDealerContact(dealerContact);
+                    this.TopMost = false;
+                    _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
+                    _frmAddOrUpdateDealerContact.ShowDialog();
+
+                    HasTheCancelButtonPressed = _frmAddOrUpdateDealerContact.HasTheCancelButtonPressed;
+
+                    if (HasTheCancelButtonPressed == false)
+                    {
+                        Validation.localDatabaseConfig(true);
+                        databaseViewModel = Services.GetDataFromDatabase();
+                        loadDealerContacts();
+                    }
+
+                    dgvDealers.ClearSelection();
+                    txtDealers.Clear();
+                    btnEditDealerBranch.Enabled = false;
+                    btnDeleteDealerBranch.Enabled = false;
+
+                    _frmAddOrUpdateDealerContact.Dispose();
+                }
+                else //DealerBranch
+                {
+                    DealerBranch dealer = new DealerBranch();
+                    bool HasTheCancelButtonPressed;
+
+                    dealer.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                    dealer.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
+                    dealer.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
+                    dealer.BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+                    dealer.PhoneNumber = dgvDealers.CurrentRow.Cells[4].Value.ToString();
+                    dealer.BaldoPartner = dgvDealers.CurrentRow.Cells[5].Value.ToString();
+                    dealer.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[6].Value.ToString());
+                    dealer.CountryName = dgvDealers.CurrentRow.Cells[7].Value.ToString();
+                    dealer.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
+
+                    frmAddOrUpdateDealerBranch _frmAddOrUpdateDealer = new frmAddOrUpdateDealerBranch(dealer);
+                    this.TopMost = false;
+                    _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
+                    _frmAddOrUpdateDealer.ShowDialog();
+
+                    HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+
+                    if (HasTheCancelButtonPressed == false)
+                    {
+                        Validation.localDatabaseConfig(true);
+                        databaseViewModel = Services.GetDataFromDatabase();
+                        loadDealerBranches();
+                    }
+
+                    dgvDealers.ClearSelection();
+                    txtDealers.Clear();
+                    btnEditDealerBranch.Enabled = false;
+                    btnDeleteDealerBranch.Enabled = false;
+
+                    _frmAddOrUpdateDealer.Dispose();
+                }
+            }
+        }
+        private void btnDeleteDealerBranch_Click(object sender, EventArgs e)
+        {
+            if ((dgvDealers.Rows.Count > 0))
+            {
+                if (IsDealerContactView == true)
+                {
+                    int DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                    string DealerContactName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+
+                    if (MessageBox.Show("Are you sure you want to delete the Dealer Contact: " + DealerContactName + "?", "Delete Dealer Contact", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DALHelpers.DeleteDealerContact(DealerBranchId);
+
+                        Validation.localDatabaseConfig(true);
+                        databaseViewModel = Services.GetDataFromDatabase();
+                        loadDealerContacts();
+                    }
+
+                    dgvDealers.ClearSelection();
+                    txtDealers.Clear();
+                    btnDeleteDealerBranch.Enabled = false;
+                    btnEditDealerBranch.Enabled = false;
+                }
+                else
+                {
+                    int DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                    string BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+
+                    if (MessageBox.Show("Are you sure you want to delete the Dealer Branch: " + BranchName + "?", "Delete Dealer Branch", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DALHelpers.DeleteDealerBranch(DealerBranchId);
+
+                        Validation.localDatabaseConfig(true);
+                        databaseViewModel = Services.GetDataFromDatabase();
+                        loadDealerBranches();
+                    }
+
+                    dgvDealers.ClearSelection();
+                    txtDealers.Clear();
+                    btnDeleteDealerBranch.Enabled = false;
+                    btnEditDealerBranch.Enabled = false;
+                }
+            }
+        }
         #endregion
 
         #region "TAB - APPLICATIONS"
@@ -944,99 +1097,19 @@ namespace LinksForm
 
         #region "TREVIEW"
 
-        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        #region "LOAD TREEVIEW"
+
+        public void loadTreeview(bool loadingFromSearchBox, List<AppLinks> AppLinksFromSearchBox)
+
         {
-            foreach (string item in links)
-            {
-                TreeNode tn = treeView1.SelectedNode;
-
-                if (tn != null)
-                {
-                    if (treeView1.SelectedNode.Text.Contains(item.ToString()) && item.ToString().Contains("http"))
-                    {
-                        try
-                        {
-                            System.Diagnostics.Process.Start(item.ToString());
-                            break;
-                        }
-                        catch (Exception err)
-                        {
-                            MessageBox.Show(err.Message);
-                        }
-                    }
-                }
-            }
-        }
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                foreach (var password in PasswordList.Values)
-                {
-                    TreeNode tnPwd = treeView1.SelectedNode;
-
-                    if (tnPwd != null)
-                    {
-                        if (treeView1.SelectedNode.Text.ToString() == password.ToString())
-                        {
-                            //MessageBox.Show(item.ToString());
-
-                            updatePasswordToolStripMenuItem.Visible = true;
-                            toolStripPwdSeparator.Visible = true;
-
-                            break;
-                        }
-                    }
-                }
-
-                foreach (string item in links)
-                {
-                    TreeNode tn = treeView1.SelectedNode;
-
-                    if (tn != null)
-                    {
-                        if (treeView1.SelectedNode.Text.Contains(item.ToString()))
-                        {
-                            contextMenuStripApps.Show(Cursor.Position.X, Cursor.Position.Y);
-                        }
-                    }
-                }
-            }
-        }
-        private void treeView1_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
-            {
-                e.SuppressKeyPress = true;
-
-                foreach (string item in links)
-                {
-                    TreeNode tn = treeView1.SelectedNode;
-
-                    if (tn != null)
-                    {
-                        if (treeView1.SelectedNode.Text.Contains(item.ToString()))
-                        {
-                            //MessageBox.Show(item.ToString());
-
-                            Clipboard.SetText(item.ToString());
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-        private void loadTreeview(bool loadingFromSearchBox, List<AppLinks> AppLinksFromSearchBox)
-        {
+            bool found = false;
 
             int parentNodeCounter = 0;
-            bool found = false;
 
             treeView1.Nodes.Clear();
 
             //LOOPING THROUGH ALL THE APPLICATION RECORDS
-            foreach (App application in ApplicationsList)
+            foreach (App application in databaseViewModel.ApplicationsList)
             {
                 var _appLinks = new List<AppLinks>();
 
@@ -1049,7 +1122,7 @@ namespace LinksForm
                 //LOADING TREEVIEW
                 if (loadingFromSearchBox == false)
                 {
-                    foreach (AppLinks item in AppLinksFromDatabase)
+                    foreach (AppLinks item in databaseViewModel.AppLinksList)
                     {
                         if (application.ApplicationId == item.ApplicationId)
                         {
@@ -1165,7 +1238,8 @@ namespace LinksForm
                                 if (apps.CredentialId > 0)
                                 {
                                     //USERNAME WITH THE CREDENTIAL DESCRIPTION, For Example: Admin, Manager
-                                    treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add(apps.Username.ToString() + " (" + apps.CredentialDescription + ")");
+                                    //treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add(apps.Username.ToString() + " (" + apps.CredentialDescription + ")");
+                                    treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add(apps.Username.ToString());
                                     addToLinks(apps.Username.ToString());
 
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[1].ImageIndex = 8;
@@ -1198,69 +1272,61 @@ namespace LinksForm
                     parentNodeCounter += 1;
                 }
             }
-
         }
 
         #endregion
 
-        #region "APPSEARCH SEARCH BOX - TEXT CHANGED"
-        private void txtAppSearch_TextChanged(object sender, EventArgs e)
+        #region "MOUSE RIGHT CLICK"
+
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //txtAppSearch.Text = string.Concat(txtAppSearch.Text.Where(char.IsLetterOrDigit));
-            //string mySearchString = txtAppSearch.Text;
-
-            string oldText = string.Empty;
-
-            oldText = txtAppSearch.Text;
-
-            if ((txtAppSearch.Text.All(chr => char.IsLetterOrDigit(chr))) || (txtAppSearch.Text.Contains(" ")) || (txtAppSearch.Text.Contains("-")) || (txtAppSearch.Text.Contains(".")))
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
+                foreach (var password in PasswordList.Values)
+                {
+                    TreeNode tnPwd = treeView1.SelectedNode;
 
-                txtAppSearch.Text = oldText;
+                    if (tnPwd != null)
+                    {
+                        if (treeView1.SelectedNode.Text.ToString() == password.ToString())
+                        {
+                            //MessageBox.Show(item.ToString());
+
+                            updatePasswordToolStripMenuItem.Visible = true;
+                            contextMenuStripApps.Show(Cursor.Position.X, Cursor.Position.Y);
+
+                            break;
+                        }
+                    }
+                }
             }
-            else
+        }
+
+        #endregion 
+
+        #region "HTTP HYPERLINK"
+
+        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            foreach (string item in links)
             {
-                txtAppSearch.Text = oldText.Remove(oldText.Length -1);
-            }
+                TreeNode tn = treeView1.SelectedNode;
 
-            txtAppSearch.SelectionStart = txtAppSearch.Text.Length;
-
-
-            if (!string.IsNullOrEmpty(txtAppSearch.Text) && (txtAppSearch.Text.Length > 1))
-            {
-
-                loadAppsFromSearchBox();
-
-                //List<AppLinks> _appLinks = new List<AppLinks>();
-
-                //foreach (AppLinks item in AppLinksFromDatabase)
-                //{
-                //    if (item.SearchString.ToUpper().Contains(txtAppSearch.Text.ToUpper()))
-                //    {
-                //        _appLinks.Add(item);
-                //    }
-                //}
-
-                //if (_appLinks.Count > 0)
-                //{
-                //    loadTreeview(true, _appLinks);
-                //    treeView1.ExpandAll();
-                //}
-                //else //IF NO RESULTS IS RETURNED, THE TREEVIEW IS CLEARED.
-                //{
-                //    treeView1.Nodes.Clear();
-                //}
-            }
-
-            if (string.IsNullOrEmpty(txtAppSearch.Text))
-            {
-                treeView1.Nodes.Clear();
-                loadTreeview(false, null);
-                lblClearAppSearch.Visible = false;
-            }
-            else
-            {
-                lblClearAppSearch.Visible = true;
+                if (tn != null)
+                {
+                    if (treeView1.SelectedNode.Text.Contains(item.ToString()) && item.ToString().Contains("http"))
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start(item.ToString());
+                            break;
+                        }
+                        catch (Exception err)
+                        {
+                            MessageBox.Show(err.Message);
+                        }
+                    }
+                }
             }
         }
 
@@ -1273,16 +1339,13 @@ namespace LinksForm
 
             if (string.IsNullOrEmpty(txtAppSearch.Text))
             {
-                //Dictionary<string, bool> nodeStates = new Dictionary<string, bool>();
-                //nodeStates = SaveTreeState();
-
                 loadTreeview(false, null);
             }
             else
             {
                 List<AppLinks> _appLinks = new List<AppLinks>();
 
-                foreach (AppLinks item in AppLinksFromDatabase)
+                foreach (AppLinks item in databaseViewModel.AppLinksList)
                 {
                     if (item.SearchString.ToUpper().Contains(txtAppSearch.Text.ToUpper()))
                     {
@@ -1305,46 +1368,192 @@ namespace LinksForm
 
         #endregion
 
-        #region "APPSEARCH SEARCH BOX X - CLEAR SEARCH BOX"
-        private void lblClearAppSearch_Click(object sender, EventArgs e)
+        #region "CTRL+C - COPY TO CLIPBOARD | ENABLE NEW/EDIT/DELETE BUTTONS"
+
+            private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+            {
+                btnEditApplication.Enabled = false;
+                btnDeleteApplication.Enabled = false;
+
+                List<AppLinks> AppLinksFromDatabase = new List<AppLinks>();
+
+                AppLinksFromDatabase = DALHelpers.GetAppLinkByDescription(e.Node.Text);
+
+                if (AppLinksFromDatabase.Count > 0)
+                {
+                    btnEditApplication.Enabled = true;
+                    btnDeleteApplication.Enabled = true;
+                }
+
+                try
+                {
+                    Clipboard.SetText(e.Node.Text);
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show("Ocorreu um erro ao copiar para o clipboard. Tente novamente. Erro: " + err.Message, "Erro ao copiar para o Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            #endregion
+
+        #endregion
+
+        #region "SEARCH BOX"
+
+        #region "APPSEARCH SEARCH BOX - TEXT CHANGED"
+        private void txtAppSearch_TextChanged(object sender, EventArgs e)
+            {
+                //txtAppSearch.Text = string.Concat(txtAppSearch.Text.Where(char.IsLetterOrDigit));
+                //string mySearchString = txtAppSearch.Text;
+
+                string oldText = string.Empty;
+
+                oldText = txtAppSearch.Text;
+
+                if ((txtAppSearch.Text.All(chr => char.IsLetterOrDigit(chr))) || (txtAppSearch.Text.Contains(" ")) || (txtAppSearch.Text.Contains("-")) || (txtAppSearch.Text.Contains(".")))
+                {
+
+                    txtAppSearch.Text = oldText;
+                }
+                else
+                {
+                    txtAppSearch.Text = oldText.Remove(oldText.Length -1);
+                }
+
+                txtAppSearch.SelectionStart = txtAppSearch.Text.Length;
+
+                if (!string.IsNullOrEmpty(txtAppSearch.Text) && (txtAppSearch.Text.Length > 1))
+                {
+                    loadAppsFromSearchBox();
+                }
+
+                if (string.IsNullOrEmpty(txtAppSearch.Text))
+                {
+                    treeView1.Nodes.Clear();
+                    loadTreeview(false, null);
+                    lblClearAppSearch.Visible = false;
+                }
+                else
+                {
+                    lblClearAppSearch.Visible = true;
+                }
+            }
+
+            #endregion
+
+            #region "APPSEARCH SEARCH BOX X - CLEAR SEARCH BOX"
+            private void lblClearAppSearch_Click(object sender, EventArgs e)
+            {
+                txtAppSearch.Clear();
+            }
+            #endregion
+
+            #region "APPSEARCH SEARCH BOX X COLOR EFFECT"
+
+            //APPSEARCH SEARCH BOX X COLOR EFFECT
+            private void lblClearAppSearch_MouseHover(object sender, EventArgs e)
+            {
+                lblClearAppSearch.ForeColor = Color.SteelBlue;
+            }
+            private void lblClearAppSearch_MouseLeave(object sender, EventArgs e)
+            {
+                lblClearAppSearch.ForeColor = Color.Gray;
+            }
+
+        #endregion
+
+        #endregion
+
+        #region "BUTTONS: NEW/EDIT/DELETE"
+
+        //NEW
+        private void btnNewApplication_Click(object sender, EventArgs e)
         {
+            AppLinks appLinks = new AppLinks();
+
+            bool HasTheCancelButtonPressed;
+
+            frmAddOrUpdateAppLinks _frmAddOrUpdateAppLinks = new frmAddOrUpdateAppLinks(appLinks);
+            this.TopMost = false;
+            _frmAddOrUpdateAppLinks.StartPosition = FormStartPosition.CenterParent;
+            _frmAddOrUpdateAppLinks.ShowDialog();
+
+            HasTheCancelButtonPressed = _frmAddOrUpdateAppLinks.HasTheCancelButtonPressed;
+
+            if (HasTheCancelButtonPressed == false)
+            {
+                Validation.localDatabaseConfig(true);
+                databaseViewModel = Services.GetDataFromDatabase();
+                loadTreeview(false, null);
+            }
+
             txtAppSearch.Clear();
-        }
-        #endregion
 
-        #region "APPSEARCH SEARCH BOX X COLOR EFFECT"
-
-        //APPSEARCH SEARCH BOX X COLOR EFFECT
-        private void lblClearAppSearch_MouseHover(object sender, EventArgs e)
-        {
-            lblClearAppSearch.ForeColor = Color.SteelBlue;
-        }
-        private void lblClearAppSearch_MouseLeave(object sender, EventArgs e)
-        {
-            lblClearAppSearch.ForeColor = Color.Gray;
+            _frmAddOrUpdateAppLinks.Dispose();
         }
 
-        #endregion
-
-        #region "RIGHT CLICK MENU - COPY TO CLIPBOARD"
-        private void copyToolStripMenuItem2_Click(object sender, EventArgs e)
+        //EDIT
+        private void btnEditApplication_Click(object sender, EventArgs e)
         {
-            foreach (string item in links)
+            if (databaseViewModel.AppLinksList.Count > 0)
             {
                 TreeNode tn = treeView1.SelectedNode;
 
                 if (tn != null)
                 {
-                    if (treeView1.SelectedNode.Text.Contains(item.ToString()))
-                    {
-                        //MessageBox.Show(item.ToString());
+                    List<AppLinks> AppLinksFromDatabase = new List<AppLinks>(); 
+                    AppLinksFromDatabase = DALHelpers.GetAppLinkByDescription(treeView1.SelectedNode.Text);
 
-                        Clipboard.SetText(item.ToString());
-                        break;
+                    if (AppLinksFromDatabase.Count > 0)
+                    {
+                        //MessageBox.Show(treeView1.SelectedNode.Text);
+
+                        AppLinks appLinks = new AppLinks();
+                        bool HasTheCancelButtonPressed;
+
+                        appLinks.AppLinkId = AppLinksFromDatabase[0].AppLinkId;
+                        appLinks.AppCategoryId = AppLinksFromDatabase[0].AppCategoryId;
+                        appLinks.AppCategoryName = AppLinksFromDatabase[0].AppCategoryName;
+                        appLinks.AppEnvironmentId = AppLinksFromDatabase[0].AppEnvironmentId;
+                        appLinks.ApplicationId = AppLinksFromDatabase[0].ApplicationId;
+                        appLinks.ApplicationName = AppLinksFromDatabase[0].ApplicationName;
+                        appLinks.Description = AppLinksFromDatabase[0].Description;
+                        appLinks.Link = AppLinksFromDatabase[0].Link;
+                        appLinks.CredentialId = AppLinksFromDatabase[0].CredentialId;
+                        appLinks.CredentialDescription = AppLinksFromDatabase[0].CredentialDescription;
+                        appLinks.CountryId = AppLinksFromDatabase[0].CountryId;
+                        appLinks.CountryName = AppLinksFromDatabase[0].CountryName;
+
+                        frmAddOrUpdateAppLinks _frmAddOrUpdateAppLinks = new frmAddOrUpdateAppLinks(appLinks);
+                        this.TopMost = false;
+                        _frmAddOrUpdateAppLinks.StartPosition = FormStartPosition.CenterParent;
+                        _frmAddOrUpdateAppLinks.ShowDialog();
+
+                        HasTheCancelButtonPressed = _frmAddOrUpdateAppLinks.HasTheCancelButtonPressed;
+
+                        if (HasTheCancelButtonPressed == false)
+                        {
+                            Validation.localDatabaseConfig(true);
+                            databaseViewModel = Services.GetDataFromDatabase();
+                            loadTreeview(false, null);
+                        }
+
+                        txtAppSearch.Clear();
+
+                        _frmAddOrUpdateAppLinks.Dispose();
+
                     }
-                }
+
+                    btnEditApplication.Enabled = false;
+                    btnDeleteApplication.Enabled = false;
+            }
+
             }
         }
+
+        //DELETE
+
 
         #endregion
 
@@ -1402,10 +1611,10 @@ namespace LinksForm
         private void loadAppsFromSearchBox()
         {
             List<AppLinks> _appLinks = new List<AppLinks>();
-
-            foreach (AppLinks item in AppLinksFromDatabase)
+           
+            foreach (AppLinks item in databaseViewModel.AppLinksList)
             {
-                if (item.SearchString.ToUpper().Contains(txtAppSearch.Text.ToUpper()))
+                if (item.Username.ToUpper() == txtAppSearch.Text.ToUpper())
                 {
                     _appLinks.Add(item);
                 }
@@ -1424,202 +1633,5 @@ namespace LinksForm
 
         #endregion
 
-        private void dgvDealers_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            btnEditDealerBranch.Enabled = true;
-            btnDeleteDealerBranch.Enabled = true;
-        }
-
-        private void btnNewDealerBranch_Click(object sender, EventArgs e)
-        {
-            if ((dgvDealers.Rows.Count > 0))
-            {
-                if (IsDealerContactView == true)
-                {
-                    DealerContact dealerContact = new DealerContact();
-                    bool HasTheCancelButtonPressed;
-
-                    frmAddOrUpdateDealerContact _frmAddOrUpdateDealerContact = new frmAddOrUpdateDealerContact(dealerContact);
-                    this.TopMost = false;
-                    _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
-                    _frmAddOrUpdateDealerContact.ShowDialog();
-
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealerContact.HasTheCancelButtonPressed;
-
-                    if (HasTheCancelButtonPressed == false)
-                    {
-                        Validation.localDatabaseConfig(true);
-                        GetDataFromDatabase("DealerContact");
-                        loadDealerContacts();
-                    }
-
-                    dgvDealers.ClearSelection();
-                    txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
-
-                    _frmAddOrUpdateDealerContact.Dispose();
-
-                }
-                else
-                {
-                    DealerBranch dealer = new DealerBranch();
-                    bool HasTheCancelButtonPressed;
-
-                    frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(dealer);
-                    this.TopMost = false;
-                    _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
-                    _frmAddOrUpdateDealer.ShowDialog();
-
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
-
-                    if (HasTheCancelButtonPressed == false)
-                    {
-                        Validation.localDatabaseConfig(true);
-                        GetDataFromDatabase("DealerBranch");
-                        loadDealerBranches();
-                    }
-
-                    dgvDealers.ClearSelection();
-                    txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
-
-                    _frmAddOrUpdateDealer.Dispose();
-
-                }
-            }
-        }
-
-        private void btnEditDealerBranch_Click(object sender, EventArgs e)
-        {
-            if ((dgvDealers.Rows.Count > 0))
-            {
-                if (IsDealerContactView == true) //DealerContact
-                {
-                    DealerContact dealerContact = new DealerContact();
-                    bool HasTheCancelButtonPressed;
-
-                    dealerContact.DealerContactId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
-                    dealerContact.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
-                    dealerContact.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
-                    dealerContact.DealerContactName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
-                    dealerContact.Department = dgvDealers.CurrentRow.Cells[4].Value.ToString();
-                    dealerContact.Phone = dgvDealers.CurrentRow.Cells[5].Value.ToString();
-                    dealerContact.CellPhone = dgvDealers.CurrentRow.Cells[6].Value.ToString();
-                    dealerContact.Email = dgvDealers.CurrentRow.Cells[7].Value.ToString();
-                    dealerContact.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
-                    dealerContact.Country = dgvDealers.CurrentRow.Cells[9].Value.ToString();
-
-                    frmAddOrUpdateDealerContact _frmAddOrUpdateDealerContact = new frmAddOrUpdateDealerContact(dealerContact);
-                    this.TopMost = false;
-                    _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
-                    _frmAddOrUpdateDealerContact.ShowDialog();
-
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealerContact.HasTheCancelButtonPressed;
-
-                    if (HasTheCancelButtonPressed == false)
-                    {
-                        Validation.localDatabaseConfig(true);
-                        GetDataFromDatabase("DealerContact");
-                        loadDealerContacts();
-                    }
-
-                    dgvDealers.ClearSelection();
-                    txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
-
-                    _frmAddOrUpdateDealerContact.Dispose();
-                }
-                else //DealerBranch
-                {
-                    DealerBranch dealer = new DealerBranch();
-                    bool HasTheCancelButtonPressed;
-
-                    dealer.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
-                    dealer.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
-                    dealer.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
-                    dealer.BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
-                    dealer.PhoneNumber = dgvDealers.CurrentRow.Cells[4].Value.ToString();
-                    dealer.BaldoPartner = dgvDealers.CurrentRow.Cells[5].Value.ToString();
-                    dealer.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[6].Value.ToString());
-                    dealer.CountryName = dgvDealers.CurrentRow.Cells[7].Value.ToString();
-                    dealer.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
-
-                    frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(dealer);
-                    this.TopMost = false;
-                    _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
-                    _frmAddOrUpdateDealer.ShowDialog();
-
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
-
-                    if (HasTheCancelButtonPressed == false)
-                    {
-                        Validation.localDatabaseConfig(true);
-                        GetDataFromDatabase("DealerBranch");
-                        loadDealerBranches();
-                    }
-
-                    dgvDealers.ClearSelection();
-                    txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
-
-                    _frmAddOrUpdateDealer.Dispose();
-                }
-            }
-        }
-
-        private void tabMain_MouseClick(object sender, MouseEventArgs e)
-        {
-            dgvContacts.ClearSelection();
-            dgvDealers.ClearSelection();
-        }
-
-        private void btnDeleteDealerBranch_Click(object sender, EventArgs e)
-        {
-            if ((dgvDealers.Rows.Count > 0))
-            {
-                if (IsDealerContactView == true)
-                {
-                    int DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
-                    string DealerContactName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
-
-                    if (MessageBox.Show("Are you sure you want to delete the Dealer Contact: " + DealerContactName + "?", "Delete Dealer Contact", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        DALHelpers.DeleteDealerContact(DealerBranchId);
-
-                        Validation.localDatabaseConfig(true);
-                        GetDataFromDatabase("DealerContact");
-                        loadDealerContacts();
-                    }
-
-                    dgvDealers.ClearSelection();
-                    txtDealers.Clear();
-                    btnDeleteDealerBranch.Enabled = false;
-                    btnEditDealerBranch.Enabled = false;
-                }
-                else
-                {
-                    int DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
-                    string BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
-
-                    if (MessageBox.Show("Are you sure you want to delete the Dealer Branch: " + BranchName + "?", "Delete Dealer Branch", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        DALHelpers.DeleteDealerBranch(DealerBranchId);
-
-                        Validation.localDatabaseConfig(true);
-                        GetDataFromDatabase("DealerBranch");
-                        loadDealerBranches();
-                    }
-
-                    dgvDealers.ClearSelection();
-                    txtDealers.Clear();
-                    btnDeleteDealerBranch.Enabled = false;
-                    btnEditDealerBranch.Enabled = false;
-                }
-            }
-        }
     }
 }

@@ -133,7 +133,7 @@ namespace LinksForm.Forms
                 }
             }
 
-            if (Validation.DealerContacthDataValidation(dealerContact))
+            if (Validation.DealerContactDataValidation(dealerContact))
             {
                 MessageBox.Show("All fields are required.");
                 return;
@@ -154,6 +154,7 @@ namespace LinksForm.Forms
                     MessageBox.Show("Error: An error has ocurred when trying to update the Dealer Contact!");
                 }
 
+                ActivityLog.DealerContactLogger(dealerContact, "UPDATE", "Dealer Contact", Environment.UserName);
                 this.Close();
             }
             else //NEW CONTACT
@@ -165,7 +166,8 @@ namespace LinksForm.Forms
                 {
                     MessageBox.Show("The record was successfully saved!");
                 }
-                
+
+                ActivityLog.DealerContactLogger(dealerContact, "CREATE", "Dealer Contact", Environment.UserName);
                 this.Close();
             }
 

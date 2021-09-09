@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinksForm.Model
 {
-    class Credential
+    public class Credential
     {
         public int CredentialId { get; set; }
         public string CredentialDescription { get; set; }

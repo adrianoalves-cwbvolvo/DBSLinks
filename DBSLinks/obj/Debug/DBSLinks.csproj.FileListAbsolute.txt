@@ -43,8 +43,6 @@ C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\L
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateApplication.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateAppLinks.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateCredential.resources
-C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateDealer.resources
-C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAppLinks.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmGeneralSettings.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.frmLinks.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateContact.resources
@@ -57,3 +55,11 @@ C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\D
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.exe
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.pdb
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateDealerContact.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmDataReload.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmAddOrUpdateCountry.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmCountry.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmCredential.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmApplication.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmDealer.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateDealerBranch.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmAddOrUpdateDealer.resources

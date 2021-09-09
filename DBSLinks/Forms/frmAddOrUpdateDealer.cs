@@ -1,72 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using Links.Logger;
 using LinksForm.Controller;
 using LinksForm.DAL;
 using LinksForm.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace LinksForm.Forms
+namespace Links.Forms
 {
     public partial class frmAddOrUpdateDealer : Form
     {
-        List<DealerBranch> dealerBranchList = new List<DealerBranch>();
-        List<Dealer> dealerList = new List<Dealer>();
-        List<Country> countryList = new List<Country>();
-
-        int CountryId;
-
-        int DealerBranchId;
-
         public bool HasTheCancelButtonPressed { get; set; }
+        int GlobalDealerId;
 
-        public frmAddOrUpdateDealer(DealerBranch dealerBranch)
+        List<Country> countryList = new List<Country>();
+        public frmAddOrUpdateDealer(int left, int top, int width, int height, Dealer dealer)
         {
             InitializeComponent();
 
-            CountryId = dealerBranch.CountryId;
-            DealerBranchId = dealerBranch.DealerBranchId;
+            left = (left - 190) + (width / 4);
+            top = (top) + (height / 4);
 
-            dealerBranchList = DALHelpers.GetDealerBranchs();
+            this.StartPosition = FormStartPosition.Manual;
+            this.Location = new Point(left, top);
+
+            GlobalDealerId = dealer.DealerId;
+
             countryList = DALHelpers.GetCountries();
 
             HasTheCancelButtonPressed = false;
 
             int counter = 0;
 
-            if (dealerBranch.DealerBranchId != 0)
+            if (dealer.DealerId != 0)
             {
                 foreach (Country _country in countryList)
                 {
                     cmbCountries.Items.Add(_country.CountryName.ToString());
 
-                    if (dealerBranch.CountryId == _country.CountryId)
+                    if (dealer.CountryId == _country.CountryId)
                     {
                         cmbCountries.SelectedIndex = counter;
-                        dealerList = DALHelpers.GetDealersByCountry(_country.CountryId);
                     }
-
                     counter++;
                 }
 
                 counter = 0;
 
-                foreach (Dealer dealer in dealerList)
-                {
-                    cmbMainDealer.Items.Add(dealer.DealerName.ToString());
-
-                    if (dealerBranch.CountryId == dealer.CountryId)
-                    {
-                        cmbMainDealer.SelectedIndex = counter;
-                    }
-
-                    counter++;
-                }
-
-                this.Text = "Update Dealer Branch";
-                txtBranchName.Text = dealerBranch.BranchName;
-                txtPhoneNumber.Text = dealerBranch.PhoneNumber;
-                txtCTDI.Text = dealerBranch.CTDI.ToString();
-                txtBaldoPartner.Text = dealerBranch.BaldoPartner;
+                this.Text = "Update Dealer";
+                txtDealerName.Text = dealer.DealerName;
             }
             else
             {
@@ -77,76 +65,38 @@ namespace LinksForm.Forms
 
                 counter = 0;
 
-                foreach (Dealer dealer in dealerList)
-                {
-                    cmbMainDealer.Items.Add(dealer.DealerName.ToString());
-
-                    if (dealerBranch.CountryId == dealer.CountryId)
-                    {
-                        cmbMainDealer.SelectedIndex = counter;
-                    }
-
-                    counter++;
-                }
-
-                this.Text = "New Dealer Brach";
-
+                this.Text = "New Dealer";
             }
 
             cmbCountries.Focus();
         }
-   
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            HasTheCancelButtonPressed = true;
-            this.Close();
-        }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            DealerBranch dealerBranch = new DealerBranch();
+            Dealer dealer = new Dealer();
             bool ok = false;
 
-            if (txtCTDI.Text == "")
-            {
-                dealerBranch.CTDI = 0;
-            }
-            else
-            {
-                dealerBranch.CTDI = Convert.ToInt32(txtCTDI.Text);
-            }
-            dealerBranch.BranchName = txtBranchName.Text;
-            dealerBranch.PhoneNumber = txtPhoneNumber.Text;
-            
-            dealerBranch.BaldoPartner = txtBaldoPartner.Text;
-
-            foreach (Country country in countryList)
-            {
-                if (cmbCountries.Text == country.CountryName)
-                {
-                    dealerBranch.CountryId = country.CountryId;
-                }
-            }
-
-            foreach (Dealer dealer in dealerList)
-            {
-                if (cmbMainDealer.Text == dealer.DealerName)
-                {
-                    dealerBranch.DealerId = dealer.DealerId;
-                }
-            }
-
-            if (Validation.DealerBranchDataValidation(dealerBranch))
+            if (Validation.DealerDataValidation(txtDealerName.Text, cmbCountries.Text))
             {
                 MessageBox.Show("All fields are required.");
                 return;
             }
 
-            if (DealerBranchId != 0)
+            foreach (Country country in countryList)
             {
-                dealerBranch.DealerBranchId = DealerBranchId;
+                if (cmbCountries.Text == country.CountryName)
+                {
+                    dealer.CountryId = country.CountryId;
+                }
+            }
+
+            dealer.DealerName = txtDealerName.Text;
+
+            if (GlobalDealerId != 0)
+            {
+                dealer.DealerId = GlobalDealerId;
                 //UPDATE
-                ok = DALHelpers.UpdateDealerBranch(dealerBranch);
+                ok = DALHelpers.UpdateMainDealer(dealer);
 
                 if (ok == true)
                 {
@@ -154,75 +104,36 @@ namespace LinksForm.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Error: An error has ocurred when trying to update the Branch!");
+                    MessageBox.Show("Error: An error has ocurred when trying to update the Dealer Contact!");
                 }
 
+                ActivityLog.DealerLogger(dealer, "UPDATE", "Main Dealer", Environment.UserName);
                 this.Close();
             }
-            else //NEW CONTACT
+            else //NEW MAIN DEALER
             {
-                bool CTDI = false;
-                bool BranchName = false;
-                bool BaldoPartner = false;
 
-                foreach (DealerBranch db in dealerBranchList)
+                ok = DALHelpers.AddMainDealer(dealer);
+
+                if (ok == true)
                 {
-                    if (dealerBranch.CTDI == db.CTDI)
-                    {
-                        CTDI = true;
-                    }
-
-                    if (dealerBranch.BranchName == db.BranchName)
-                    {
-                        BranchName = true;
-                    }
-
-                    if (dealerBranch.BaldoPartner == db.BaldoPartner)
-                    {
-                        BaldoPartner = true;
-                    }
+                    MessageBox.Show("The record was successfully saved!");
                 }
 
-                if (CTDI == true || BranchName == true || BaldoPartner == true)
-                {
-                    MessageBox.Show("Error: The Branch Name, CTDI or Baldo Partner already exists in the database!");
-                    return;
-                }
-                else
-                {
-                    ok = DALHelpers.AddDealerBranch(dealerBranch);
-
-                    if (ok == true)
-                    {
-                        MessageBox.Show("The record was successfully saved!");
-                    }
-                }
-
+                ActivityLog.DealerLogger(dealer, "CREATE", "Main Dealer", Environment.UserName);
                 this.Close();
             }
         }
 
         private void cmbCountries_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            foreach (Country country in countryList)
-            {
-                if (cmbCountries.SelectedItem.ToString() == country.CountryName)
-                {
-                    cmbMainDealer.Items.Clear();
-                    dealerList.Clear();
-                    dealerList = DALHelpers.GetDealersByCountry(country.CountryId);
-                }
-            }
-
-            foreach (Dealer dealer in dealerList)
-            {
-                cmbMainDealer.Items.Add(dealer.DealerName.ToString());
-            }
+            txtDealerName.Focus();
         }
 
-        private void txtCTDI_KeyPress(object sender, KeyPressEventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            HasTheCancelButtonPressed = true;
+            this.Close();
         }
     }
 }

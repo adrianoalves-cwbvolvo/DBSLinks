@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LinksForm.Model
 {
-    class AppLinks
+    public class AppLinks
     {
-        public int ListId { get; set; }
+        public int AppLinkId { get; set; }
         public int AppEnvironmentId { get; set; }
         public string AppEnvironmentName { get; set; }
         public int AppCategoryId { get; set; }

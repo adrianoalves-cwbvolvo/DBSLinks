@@ -364,7 +364,7 @@ namespace LinksForm.DAL
 
         #region "COUNTRIES"
 
-        public static Country GetCountryById(int Id)
+        public static List<Country> GetCountryById(int Id)
         {
             try
             {
@@ -378,17 +378,23 @@ namespace LinksForm.DAL
                 command.Parameters.AddWithValue("@ID", Id);
                 OleDbDataReader reader = command.ExecuteReader();
 
-                Country country = new Country();
+                var countryList = new List<Country>();
+
+                
 
                 while (reader.Read())
                 {
+                    Country country = new Country();
+
                     country.CountryId = Convert.ToInt32(reader["CountryId"].ToString());
                     country.CountryName = reader["CountryName"].ToString();
+
+                    countryList.Add(country);
                 }
 
                 CloseDBConnection(connection);
 
-                return country;
+                return countryList;
             }
             catch
             {
@@ -461,6 +467,85 @@ namespace LinksForm.DAL
                 throw;
             }
         }
+        public static bool AddCrountry(Country country)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "INSERT INTO Countries (CountryId, CountryName) VALUES (@countryId, @countryName)";
+                //command.CommandText = "INSERT INTO Credentials (CredentialId, Username, [Password]) VALUES (@credentialId, @username, @password)";
+                //command.Parameters.AddWithValue("@credentialId", Convert.ToInt32(credential.CredentialId));
+                command.Parameters.AddWithValue("@countryId", country.CountryId);
+                command.Parameters.AddWithValue("@countryName", country.CountryName.ToString());
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public static bool UpdateCountry(Country country, int CountryId)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "UPDATE Countries SET CountryId = @countryId, CountryName = @countryName WHERE CountryId = @ID";
+                command.Parameters.AddWithValue("@countryId", country.CountryId);
+                command.Parameters.AddWithValue("@countryName", country.CountryName.ToString());
+                command.Parameters.AddWithValue("@ID", CountryId);
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+
+                return true;
+            }
+            catch (Exception caughtEx)
+            {
+                throw new Exception("Unknown Exception Thrown: "
+                                    + "\n  Type:    " + caughtEx.GetType().Name
+                                    + "\n  Message: " + caughtEx.Message);
+            }
+            //catch
+            //{
+            //    return false;
+            //}
+        }
+        public static bool DeleteCountry(int ID)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "DELETE FROM Countries WHERE CountryId=@ID";
+                command.Parameters.AddWithValue("@ID", ID);
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         #endregion
 
@@ -509,7 +594,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -518,7 +603,7 @@ namespace LinksForm.DAL
                 //command.CommandText = "INSERT INTO Credentials (CredentialId, Username, [Password]) VALUES (@credentialId, @username, @password)";
                 //command.Parameters.AddWithValue("@credentialId", Convert.ToInt32(credential.CredentialId));
                 command.Parameters.AddWithValue("@username", credential.Username);
-                command.Parameters.AddWithValue("@password", credential.Password);
+                command.Parameters.AddWithValue("@password", Encryption.Encrypt(credential.Password.ToString()));
                 command.Parameters.AddWithValue("@credentialDescription", credential.CredentialDescription);
                 command.ExecuteNonQuery();
 
@@ -535,7 +620,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -637,7 +722,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -658,7 +743,7 @@ namespace LinksForm.DAL
 
         #endregion
 
-        #region "DEALERS"
+        #region "DEALERS (MAIN)"
 
         public static List<Dealer> GetDealersByCountry(int CountryId)
         {
@@ -696,7 +781,123 @@ namespace LinksForm.DAL
                 throw;
             }
         }
+        public static List<Dealer> GetDealers()
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenLocalDBConnection();
 
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "SELECT d.DealerId, d.DealerName, d.CountryId, c.CountryName FROM Dealer d INNER JOIN Countries c ON d.CountryId = c.CountryId";
+
+                OleDbDataReader reader = command.ExecuteReader();
+
+                var dealerList = new List<Dealer>();
+
+                //var columns = new List<string>();
+
+                //for (int i = 0; i < reader.FieldCount; i++)
+                //{
+                //    columns.Add(reader.GetName(i));
+                //}
+
+                while (reader.Read())
+                {
+
+                    Dealer dealer = new Dealer();
+
+                    dealer.DealerId= Convert.ToInt32(reader["DealerId"]);
+                    dealer.DealerName = reader["DealerName"].ToString();
+                    dealer.CountryId = Convert.ToInt32(reader["CountryId"].ToString());
+                    dealer.CountryName = reader["CountryName"].ToString();
+
+                    dealerList.Add(dealer);
+                }
+
+                CloseDBConnection(connection);
+
+                return dealerList;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public static bool AddMainDealer(Dealer dealer)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "INSERT INTO Dealer (DealerName, CountryId) VALUES (@dealerName, @countryId)";
+                command.Parameters.AddWithValue("@dealerName", dealer.DealerName);
+                command.Parameters.AddWithValue("@countryId", dealer.CountryId);
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool UpdateMainDealer(Dealer dealer)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+                //UPDATE Contacts SET Name = @name, Phone = @phone, CellPhone = @cellPhone, ComputerName = @computerName, TeamId = @teamid WHERE ContactId = @id
+                command.CommandText = "UPDATE Dealer SET DealerName = @dealerName, CountryId = @countryId WHERE DealerId = @dealerId";
+                command.Parameters.AddWithValue("@dealerName", dealer.DealerName);
+                command.Parameters.AddWithValue("@countryId", dealer.CountryId);
+                command.Parameters.AddWithValue("@dealerId", dealer.DealerId);
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool DeleteMainDealer(int ID)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenNetworkDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "DELETE FROM Dealer WHERE DealerId=@ID";
+                command.Parameters.AddWithValue("@ID", ID);
+                command.ExecuteNonQuery();
+
+                CloseDBConnection(connection);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region "DEALER BRANCHS"
@@ -731,7 +932,7 @@ namespace LinksForm.DAL
 
                 var dealerList = new List<DealerBranch>();
 
-                var columns = new List<string>();
+                //var columns = new List<string>();
 
                 //for (int i = 0; i < reader.FieldCount; i++)
                 //{
@@ -1081,7 +1282,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -1170,7 +1371,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -1193,7 +1394,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -1253,7 +1454,7 @@ namespace LinksForm.DAL
                         "ON a.AppCategoryId = ac.AppCategoryId) " +
                         "LEFT JOIN Credentials cr " +
                         "ON a.CredentialId = cr.CredentialId " +
-                        "WHERE a.Description LIKE '%' + @description + '%'" +
+                        "WHERE a.Description = @description " +
                         "ORDER BY a.Description";
                 command.Parameters.AddWithValue("@description", description);
                 OleDbDataReader reader = command.ExecuteReader();
@@ -1264,7 +1465,7 @@ namespace LinksForm.DAL
                 {
                     AppLinks appLinks = new AppLinks();
 
-                    appLinks.ListId = Convert.ToInt32(reader["ListId"]);
+                    appLinks.AppLinkId = Convert.ToInt32(reader["ListId"]);
                     appLinks.ApplicationId = Convert.ToInt32(reader["ApplicationId"]);
                     appLinks.ApplicationName = (reader["ApplicationName"].ToString());
                     appLinks.AppCategoryId = Convert.ToInt32(reader["AppCategoryId"]);
@@ -1350,7 +1551,7 @@ namespace LinksForm.DAL
                 {
                     AppLinks appLinks = new AppLinks();
 
-                    appLinks.ListId = Convert.ToInt32(reader["ListId"]);
+                    appLinks.AppLinkId = Convert.ToInt32(reader["ListId"]);
                     appLinks.ApplicationId = Convert.ToInt32(reader["ApplicationId"]);
                     appLinks.ApplicationName = (reader["ApplicationName"].ToString());
                     appLinks.AppCategoryId = Convert.ToInt32(reader["AppCategoryId"]);
@@ -1436,7 +1637,7 @@ namespace LinksForm.DAL
                 {
                     AppLinks appLinks = new AppLinks();
 
-                    appLinks.ListId = Convert.ToInt32(reader["ListId"]);
+                    appLinks.AppLinkId = Convert.ToInt32(reader["ListId"]);
                     appLinks.ApplicationId = Convert.ToInt32(reader["ApplicationId"]);
                     appLinks.ApplicationName = (reader["ApplicationName"].ToString());
                     appLinks.AppCategoryId = Convert.ToInt32(reader["AppCategoryId"]);
@@ -1522,7 +1723,7 @@ namespace LinksForm.DAL
                 {
                     AppLinks appLinks = new AppLinks();
 
-                    appLinks.ListId = Convert.ToInt32(reader["ListId"]);
+                    appLinks.AppLinkId = Convert.ToInt32(reader["ListId"]);
                     appLinks.ApplicationId = Convert.ToInt32(reader["ApplicationId"]);
                     appLinks.ApplicationName = (reader["ApplicationName"].ToString());
                     appLinks.AppCategoryId = Convert.ToInt32(reader["AppCategoryId"]);
@@ -1565,7 +1766,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -1577,7 +1778,7 @@ namespace LinksForm.DAL
                 command.Parameters.AddWithValue("@description", appLinks.Description);
                 command.Parameters.AddWithValue("@link", appLinks.Link);
                 command.Parameters.AddWithValue("@credentialid", appLinks.CredentialId);
-                command.Parameters.AddWithValue("@id", appLinks.ListId);
+                command.Parameters.AddWithValue("@id", appLinks.AppLinkId);
                 command.ExecuteNonQuery();
 
                 CloseDBConnection(connection);
@@ -1594,7 +1795,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;
@@ -1622,7 +1823,7 @@ namespace LinksForm.DAL
             try
             {
                 OleDbConnection connection = new OleDbConnection();
-                connection = OpenLocalDBConnection();
+                connection = OpenNetworkDBConnection();
 
                 OleDbCommand command = new OleDbCommand();
                 command.Connection = connection;

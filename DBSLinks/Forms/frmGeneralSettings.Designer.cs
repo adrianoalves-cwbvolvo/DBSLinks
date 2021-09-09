@@ -35,9 +35,8 @@
             this.lblGeneralSettingsText = new System.Windows.Forms.Label();
             this.lblGeneralSettingsTitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnReloadLocalDatabase = new System.Windows.Forms.Button();
+            this.btnCheckForUpdates = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.chkWaitForNetwork = new System.Windows.Forms.CheckBox();
             this.chkStartup = new System.Windows.Forms.CheckBox();
             this.lblWaitForNetworkMinutes1 = new System.Windows.Forms.Label();
@@ -46,7 +45,6 @@
             this.grpSeparator1 = new System.Windows.Forms.GroupBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnCheckForUpdates = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -123,9 +121,7 @@
             this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnCheckForUpdates);
-            this.panel2.Controls.Add(this.btnReloadLocalDatabase);
             this.panel2.Controls.Add(this.groupBox1);
-            this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.chkWaitForNetwork);
             this.panel2.Controls.Add(this.chkStartup);
             this.panel2.Controls.Add(this.lblWaitForNetworkMinutes1);
@@ -140,34 +136,23 @@
             this.panel2.Size = new System.Drawing.Size(398, 230);
             this.panel2.TabIndex = 2;
             // 
-            // btnReloadLocalDatabase
+            // btnCheckForUpdates
             // 
-            this.btnReloadLocalDatabase.Location = new System.Drawing.Point(33, 185);
-            this.btnReloadLocalDatabase.Name = "btnReloadLocalDatabase";
-            this.btnReloadLocalDatabase.Size = new System.Drawing.Size(136, 24);
-            this.btnReloadLocalDatabase.TabIndex = 8;
-            this.btnReloadLocalDatabase.Text = "Reload Local Database";
-            this.btnReloadLocalDatabase.UseVisualStyleBackColor = true;
-            this.btnReloadLocalDatabase.Click += new System.EventHandler(this.btnReloadLocalDatabase_Click);
+            this.btnCheckForUpdates.Location = new System.Drawing.Point(34, 181);
+            this.btnCheckForUpdates.Name = "btnCheckForUpdates";
+            this.btnCheckForUpdates.Size = new System.Drawing.Size(136, 24);
+            this.btnCheckForUpdates.TabIndex = 15;
+            this.btnCheckForUpdates.Text = "Check For Updates";
+            this.btnCheckForUpdates.UseVisualStyleBackColor = true;
+            this.btnCheckForUpdates.Click += new System.EventHandler(this.btnCheckForUpdates_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(22, 166);
+            this.groupBox1.Location = new System.Drawing.Point(22, 157);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(355, 10);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(19, 153);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Local Database";
             // 
             // chkWaitForNetwork
             // 
@@ -254,16 +239,6 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnCheckForUpdates
-            // 
-            this.btnCheckForUpdates.Location = new System.Drawing.Point(241, 185);
-            this.btnCheckForUpdates.Name = "btnCheckForUpdates";
-            this.btnCheckForUpdates.Size = new System.Drawing.Size(136, 24);
-            this.btnCheckForUpdates.TabIndex = 15;
-            this.btnCheckForUpdates.Text = "Check For Updates";
-            this.btnCheckForUpdates.UseVisualStyleBackColor = true;
-            this.btnCheckForUpdates.Click += new System.EventHandler(this.btnCheckForUpdates_Click);
-            // 
             // frmGeneralSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -304,9 +279,7 @@
         private System.Windows.Forms.Label lblWaitForNetworkMinutes1;
         private System.Windows.Forms.CheckBox chkWaitForNetwork;
         private System.Windows.Forms.CheckBox chkStartup;
-        private System.Windows.Forms.Button btnReloadLocalDatabase;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCheckForUpdates;
     }
 }

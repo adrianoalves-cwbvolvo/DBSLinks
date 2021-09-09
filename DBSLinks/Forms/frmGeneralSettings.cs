@@ -24,7 +24,7 @@ namespace Links.Forms
             InitializeComponent();
 
             //SETTING THE FORM LOCATION
-            //left = left + (width / 4);
+            left = left + (width / 4);
             top = top + (height / 4);
 
             this.StartPosition = FormStartPosition.Manual;
@@ -152,18 +152,6 @@ namespace Links.Forms
             else
             {
                 cmbWaitForNetwork.Enabled = false;
-            }
-        }
-
-        private void btnReloadLocalDatabase_Click(object sender, EventArgs e)
-        {
-            DialogResult dialog = new DialogResult();
-
-            dialog = MessageBox.Show("Are you sure you want to Delete de local Database, copy a new version from the network and Reload the data?", "Reload Local Database", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dialog == DialogResult.Yes)
-            {
-                Validation.localDatabaseConfig(true);
             }
         }
 

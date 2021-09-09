@@ -16,6 +16,7 @@ namespace Links.FormsAdmin
     public partial class frmUpdatePassword : Form
     {
         private int GlobalCredentialId;
+        public string UsernameToBeReturned { get; set; }
 
         public frmUpdatePassword(int CredentialId, int left,int top, int width, int height)
         {
@@ -44,6 +45,7 @@ namespace Links.FormsAdmin
         private void btnSave_Click(object sender, EventArgs e)
         {
             bool ok;
+            UsernameToBeReturned = txtUsername.Text;
 
             if (!string.IsNullOrEmpty(txtPassword.Text) || txtPassword.Text.Length > 2)
             {
@@ -59,7 +61,7 @@ namespace Links.FormsAdmin
 
                 if (ok == false)
                 {
-                    MessageBox.Show("Error: An error has ocurred when trying to update the Password!");
+                    MessageBox.Show("Error: An error has ocurred when trying to update the Password!", "Error",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 }
 
                 this.Close();

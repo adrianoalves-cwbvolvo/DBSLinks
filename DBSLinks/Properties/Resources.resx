@@ -118,14 +118,65 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DataAdmin30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DataAdmin30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shutdown-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shutdown-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ApplicationList" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplicationList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Contact" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Contact3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="About-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\About-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Applications" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Applications.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Menu-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Menu-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PadLock_BW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PadLock_BW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Settings30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dealer_Truck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dealer_Truck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Reload-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reload-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Circled-thin-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Circled-thin-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Shuttdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shuttdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AppsBW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AppsBW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CogWheelBoarder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CogWheelBoarder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Link" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Link1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Dealer_Truck" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Dealer_Truck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CogWheelNoBoarder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CogWheelNoBoarder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Spinner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Spinner.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Globepng" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Globepng1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SubDealer_Truck" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SubDealer_Truck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -133,19 +184,22 @@
   <data name="CogWheel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CogWheel2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AppsBW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AppsBW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Credential30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Credential30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Contact" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Contact3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Truck-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Truck-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Globepng" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Globepng1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Menu-squared-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Menu-squared-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ApplicationList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ApplicationList.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SettingsBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SettingsBar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PadLock_BW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PadLock_BW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Countries30," type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Countries30,.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checked-20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Checked-20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
