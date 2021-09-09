@@ -1661,6 +1661,92 @@ namespace LinksForm.DAL
                 throw;
             }
         }
+        public static List<AppLinks> GetAppLinkByCountryId(int CountryId)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenLocalDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "SELECT " +
+                        "a.ListId," +
+                        //"a.EnvironmentId," +
+                        //"ae.AppEnvironmentName,"+
+                        "a.AppCategoryId," +
+                        "ac.AppCategoryName," +
+                        "a.ApplicationId," +
+                        "ap.ApplicationName," +
+                        //"a.ApplicationNodeId," +
+                        //"an.AppNodeName,"+
+                        "a.CountryId," +
+                        "c.CountryName," +
+                        "a.Description," +
+                        "a.Link, " +
+                        "a.CredentialId," +
+                        "cr.CredentialDescription," +
+                        "cr.Username," +
+                        "cr.Password " +
+                        "FROM (((AppLinks a " +
+                        "INNER JOIN Countries c " +
+                        "ON a.CountryId = c.CountryId) " +
+                        "LEFT JOIN Applications ap " +
+                        "ON a.ApplicationId = ap.ApplicationId) " +
+                        "LEFT JOIN AppCategory ac " +
+                        "ON a.AppCategoryId = ac.AppCategoryId) " +
+                        "LEFT JOIN Credentials cr " +
+                        "ON a.CredentialId = cr.CredentialId " +
+                        "WHERE a.CountryId = @countryId " +
+                        "ORDER BY a.CountryId,a.Description";
+                command.Parameters.AddWithValue("@countryId", CountryId);
+                OleDbDataReader reader = command.ExecuteReader();
+
+                var appLinksList = new List<AppLinks>();
+
+                while (reader.Read())
+                {
+                    AppLinks appLinks = new AppLinks();
+
+                    appLinks.AppLinkId = Convert.ToInt32(reader["ListId"]);
+                    appLinks.ApplicationId = Convert.ToInt32(reader["ApplicationId"]);
+                    appLinks.ApplicationName = (reader["ApplicationName"].ToString());
+                    appLinks.AppCategoryId = Convert.ToInt32(reader["AppCategoryId"]);
+                    appLinks.AppCategoryName = (reader["AppCategoryName"].ToString());
+                    appLinks.CountryId = Convert.ToInt32(reader["CountryId"]);
+                    appLinks.CountryName = (reader["CountryName"].ToString());
+                    appLinks.Description = (reader["Description"].ToString());
+                    appLinks.Link = (reader["Link"].ToString());
+
+                    string _credentialId;
+                    _credentialId = reader["CredentialId"].ToString();
+
+                    if (!string.IsNullOrEmpty(_credentialId))
+                    {
+                        appLinks.CredentialId = Convert.ToInt32(reader["CredentialId"]);
+                    }
+                    else
+                    {
+                        appLinks.CredentialId = 0;
+                    }
+
+                    appLinks.CredentialDescription = (reader["CredentialDescription"].ToString());
+                    appLinks.Username = (reader["Username"].ToString());
+                    appLinks.Password = (reader["Password"].ToString());
+                    appLinksList.Add(appLinks);
+                }
+
+
+                CloseDBConnection(connection);
+
+                return appLinksList;
+            }
+            catch
+            {
+                throw;
+            }
+        }
         public static List<AppLinks> GetAppLinks()
         {
             try
