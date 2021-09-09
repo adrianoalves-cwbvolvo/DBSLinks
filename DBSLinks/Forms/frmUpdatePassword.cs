@@ -17,6 +17,7 @@ namespace Links.FormsAdmin
     {
         private int GlobalCredentialId;
         public string UsernameToBeReturned { get; set; }
+        public bool HasTheCancelButtonPressed { get; set; }
 
         public frmUpdatePassword(int CredentialId, int left,int top, int width, int height)
         {
@@ -28,6 +29,8 @@ namespace Links.FormsAdmin
 
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(left, top);
+
+            HasTheCancelButtonPressed = false;
 
             //NEW OBJECT credential
             Credential credential = new Credential();
@@ -70,6 +73,7 @@ namespace Links.FormsAdmin
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            HasTheCancelButtonPressed = true;
             this.Close();
         }
     }

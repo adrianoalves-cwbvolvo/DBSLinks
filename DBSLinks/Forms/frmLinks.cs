@@ -285,6 +285,8 @@ namespace LinksForm
         private void updatePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string ReturnedUsername;
+            bool HasTheCancelButtonPressed;
+
             int CredentialId=0;
 
             TreeNode tn = treeView1.SelectedNode;
@@ -305,11 +307,16 @@ namespace LinksForm
                 _frmUpdatePassword.ShowDialog();
 
                 ReturnedUsername = _frmUpdatePassword.UsernameToBeReturned;
+                HasTheCancelButtonPressed = _frmUpdatePassword.HasTheCancelButtonPressed;
 
-                _frmUpdatePassword.Dispose();
+                if (HasTheCancelButtonPressed == false)
+                {
+                    Validation.localDatabaseConfig(true);
+                    PasswordList.Clear();
+                    txtAppSearch.Text = ReturnedUsername;
+                }
 
-                txtAppSearch.Text = ReturnedUsername;
-                PasswordList.Clear();
+                _frmUpdatePassword.Dispose(); 
             }
         }
         private void contextMenuStripApps_Closed(object sender, ToolStripDropDownClosedEventArgs e)
@@ -1391,7 +1398,7 @@ namespace LinksForm
                 }
                 catch (Exception err)
                 {
-                    MessageBox.Show("Ocorreu um erro ao copiar para o clipboard. Tente novamente. Erro: " + err.Message, "Erro ao copiar para o Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Oops. The text could not be copied to the clipboard. Please try again! Error Message: " + err.Message, "Error to copy text to the Clipboard", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
 

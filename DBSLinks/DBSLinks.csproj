@@ -434,8 +434,6 @@
     <None Include="Resources\Spinner.gif" />
     <Content Include="volvo_logo_icon_vector_RUk_icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FormsAdmin\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
