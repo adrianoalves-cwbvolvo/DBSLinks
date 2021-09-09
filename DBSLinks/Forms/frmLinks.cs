@@ -1614,7 +1614,7 @@ namespace LinksForm
            
             foreach (AppLinks item in databaseViewModel.AppLinksList)
             {
-                if (item.Username.ToUpper() == txtAppSearch.Text.ToUpper())
+                if (item.SearchString.ToUpper().Contains(txtAppSearch.Text.ToUpper()))
                 {
                     _appLinks.Add(item);
                 }
