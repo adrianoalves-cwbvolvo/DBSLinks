@@ -157,22 +157,34 @@ namespace Links.Forms
             if (dgvDealer.Rows.Count > 0)
             {
                 int DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
+                string DealerName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
 
-                if (MessageBox.Show("Are you sure you want to delete the Main Dealer " + DealerId.ToString() + "?", "Delete Main Dealer", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Are you sure you want to delete the Main Dealer: " + DealerName.ToString() + "?", "Delete Main Dealer", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    Dealer dealer = new Dealer();
 
-                    dealer.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
-                    dealer.CountryName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
-                    dealer.CountryId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[2].Value.ToString());
+                    var dealerList = new List<DealerBranch>();
+                    dealerList = DALHelpers.GetDealerBranchByDealerId(DealerId);
 
-                    DALHelpers.DeleteMainDealer(DealerId);
+                    if (dealerList.Count == 0)
+                    {
+                        Dealer dealer = new Dealer();
 
-                    ActivityLog.DealerLogger(dealer, "DELETE", "Main Dealer", Environment.UserName);
+                        dealer.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
+                        dealer.CountryName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
+                        dealer.CountryId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[2].Value.ToString());
 
-                    Validation.localDatabaseConfig(true);
-                    //databaseViewModel = Services.GetDataFromDatabase();
-                    dealerlList = loadDealers();
+                        DALHelpers.DeleteMainDealer(DealerId);
+
+                        ActivityLog.DealerLogger(dealer, "DELETE", "Main Dealer", Environment.UserName);
+
+                        Validation.localDatabaseConfig(true);
+                        //databaseViewModel = Services.GetDataFromDatabase();
+                        dealerlList = loadDealers();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to Delete the Main Dealer: " + DealerName.ToString() + ". Found " + dealerList.Count + " Dealer Branches created for this Main Dealer","Unable to Delete the Main Dealer!",MessageBoxButtons.OK, MessageBoxIcon.Warning );
+                    }
                 }
 
                 dgvDealer.ClearSelection();

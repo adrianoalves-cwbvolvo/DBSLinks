@@ -970,6 +970,78 @@ namespace LinksForm.DAL
                 throw;
             }
         }
+
+        public static List<DealerBranch> GetDealerBranchByDealerId(int DealerId)
+        {
+            try
+            {
+                OleDbConnection connection = new OleDbConnection();
+                connection = OpenLocalDBConnection();
+
+                OleDbCommand command = new OleDbCommand();
+                command.Connection = connection;
+
+                command.CommandText = "SELECT " +
+                                        "B.DealerBranchId, " +
+                                        "D.DealerId, " +
+                                        "B.Branch, " +
+                                        "B.CountryId, " +
+                                        "B.CTDI, " +
+                                        "B.PhoneNumber, " +
+                                        "B.BaldoPartner, " +
+                                        "D.DealerName, " +
+                                        "C.CountryName " +
+                                        "FROM (DealerBranch B " +
+                                        "INNER JOIN Dealer D " +
+                                        "ON B.DealerId = D.DealerId) " +
+                                        "INNER JOIN Countries C " +
+                                        "ON B.CountryId = C.CountryId " +
+                                        "WHERE B.DealerId=@dealerId";
+
+                command.Parameters.AddWithValue("@dealerId", DealerId);
+                OleDbDataReader reader = command.ExecuteReader();
+
+                var dealerList = new List<DealerBranch>();
+
+                //var columns = new List<string>();
+
+                //for (int i = 0; i < reader.FieldCount; i++)
+                //{
+                //    columns.Add(reader.GetName(i));
+                //}
+
+                while (reader.Read())
+                {
+
+                    DealerBranch dealer = new DealerBranch();
+
+                    dealer.DealerBranchId = Convert.ToInt32(reader["DealerBranchId"]);
+                    dealer.DealerId = Convert.ToInt32(reader["DealerId"]);
+                    dealer.BranchName = reader["Branch"].ToString();
+                    dealer.CountryId = Convert.ToInt32(reader["CountryId"]);
+                    dealer.DealerName = reader["DealerName"].ToString();
+                    dealer.CTDI = Convert.ToInt32(reader["CTDI"].ToString());
+                    dealer.PhoneNumber = reader["PhoneNumber"].ToString();
+                    dealer.BaldoPartner = reader["BaldoPartner"].ToString();
+                    dealer.DealerName = reader["DealerName"].ToString();
+                    dealer.CountryName = reader["CountryName"].ToString();
+
+                    //dealer.MainDealerId = Convert.ToInt32(reader["MaiDealerId"]);
+                    dealer.BaldoPartner = reader["BaldoPartner"].ToString();
+
+                    dealerList.Add(dealer);
+                }
+
+                CloseDBConnection(connection);
+
+                return dealerList;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public static bool UpdateDealerBranch(DealerBranch dealerBranch)
         {
             try
