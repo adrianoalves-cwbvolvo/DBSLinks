@@ -105,10 +105,10 @@
     <Compile Include="Controller\Services.cs" />
     <Compile Include="Controller\Validation.cs" />
     <Compile Include="DAL\DALHelpers.cs" />
-    <Compile Include="FormsAdmin\frmUpdatePassword.cs">
+    <Compile Include="Forms\frmUpdatePassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormsAdmin\frmUpdatePassword.Designer.cs">
+    <Compile Include="Forms\frmUpdatePassword.Designer.cs">
       <DependentUpon>frmUpdatePassword.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmAbout.cs">
@@ -223,7 +223,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
-    <EmbeddedResource Include="FormsAdmin\frmUpdatePassword.resx">
+    <EmbeddedResource Include="Forms\frmUpdatePassword.resx">
       <DependentUpon>frmUpdatePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAbout.resx">
@@ -433,6 +433,9 @@
     <None Include="Resources\Truck-30.png" />
     <None Include="Resources\Spinner.gif" />
     <Content Include="volvo_logo_icon_vector_RUk_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FormsAdmin\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
