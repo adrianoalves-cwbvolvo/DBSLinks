@@ -1661,7 +1661,7 @@ namespace LinksForm.DAL
                 throw;
             }
         }
-        public static List<AppLinks> GetAppLinkByCountryId(int CountryId)
+        public static List<AppLinks> GetAppLinksByCountryId(int CountryId)
         {
             try
             {
