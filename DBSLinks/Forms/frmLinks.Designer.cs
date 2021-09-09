@@ -85,6 +85,7 @@ namespace LinksForm
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripApps = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updatePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
@@ -325,6 +326,7 @@ namespace LinksForm
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblStatus);
             this.tabPage3.Controls.Add(this.btnEditApplication);
             this.tabPage3.Controls.Add(this.btnNewApplication);
             this.tabPage3.Controls.Add(this.btnDeleteApplication);
@@ -656,6 +658,18 @@ namespace LinksForm
             this.updatePasswordToolStripMenuItem.Visible = false;
             this.updatePasswordToolStripMenuItem.Click += new System.EventHandler(this.updatePasswordToolStripMenuItem_Click);
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.Color.Black;
+            this.lblStatus.Location = new System.Drawing.Point(202, 236);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(182, 18);
+            this.lblStatus.TabIndex = 4;
+            this.lblStatus.Text = "Refreshing, please wait...";
+            this.lblStatus.Visible = false;
+            // 
             // frmLinks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -745,6 +759,7 @@ namespace LinksForm
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem dealersToolStripMenuItem;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
 

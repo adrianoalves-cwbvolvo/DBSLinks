@@ -311,9 +311,18 @@ namespace LinksForm
 
                 if (HasTheCancelButtonPressed == false)
                 {
-                    Validation.localDatabaseConfig(true);
                     PasswordList.Clear();
+                    lblStatus.Visible = true;
+
+                    lblStatus.Text = "Updating the local database to reflect the changes...";
+                    Validation.localDatabaseConfig(true);
+
+                    lblStatus.Text = "Reloading the data...";
+                    databaseViewModel = Services.GetDataFromDatabase();
+                    
                     txtAppSearch.Text = ReturnedUsername;
+
+                    lblStatus.Visible = false;
                 }
 
                 _frmUpdatePassword.Dispose(); 
@@ -1153,7 +1162,7 @@ namespace LinksForm
                     int countryNode = 0;
                     var descriptionNode = new Dictionary<int, int>();
 
-                    var countries = new Dictionary<int, string>();
+                    var countriesDictionary = new Dictionary<int, string>();
 
                     //ADDING THE APPLICATION NAME
                     treeView1.Nodes.Add(application.ApplicationName.ToString());
@@ -1167,7 +1176,7 @@ namespace LinksForm
                     {
 
                         found = false;
-                        foreach (var country in countries.Values)
+                        foreach (var country in countriesDictionary.Values)
                         {
                             if (apps.CountryName.ToString() == country.ToString())
                             {
@@ -1176,7 +1185,7 @@ namespace LinksForm
                         }
                         if (found == false)
                         {
-                            if (countries.Count == 0)
+                            if (countriesDictionary.Count == 0)
                             {
                                 countryNode = 0;
                             }
@@ -1187,7 +1196,7 @@ namespace LinksForm
 
                             //ADDING COUNTRY NAME
                             treeView1.Nodes[parentNodeCounter].Nodes.Add(apps.CountryName);
-                            countries.Add(countryNode, apps.CountryName);
+                            countriesDictionary.Add(countryNode, apps.CountryName);
 
                             //GETTING THE COUNTRY FLAG ID
                             int countryFlagId = Validation.GetCountryFlagId(apps.CountryName);
@@ -1196,8 +1205,8 @@ namespace LinksForm
                             treeView1.Nodes[parentNodeCounter].Nodes[countryNode].ImageIndex = countryFlagId;
                             treeView1.Nodes[parentNodeCounter].Nodes[countryNode].SelectedImageIndex = countryFlagId;
                         }
-
-                        foreach (var country in countries)
+              
+                        foreach (var country in countriesDictionary)
                         {
                             if (apps.CountryName.ToString() == country.Value.ToString())
                             {
