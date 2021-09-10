@@ -63,3 +63,4 @@ C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\L
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmDealer.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\LinksForm.Forms.frmAddOrUpdateDealerBranch.resources
 C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmAddOrUpdateDealer.resources
+C:\Users\A252213\OneDrive - Volvo Group\VSProjects\DBSLinks\DBSLinks\obj\Debug\Links.Forms.frmDealerBranches.resources

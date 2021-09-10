@@ -85,6 +85,8 @@ namespace LinksForm
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripApps = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updatePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dealerBranchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
@@ -531,7 +533,9 @@ namespace LinksForm
             this.dataAdminToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.countriesToolStripMenuItem,
             this.applicationsToolStripMenuItem,
+            this.toolStripSeparator4,
             this.dealersToolStripMenuItem,
+            this.dealerBranchesToolStripMenuItem,
             this.toolStripSeparator2,
             this.credentialsToolStripMenuItem});
             this.dataAdminToolStripMenuItem.Image = global::Links.Properties.Resources.DataAdmin30;
@@ -560,7 +564,7 @@ namespace LinksForm
             this.dealersToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
             this.dealersToolStripMenuItem.Name = "dealersToolStripMenuItem";
             this.dealersToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
-            this.dealersToolStripMenuItem.Text = "Dealers";
+            this.dealersToolStripMenuItem.Text = "Dealers (Main)";
             this.dealersToolStripMenuItem.Click += new System.EventHandler(this.dealersToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
@@ -658,6 +662,19 @@ namespace LinksForm
             this.updatePasswordToolStripMenuItem.Visible = false;
             this.updatePasswordToolStripMenuItem.Click += new System.EventHandler(this.updatePasswordToolStripMenuItem_Click);
             // 
+            // dealerBranchesToolStripMenuItem
+            // 
+            this.dealerBranchesToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
+            this.dealerBranchesToolStripMenuItem.Name = "dealerBranchesToolStripMenuItem";
+            this.dealerBranchesToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.dealerBranchesToolStripMenuItem.Text = "Dealers (Branches)";
+            this.dealerBranchesToolStripMenuItem.Click += new System.EventHandler(this.dealerBranchesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            // 
             // frmLinks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -747,6 +764,8 @@ namespace LinksForm
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem dealersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem dealerBranchesToolStripMenuItem;
     }
 }
 

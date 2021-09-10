@@ -1706,5 +1706,11 @@ namespace LinksForm
 
         #endregion
 
+        private void dealerBranchesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDealerBranches _frmDealerBranches = new frmDealerBranches(left, top, width, height);
+            _frmDealerBranches.TopMost = true;
+            _frmDealerBranches.ShowDialog();
+        }
     }
 }
