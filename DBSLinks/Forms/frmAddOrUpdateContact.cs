@@ -67,12 +67,13 @@ namespace LinksForm.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheSaveButtonPressed = true;
             this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             Contact contact = new Contact();
             bool ok = false;
 

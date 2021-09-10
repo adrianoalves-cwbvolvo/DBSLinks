@@ -566,16 +566,16 @@ namespace LinksForm
             if ((dgvContacts.Rows.Count > 0))
             {
                 Contact contact = new Contact();
-                bool HasTheCancelButtonPressed;
+                bool HasTheSaveButtonPressed = false;
 
                 frmAddOrUpdateContact _frmAddOrUpdateContact = new frmAddOrUpdateContact(contact);
                 this.TopMost = false;
                 _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateContact.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheSaveButtonPressed;
+                HasTheSaveButtonPressed = _frmAddOrUpdateContact.HasTheSaveButtonPressed;
 
-                if (HasTheCancelButtonPressed == false)
+                if (HasTheSaveButtonPressed == true)
                 {
                     Validation.localDatabaseConfig(true);
                     databaseViewModel = Services.GetDataFromDatabase();
