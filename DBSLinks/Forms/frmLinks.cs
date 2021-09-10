@@ -1532,7 +1532,7 @@ namespace LinksForm
                         //MessageBox.Show(treeView1.SelectedNode.Text);
 
                         AppLinks appLinks = new AppLinks();
-                        bool HasTheCancelButtonPressed;
+                        bool HasTheCancelButtonPressed = false;
 
                         appLinks.AppLinkId = AppLinksFromDatabase[0].AppLinkId;
                         appLinks.AppCategoryId = AppLinksFromDatabase[0].AppCategoryId;
@@ -1577,7 +1577,53 @@ namespace LinksForm
         //DELETE
         private void btnDeleteApplication_Click(object sender, EventArgs e)
         {
+            if (databaseViewModel.AppLinksList.Count > 0)
+            {
+                TreeNode tn = treeView1.SelectedNode;
 
+                if (tn != null)
+                {
+                    List<AppLinks> AppLinksFromDatabase = new List<AppLinks>();
+                    AppLinksFromDatabase = DALHelpers.GetAppLinkByDescription(treeView1.SelectedNode.Text);
+
+                    if (AppLinksFromDatabase.Count > 0)
+                    {
+                        AppLinks appLinks = new AppLinks();
+
+                        appLinks.AppLinkId = AppLinksFromDatabase[0].AppLinkId;
+                        appLinks.AppCategoryId = AppLinksFromDatabase[0].AppCategoryId;
+                        appLinks.AppCategoryName = AppLinksFromDatabase[0].AppCategoryName;
+                        appLinks.AppEnvironmentId = AppLinksFromDatabase[0].AppEnvironmentId;
+                        appLinks.ApplicationId = AppLinksFromDatabase[0].ApplicationId;
+                        appLinks.ApplicationName = AppLinksFromDatabase[0].ApplicationName;
+                        appLinks.Description = AppLinksFromDatabase[0].Description;
+                        appLinks.Link = AppLinksFromDatabase[0].Link;
+                        appLinks.CredentialId = AppLinksFromDatabase[0].CredentialId;
+                        appLinks.CredentialDescription = AppLinksFromDatabase[0].CredentialDescription;
+                        appLinks.CountryId = AppLinksFromDatabase[0].CountryId;
+                        appLinks.CountryName = AppLinksFromDatabase[0].CountryName;
+
+                        DialogResult dialog = new DialogResult();
+
+                        dialog = MessageBox.Show("Do you want to delete the AppLink: " + appLinks.Description + "?", "Delete AppLink", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                        if (dialog == DialogResult.OK)
+                        {
+                            bool deleteOk = DALHelpers.DeleteAppLink(appLinks.AppLinkId);
+
+                            if (deleteOk == true)
+                            {
+                                ActivityLog.AppLinksLogger(appLinks, "DELETE", "AppLinks", Environment.UserName);
+
+                                Validation.localDatabaseConfig(true);
+                                databaseViewModel = Services.GetDataFromDatabase();
+                                txtAppSearch.Clear();
+                                loadTreeview(false, null);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
