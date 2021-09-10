@@ -18,7 +18,7 @@ namespace LinksForm.Forms
 
         int DealerBranchId;
 
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
 
         public frmAddOrUpdateDealerBranch(DealerBranch dealerBranch)
         {
@@ -30,7 +30,7 @@ namespace LinksForm.Forms
             dealerBranchList = DALHelpers.GetDealerBranchs();
             countryList = DALHelpers.GetCountries();
 
-            HasTheCancelButtonPressed = false;
+            HasTheSaveButtonPressed = false;
 
             int counter = 0;
 
@@ -99,12 +99,13 @@ namespace LinksForm.Forms
    
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
             this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             DealerBranch dealerBranch = new DealerBranch();
             bool ok = false;
 

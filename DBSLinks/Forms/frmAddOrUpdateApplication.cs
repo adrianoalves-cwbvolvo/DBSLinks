@@ -20,7 +20,7 @@ namespace LinksForm.Forms
 
         string GlobalEditOrNew = "";
 
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
 
         public frmAddOrUpdateApplication(int left, int top, int width, int height, App app)
         {
@@ -31,6 +31,8 @@ namespace LinksForm.Forms
 
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(left, top);
+
+            HasTheSaveButtonPressed = false;
 
             GlobalApplicationId = app.ApplicationId;
             GlobalApplicationName = app.ApplicationName;
@@ -57,6 +59,8 @@ namespace LinksForm.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             App application = new App();
             bool ok = false;
 

@@ -289,7 +289,6 @@
             this.Name = "frmAddOrUpdateAppLinks";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.frmAddOrUpdateAppLinks_Load);
             this.grpAppLink.ResumeLayout(false);
             this.grpAppLink.PerformLayout();
             this.grpCredential.ResumeLayout(false);

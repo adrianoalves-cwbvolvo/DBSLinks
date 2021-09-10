@@ -20,7 +20,7 @@ namespace LinksForm.Forms
         private List<Dealer> dealerList = new List<Dealer>();
         private List<Country> countryList = new List<Country>();
 
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
 
         int DealerContactId;
 
@@ -33,7 +33,7 @@ namespace LinksForm.Forms
 
             DealerContactId = dealerContact.DealerContactId;
 
-            HasTheCancelButtonPressed = false;
+            HasTheSaveButtonPressed = false;
 
             int counter = 0;
 
@@ -102,12 +102,13 @@ namespace LinksForm.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
             this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             DealerContact dealerContact = new DealerContact();
             bool ok = false;
 

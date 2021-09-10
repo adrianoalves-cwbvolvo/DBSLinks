@@ -16,7 +16,7 @@ namespace Links.Forms
 {
     public partial class frmAddOrUpdateDealer : Form
     {
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
         int GlobalDealerId;
 
         List<Country> countryList = new List<Country>();
@@ -34,7 +34,7 @@ namespace Links.Forms
 
             countryList = DALHelpers.GetCountries();
 
-            HasTheCancelButtonPressed = false;
+            HasTheSaveButtonPressed = false;
 
             int counter = 0;
 
@@ -73,6 +73,8 @@ namespace Links.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             Dealer dealer = new Dealer();
             bool ok = false;
 
@@ -132,7 +134,6 @@ namespace Links.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
             this.Close();
         }
     }

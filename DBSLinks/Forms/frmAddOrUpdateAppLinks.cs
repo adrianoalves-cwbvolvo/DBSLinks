@@ -26,7 +26,7 @@ namespace LinksForm.Forms
         private List<Category> categoryList = new List<Category>();
         private List<Credential> credentialList = new List<Credential>();
 
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
 
         public frmAddOrUpdateAppLinks(AppLinks appLinks)
         {
@@ -131,12 +131,13 @@ namespace LinksForm.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
             this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             bool ok = false;
 
             AppLinks appLinks = new AppLinks();
@@ -262,11 +263,6 @@ namespace LinksForm.Forms
             dgvCredentials.Sort(dgvCredentials.Columns["Username"], ListSortDirection.Ascending);
 
             return credentialList;
-        }
-
-        private void frmAddOrUpdateAppLinks_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void btnSelectCredential_Click(object sender, EventArgs e)

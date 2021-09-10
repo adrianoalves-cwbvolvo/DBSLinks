@@ -91,7 +91,7 @@ namespace Links.Forms
 
         private void btnNewDealer_Click(object sender, EventArgs e)
         {
-            bool HasTheCancelButtonPressed;
+            bool HasTheSaveButtonPressed;
 
             Dealer dealer = new Dealer();
 
@@ -99,9 +99,9 @@ namespace Links.Forms
             _frmAddOrUpdateDealer.TopMost = true;
             _frmAddOrUpdateDealer.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+            HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
 
-            if (HasTheCancelButtonPressed == false)
+            if (HasTheSaveButtonPressed == true)
             {
                 Validation.localDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
@@ -122,7 +122,7 @@ namespace Links.Forms
             {
                 Dealer dealer = new Dealer();
 
-                bool HasTheCancelButtonPressed;
+                bool HasTheSaveButtonPressed;
 
                 dealer.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
                 dealer.DealerName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
@@ -133,9 +133,9 @@ namespace Links.Forms
                 _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateDealer.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+                HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
 
-                if (HasTheCancelButtonPressed == false)
+                if (HasTheSaveButtonPressed == true)
                 {
                     Validation.localDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();

@@ -150,7 +150,7 @@ namespace Links.Forms
             _frmAddOrUpdateCountry.TopMost = true;
             _frmAddOrUpdateCountry.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateCountry.HasTheCancelButtonPressed;
+            HasTheCancelButtonPressed = _frmAddOrUpdateCountry.HasTheSaveButtonPressed;
 
             if (HasTheCancelButtonPressed == false)
             {
@@ -182,7 +182,7 @@ namespace Links.Forms
                 _frmAddOrUpdateCountry.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCountry.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateCountry.HasTheCancelButtonPressed;
+                HasTheCancelButtonPressed = _frmAddOrUpdateCountry.HasTheSaveButtonPressed;
 
                 if (HasTheCancelButtonPressed == false)
                 {

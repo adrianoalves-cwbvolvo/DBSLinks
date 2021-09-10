@@ -38,7 +38,6 @@
             this.btnNewDealer = new System.Windows.Forms.Button();
             this.lblClearSearchDealer = new System.Windows.Forms.Label();
             this.txtSearchDealer = new System.Windows.Forms.TextBox();
-            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealer)).BeginInit();
             this.grpCountry.SuspendLayout();
             this.SuspendLayout();
@@ -86,6 +85,7 @@
             this.btnDeleteDealer.Size = new System.Drawing.Size(36, 35);
             this.btnDeleteDealer.TabIndex = 26;
             this.btnDeleteDealer.UseVisualStyleBackColor = true;
+            this.btnDeleteDealer.Click += new System.EventHandler(this.btnDeleteDealer_Click);
             // 
             // imageListButtons
             // 
@@ -108,6 +108,7 @@
             this.btnEditDealer.Size = new System.Drawing.Size(36, 35);
             this.btnEditDealer.TabIndex = 27;
             this.btnEditDealer.UseVisualStyleBackColor = true;
+            this.btnEditDealer.Click += new System.EventHandler(this.btnEditDealer_Click);
             // 
             // btnNewDealer
             // 
@@ -119,6 +120,7 @@
             this.btnNewDealer.Size = new System.Drawing.Size(36, 35);
             this.btnNewDealer.TabIndex = 28;
             this.btnNewDealer.UseVisualStyleBackColor = true;
+            this.btnNewDealer.Click += new System.EventHandler(this.btnNewDealer_Click);
             // 
             // lblClearSearchDealer
             // 
@@ -141,23 +143,12 @@
             this.txtSearchDealer.TabIndex = 24;
             this.txtSearchDealer.TextChanged += new System.EventHandler(this.txtSearchDealer_TextChanged);
             // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(264, 284);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(94, 30);
-            this.btnExit.TabIndex = 34;
-            this.btnExit.Text = "Close";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // frmDealerBranches
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 323);
+            this.ClientSize = new System.Drawing.Size(631, 288);
             this.Controls.Add(this.grpCountry);
-            this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -180,6 +171,5 @@
         private System.Windows.Forms.Button btnNewDealer;
         private System.Windows.Forms.Label lblClearSearchDealer;
         private System.Windows.Forms.TextBox txtSearchDealer;
-        private System.Windows.Forms.Button btnExit;
     }
 }

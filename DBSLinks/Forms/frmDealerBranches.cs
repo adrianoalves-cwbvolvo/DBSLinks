@@ -88,15 +88,26 @@ namespace Links.Forms
             }
         }
 
+        private void btnNewDealer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditDealer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDeleteDealer_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void lblClearSearchDealer_Click(object sender, EventArgs e)
         {
             txtSearchDealer.Clear();
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-
-        }
 
         public void loadDealerBranches()
         {

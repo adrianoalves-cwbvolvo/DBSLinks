@@ -16,7 +16,7 @@ namespace LinksForm.Forms
     public partial class frmAddOrUpdateCredential : Form
     {
         private int CredentialId = 0;
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
         public frmAddOrUpdateCredential(int left, int top, int width, int height, Credential credential)
         {
             InitializeComponent();
@@ -26,6 +26,8 @@ namespace LinksForm.Forms
 
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(left, top);
+
+            HasTheSaveButtonPressed = false;
 
             CredentialId = credential.CredentialId;
 
@@ -46,6 +48,8 @@ namespace LinksForm.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             Credential credential = new Credential();
             bool ok = false;
 
@@ -104,7 +108,6 @@ namespace LinksForm.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
             this.Close();
         }
     }

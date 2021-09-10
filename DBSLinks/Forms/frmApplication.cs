@@ -91,7 +91,7 @@ namespace Links.Forms
 
         private void btnNewApplication_Click(object sender, EventArgs e)
         {
-            bool HasTheCancelButtonPressed;
+            bool HasTheSaveButtonPressed;
 
             App app = new App();
 
@@ -99,9 +99,9 @@ namespace Links.Forms
             _frmAddOrUpdateApplication.TopMost = true;
             _frmAddOrUpdateApplication.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateApplication.HasTheCancelButtonPressed;
+            HasTheSaveButtonPressed = _frmAddOrUpdateApplication.HasTheSaveButtonPressed;
 
-            if (HasTheCancelButtonPressed == false)
+            if (HasTheSaveButtonPressed == true)
             {
                 Validation.localDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
@@ -121,7 +121,7 @@ namespace Links.Forms
             if ((dgvApplications.Rows.Count > 0))
             {
                 App app = new App();
-                bool HasTheCancelButtonPressed;
+                bool HasTheSaveButtonPressed;
 
                 app.ApplicationId = Convert.ToInt32(dgvApplications.CurrentRow.Cells[0].Value.ToString());
                 app.ApplicationName = dgvApplications.CurrentRow.Cells[1].Value.ToString();
@@ -131,9 +131,9 @@ namespace Links.Forms
                 _frmAddOrUpdateApplication.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateApplication.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateApplication.HasTheCancelButtonPressed;
+                HasTheSaveButtonPressed = _frmAddOrUpdateApplication.HasTheSaveButtonPressed;
 
-                if (HasTheCancelButtonPressed == false)
+                if (HasTheSaveButtonPressed == true)
                 {
                     Validation.localDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();

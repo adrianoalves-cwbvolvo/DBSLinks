@@ -18,7 +18,7 @@ namespace Links.Forms
     {
         private int CountryID;
         private string CountryName;
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
 
         public frmAddOrUpdateCountry(int left, int top, int width, int height, Country country)
         {
@@ -33,7 +33,7 @@ namespace Links.Forms
             CountryID = country.CountryId;
             CountryName = country.CountryName;
 
-            HasTheCancelButtonPressed = false;
+            HasTheSaveButtonPressed = false;
 
             if (country.CountryId > 0)
             {
@@ -52,12 +52,13 @@ namespace Links.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
             this.Close();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            HasTheSaveButtonPressed = true;
+
             Country country = new Country();
             bool ok = false;
 

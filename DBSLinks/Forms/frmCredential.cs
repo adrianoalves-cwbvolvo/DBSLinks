@@ -93,7 +93,7 @@ namespace Links.Forms
             _frmAddOrUpdateCredential.TopMost = true;
             _frmAddOrUpdateCredential.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateCredential.HasTheCancelButtonPressed;
+            HasTheCancelButtonPressed = _frmAddOrUpdateCredential.HasTheSaveButtonPressed;
 
             if (HasTheCancelButtonPressed == false)
             {
@@ -127,7 +127,7 @@ namespace Links.Forms
                 _frmAddOrUpdateCredential.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCredential.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateCredential.HasTheCancelButtonPressed;
+                HasTheCancelButtonPressed = _frmAddOrUpdateCredential.HasTheSaveButtonPressed;
 
                 if (HasTheCancelButtonPressed == false)
                 {

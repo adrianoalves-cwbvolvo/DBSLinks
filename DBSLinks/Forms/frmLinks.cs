@@ -284,7 +284,7 @@ namespace LinksForm
         private void updatePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string ReturnedUsername;
-            bool HasTheCancelButtonPressed;
+            bool HasTheSaveButtonPressed = false;
 
             int CredentialId=0;
 
@@ -306,9 +306,9 @@ namespace LinksForm
                 _frmUpdatePassword.ShowDialog();
 
                 ReturnedUsername = _frmUpdatePassword.UsernameToBeReturned;
-                HasTheCancelButtonPressed = _frmUpdatePassword.HasTheCancelButtonPressed;
+                HasTheSaveButtonPressed = _frmUpdatePassword.HasTheSaveButtonPressed;
 
-                if (HasTheCancelButtonPressed == false)
+                if (HasTheSaveButtonPressed == true)
                 {
                     PasswordList.Clear();
                     Validation.localDatabaseConfig(true);
@@ -347,7 +347,7 @@ namespace LinksForm
         {
             //DatabaseViewModel _databaseViewModel = new DatabaseViewModel();
 
-            bool HasTheCancelButtonPressed;
+            bool HasTheOkButtonPressed = false;
 
             frmDataReload _frmDataReload = new frmDataReload(left, top, width, height);
 
@@ -355,9 +355,9 @@ namespace LinksForm
             _frmDataReload.TopMost = true;
             _frmDataReload.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmDataReload.HasTheCancelButtonPressed;
+            HasTheOkButtonPressed = _frmDataReload.HasTheOkButtonPressed;
 
-            if (HasTheCancelButtonPressed == false)
+            if (HasTheOkButtonPressed == false)
             {
                 databaseViewModel = _frmDataReload.databaseViewModel;
 
@@ -905,16 +905,16 @@ namespace LinksForm
                 if (IsDealerContactView == true)
                 {
                     DealerContact dealerContact = new DealerContact();
-                    bool HasTheCancelButtonPressed;
+                    bool HasTheSaveButtonPressed = false;
 
                     frmAddOrUpdateDealerContact _frmAddOrUpdateDealerContact = new frmAddOrUpdateDealerContact(dealerContact);
                     this.TopMost = false;
                     _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealerContact.ShowDialog();
 
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealerContact.HasTheCancelButtonPressed;
+                    HasTheSaveButtonPressed = _frmAddOrUpdateDealerContact.HasTheSaveButtonPressed;
 
-                    if (HasTheCancelButtonPressed == false)
+                    if (HasTheSaveButtonPressed == true)
                     {
                         Validation.localDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
@@ -932,16 +932,16 @@ namespace LinksForm
                 else
                 {
                     DealerBranch dealer = new DealerBranch();
-                    bool HasTheCancelButtonPressed;
+                    bool HasTheSaveButtonPressed = false;
 
                     frmAddOrUpdateDealerBranch _frmAddOrUpdateDealer = new frmAddOrUpdateDealerBranch(dealer);
                     this.TopMost = false;
                     _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealer.ShowDialog();
 
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+                    HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
 
-                    if (HasTheCancelButtonPressed == false)
+                    if (HasTheSaveButtonPressed == true)
                     {
                         Validation.localDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
@@ -965,7 +965,7 @@ namespace LinksForm
                 if (IsDealerContactView == true) //DealerContact
                 {
                     DealerContact dealerContact = new DealerContact();
-                    bool HasTheCancelButtonPressed;
+                    bool HasTheSaveButtonPressed = false;
 
                     dealerContact.DealerContactId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
                     dealerContact.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
@@ -983,9 +983,9 @@ namespace LinksForm
                     _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealerContact.ShowDialog();
 
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealerContact.HasTheCancelButtonPressed;
+                    HasTheSaveButtonPressed = _frmAddOrUpdateDealerContact.HasTheSaveButtonPressed;
 
-                    if (HasTheCancelButtonPressed == false)
+                    if (HasTheSaveButtonPressed == true)
                     {
                         Validation.localDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
@@ -1002,7 +1002,7 @@ namespace LinksForm
                 else //DealerBranch
                 {
                     DealerBranch dealer = new DealerBranch();
-                    bool HasTheCancelButtonPressed;
+                    bool HasTheSaveButtonPressed = false;
 
                     dealer.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
                     dealer.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
@@ -1019,9 +1019,9 @@ namespace LinksForm
                     _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealer.ShowDialog();
 
-                    HasTheCancelButtonPressed = _frmAddOrUpdateDealer.HasTheCancelButtonPressed;
+                    HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
 
-                    if (HasTheCancelButtonPressed == false)
+                    if (HasTheSaveButtonPressed == true)
                     {
                         Validation.localDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
@@ -1494,16 +1494,16 @@ namespace LinksForm
         {
             AppLinks appLinks = new AppLinks();
 
-            bool HasTheCancelButtonPressed;
+            bool HasTheSaveButtonPressed = false;
 
             frmAddOrUpdateAppLinks _frmAddOrUpdateAppLinks = new frmAddOrUpdateAppLinks(appLinks);
             this.TopMost = false;
             _frmAddOrUpdateAppLinks.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateAppLinks.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateAppLinks.HasTheCancelButtonPressed;
+            HasTheSaveButtonPressed = _frmAddOrUpdateAppLinks.HasTheSaveButtonPressed;
 
-            if (HasTheCancelButtonPressed == false)
+            if (HasTheSaveButtonPressed == true)
             {
                 Validation.localDatabaseConfig(true);
                 databaseViewModel = Services.GetDataFromDatabase();
@@ -1532,7 +1532,7 @@ namespace LinksForm
                         //MessageBox.Show(treeView1.SelectedNode.Text);
 
                         AppLinks appLinks = new AppLinks();
-                        bool HasTheCancelButtonPressed = false;
+                        bool HasTheSaveButtonPressed = false;
 
                         appLinks.AppLinkId = AppLinksFromDatabase[0].AppLinkId;
                         appLinks.AppCategoryId = AppLinksFromDatabase[0].AppCategoryId;
@@ -1552,9 +1552,9 @@ namespace LinksForm
                         _frmAddOrUpdateAppLinks.StartPosition = FormStartPosition.CenterParent;
                         _frmAddOrUpdateAppLinks.ShowDialog();
 
-                        HasTheCancelButtonPressed = _frmAddOrUpdateAppLinks.HasTheCancelButtonPressed;
+                        HasTheSaveButtonPressed = _frmAddOrUpdateAppLinks.HasTheSaveButtonPressed;
 
-                        if (HasTheCancelButtonPressed == false)
+                        if (HasTheSaveButtonPressed == true)
                         {
                             Validation.localDatabaseConfig(true);
                             databaseViewModel = Services.GetDataFromDatabase();
