@@ -1618,6 +1618,7 @@ namespace LinksForm
                                 Validation.localDatabaseConfig(true);
                                 databaseViewModel = Services.GetDataFromDatabase();
                                 txtAppSearch.Clear();
+
                                 loadTreeview(false, null);
                             }
                         }
