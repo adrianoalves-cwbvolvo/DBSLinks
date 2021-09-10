@@ -43,12 +43,7 @@ namespace LinksForm
         private Dictionary<int, string> PasswordList = new Dictionary<int, string>();
         private List<string> links = new List<string>();
 
-        //VARIABLES TO STORE DATA FROM THE DATABASE
-        //private List<App> ApplicationsList = new List<App>();
-        //private List<AppLinks> AppLinksFromDatabase = new List<AppLinks>();
-        //private List<Contact> contactList = new List<Contact>();
-        //private List<DealerContact> dealerContactList = new List<DealerContact>();
-        //private List<DealerBranch> dealerList = new List<DealerBranch>();
+        //VARIABLE TO STORE DATA FROM THE DATABASE
         private List<Country> countryList = new List<Country>();
 
         private DatabaseViewModel databaseViewModel = new DatabaseViewModel();
@@ -66,6 +61,10 @@ namespace LinksForm
         private int top;
         private int width;
         private int height;
+
+        //TREEVIEW VARIABLE - KEEP TRACK OF WHAT NODE HAS BEEN CLICKED
+        string treeviewNodeExpandText;
+        bool HasTheTreeviewNodeSelected = false;
 
         #endregion
 
@@ -312,17 +311,11 @@ namespace LinksForm
                 if (HasTheCancelButtonPressed == false)
                 {
                     PasswordList.Clear();
-                    lblStatus.Visible = true;
-
-                    lblStatus.Text = "Updating the local database to reflect the changes...";
                     Validation.localDatabaseConfig(true);
 
-                    lblStatus.Text = "Reloading the data...";
                     databaseViewModel = Services.GetDataFromDatabase();
                     
                     txtAppSearch.Text = ReturnedUsername;
-
-                    lblStatus.Visible = false;
                 }
 
                 _frmUpdatePassword.Dispose(); 
@@ -1352,6 +1345,10 @@ namespace LinksForm
 
         private void chkHidePasswords_CheckedChanged(object sender, EventArgs e)
         {
+            if (HasTheTreeviewNodeSelected == false)
+            {
+                txtAppSearch.Text = treeviewNodeExpandText;
+            }
 
             if (string.IsNullOrEmpty(txtAppSearch.Text))
             {
@@ -1404,6 +1401,7 @@ namespace LinksForm
                 try
                 {
                     Clipboard.SetText(e.Node.Text);
+                    HasTheTreeviewNodeSelected = true;
                 }
                 catch (Exception err)
                 {
@@ -1411,7 +1409,15 @@ namespace LinksForm
                 }
             }
 
-            #endregion
+        #endregion
+
+        #region "TREEVIEW EXPAND - WHAT NODE WAS CLICKED"
+        private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            treeviewNodeExpandText = e.Node.Text;
+            HasTheTreeviewNodeSelected = false;
+        }
+        #endregion
 
         #endregion
 
@@ -1569,7 +1575,10 @@ namespace LinksForm
         }
 
         //DELETE
+        private void btnDeleteApplication_Click(object sender, EventArgs e)
+        {
 
+        }
 
         #endregion
 
@@ -1646,6 +1655,7 @@ namespace LinksForm
                 treeView1.Nodes.Clear();
             }
         }
+
 
         #endregion
 
