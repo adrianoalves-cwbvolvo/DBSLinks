@@ -205,21 +205,36 @@ namespace Links.Forms
             if (dgvCountries.Rows.Count > 0)
             {
                 int CountryId = Convert.ToInt32(dgvCountries.CurrentRow.Cells[0].Value.ToString());
+                string CountryName = dgvCountries.CurrentRow.Cells[1].Value.ToString();
 
                 if (MessageBox.Show("Are you sure you want to delete the country " + CountryId.ToString() + "?", "Delete Country", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    Country country = new Country();
+                    var dealerList = new List<Dealer>();
+                    var appLinksList = new List<AppLinks>();
 
-                    country.CountryId = Convert.ToInt32(dgvCountries.CurrentRow.Cells[0].Value.ToString());
-                    country.CountryName = dgvCountries.CurrentRow.Cells[1].Value.ToString();
+                    dealerList = DALHelpers.GetDealersByCountry(CountryId);
+                    appLinksList = DALHelpers.GetAppLinksByCountryId(CountryId);
 
-                    DALHelpers.DeleteCountry(CountryId);
+                    if (countryList.Count == 0 || appLinksList.Count == 0)
+                    {
+                        Country country = new Country();
 
-                    ActivityLog.CountryLogger(country, "DELETE", "",0, Environment.UserName);
+                        country.CountryId = Convert.ToInt32(dgvCountries.CurrentRow.Cells[0].Value.ToString());
+                        country.CountryName = dgvCountries.CurrentRow.Cells[1].Value.ToString();
 
-                    Validation.localDatabaseConfig(true);
-                    //databaseViewModel = Services.GetDataFromDatabase();
-                    countryList = loadCountries();
+                        DALHelpers.DeleteCountry(CountryId);
+
+                        ActivityLog.CountryLogger(country, "DELETE", "", 0, Environment.UserName);
+
+                        Validation.localDatabaseConfig(true);
+                        //databaseViewModel = Services.GetDataFromDatabase();
+                        countryList = loadCountries();
+
+                    }else                      
+                    {
+                        MessageBox.Show("Unable to Delete the Country: " + CountryName + ". This record is used by: " + dealerList.Count + " Main Dealers and " + appLinksList.Count + " Application Links.", "Unable to Delete the Main Dealer!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                 }
 
                 dgvCountries.ClearSelection();
