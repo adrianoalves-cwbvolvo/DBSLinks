@@ -18,14 +18,14 @@ namespace LinksForm.Forms
     public partial class frmAddOrUpdateContact : Form
     {
         private List<Team> teamList = new List<Team>();
-        public bool HasTheCancelButtonPressed { get; set; }
+        public bool HasTheSaveButtonPressed { get; set; }
 
         public frmAddOrUpdateContact(Contact contact)
         {
             InitializeComponent();
 
             teamList = DALHelpers.GetTeams();
-            HasTheCancelButtonPressed = false;
+            HasTheSaveButtonPressed = false;
 
             int counter = 0;
 
@@ -67,7 +67,7 @@ namespace LinksForm.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            HasTheCancelButtonPressed = true;
+            HasTheSaveButtonPressed = true;
             this.Close();
         }
 

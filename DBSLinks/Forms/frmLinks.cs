@@ -573,7 +573,7 @@ namespace LinksForm
                 _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateContact.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheCancelButtonPressed;
+                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheSaveButtonPressed;
 
                 if (HasTheCancelButtonPressed == false)
                 {
@@ -612,7 +612,7 @@ namespace LinksForm
                 _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateContact.ShowDialog();
                 
-                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheCancelButtonPressed;
+                HasTheCancelButtonPressed = _frmAddOrUpdateContact.HasTheSaveButtonPressed;
 
                 if (HasTheCancelButtonPressed == false)
                 {

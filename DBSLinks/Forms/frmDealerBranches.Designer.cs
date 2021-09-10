@@ -32,13 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDealerBranches));
             this.dgvDealer = new System.Windows.Forms.DataGridView();
             this.grpCountry = new System.Windows.Forms.GroupBox();
+            this.btnDeleteDealer = new System.Windows.Forms.Button();
             this.imageListButtons = new System.Windows.Forms.ImageList(this.components);
+            this.btnEditDealer = new System.Windows.Forms.Button();
+            this.btnNewDealer = new System.Windows.Forms.Button();
             this.lblClearSearchDealer = new System.Windows.Forms.Label();
             this.txtSearchDealer = new System.Windows.Forms.TextBox();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnDeleteDealer = new System.Windows.Forms.Button();
-            this.btnEditDealer = new System.Windows.Forms.Button();
-            this.btnNewDealer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealer)).BeginInit();
             this.grpCountry.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +59,7 @@
             this.dgvDealer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDealer.Size = new System.Drawing.Size(584, 196);
             this.dgvDealer.TabIndex = 6;
+            this.dgvDealer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDealer_CellClick);
             // 
             // grpCountry
             // 
@@ -74,45 +75,6 @@
             this.grpCountry.TabIndex = 35;
             this.grpCountry.TabStop = false;
             // 
-            // imageListButtons
-            // 
-            this.imageListButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButtons.ImageStream")));
-            this.imageListButtons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListButtons.Images.SetKeyName(0, "New.png");
-            this.imageListButtons.Images.SetKeyName(1, "Edit.png");
-            this.imageListButtons.Images.SetKeyName(2, "Delete.png");
-            this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
-            this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
-            // 
-            // lblClearSearchDealer
-            // 
-            this.lblClearSearchDealer.AutoSize = true;
-            this.lblClearSearchDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClearSearchDealer.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblClearSearchDealer.Location = new System.Drawing.Point(158, 34);
-            this.lblClearSearchDealer.Name = "lblClearSearchDealer";
-            this.lblClearSearchDealer.Size = new System.Drawing.Size(15, 13);
-            this.lblClearSearchDealer.TabIndex = 25;
-            this.lblClearSearchDealer.Text = "X";
-            this.lblClearSearchDealer.Visible = false;
-            // 
-            // txtSearchDealer
-            // 
-            this.txtSearchDealer.Location = new System.Drawing.Point(13, 31);
-            this.txtSearchDealer.Name = "txtSearchDealer";
-            this.txtSearchDealer.Size = new System.Drawing.Size(164, 20);
-            this.txtSearchDealer.TabIndex = 24;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(264, 284);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(94, 30);
-            this.btnExit.TabIndex = 34;
-            this.btnExit.Text = "Close";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // btnDeleteDealer
             // 
             this.btnDeleteDealer.Enabled = false;
@@ -124,6 +86,16 @@
             this.btnDeleteDealer.Size = new System.Drawing.Size(36, 35);
             this.btnDeleteDealer.TabIndex = 26;
             this.btnDeleteDealer.UseVisualStyleBackColor = true;
+            // 
+            // imageListButtons
+            // 
+            this.imageListButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButtons.ImageStream")));
+            this.imageListButtons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListButtons.Images.SetKeyName(0, "New.png");
+            this.imageListButtons.Images.SetKeyName(1, "Edit.png");
+            this.imageListButtons.Images.SetKeyName(2, "Delete.png");
+            this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
+            this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
             // 
             // btnEditDealer
             // 
@@ -147,6 +119,37 @@
             this.btnNewDealer.Size = new System.Drawing.Size(36, 35);
             this.btnNewDealer.TabIndex = 28;
             this.btnNewDealer.UseVisualStyleBackColor = true;
+            // 
+            // lblClearSearchDealer
+            // 
+            this.lblClearSearchDealer.AutoSize = true;
+            this.lblClearSearchDealer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClearSearchDealer.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblClearSearchDealer.Location = new System.Drawing.Point(158, 34);
+            this.lblClearSearchDealer.Name = "lblClearSearchDealer";
+            this.lblClearSearchDealer.Size = new System.Drawing.Size(15, 13);
+            this.lblClearSearchDealer.TabIndex = 25;
+            this.lblClearSearchDealer.Text = "X";
+            this.lblClearSearchDealer.Visible = false;
+            this.lblClearSearchDealer.Click += new System.EventHandler(this.lblClearSearchDealer_Click);
+            // 
+            // txtSearchDealer
+            // 
+            this.txtSearchDealer.Location = new System.Drawing.Point(13, 31);
+            this.txtSearchDealer.Name = "txtSearchDealer";
+            this.txtSearchDealer.Size = new System.Drawing.Size(164, 20);
+            this.txtSearchDealer.TabIndex = 24;
+            this.txtSearchDealer.TextChanged += new System.EventHandler(this.txtSearchDealer_TextChanged);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(264, 284);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(94, 30);
+            this.btnExit.TabIndex = 34;
+            this.btnExit.Text = "Close";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // frmDealerBranches
             // 
