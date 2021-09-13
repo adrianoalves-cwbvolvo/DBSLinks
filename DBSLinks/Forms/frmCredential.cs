@@ -236,9 +236,5 @@ namespace Links.Forms
             btnDeleteCredential.FlatStyle = FlatStyle.Flat;
             btnDeleteCredential.FlatAppearance.BorderSize = 0;
         }
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }

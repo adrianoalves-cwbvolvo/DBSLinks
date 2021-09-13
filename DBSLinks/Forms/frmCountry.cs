@@ -95,11 +95,6 @@ namespace Links.Forms
             return countryList;
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void txtSearchCountry_TextChanged(object sender, EventArgs e)
         {
             string oldText = string.Empty;

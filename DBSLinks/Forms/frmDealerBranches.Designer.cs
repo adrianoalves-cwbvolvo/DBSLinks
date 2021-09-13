@@ -32,10 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDealerBranches));
             this.dgvDealer = new System.Windows.Forms.DataGridView();
             this.grpCountry = new System.Windows.Forms.GroupBox();
-            this.btnDeleteDealer = new System.Windows.Forms.Button();
+            this.btnDeleteDealerBranch = new System.Windows.Forms.Button();
             this.imageListButtons = new System.Windows.Forms.ImageList(this.components);
-            this.btnEditDealer = new System.Windows.Forms.Button();
-            this.btnNewDealer = new System.Windows.Forms.Button();
+            this.btnEditDealerBranch = new System.Windows.Forms.Button();
+            this.btnNewDealerBranch = new System.Windows.Forms.Button();
             this.lblClearSearchDealer = new System.Windows.Forms.Label();
             this.txtSearchDealer = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealer)).BeginInit();
@@ -62,30 +62,30 @@
             // 
             // grpCountry
             // 
-            this.grpCountry.Controls.Add(this.btnDeleteDealer);
-            this.grpCountry.Controls.Add(this.btnEditDealer);
-            this.grpCountry.Controls.Add(this.btnNewDealer);
+            this.grpCountry.Controls.Add(this.btnDeleteDealerBranch);
+            this.grpCountry.Controls.Add(this.btnEditDealerBranch);
+            this.grpCountry.Controls.Add(this.btnNewDealerBranch);
             this.grpCountry.Controls.Add(this.lblClearSearchDealer);
             this.grpCountry.Controls.Add(this.txtSearchDealer);
             this.grpCountry.Controls.Add(this.dgvDealer);
             this.grpCountry.Location = new System.Drawing.Point(5, 7);
             this.grpCountry.Name = "grpCountry";
-            this.grpCountry.Size = new System.Drawing.Size(614, 271);
+            this.grpCountry.Size = new System.Drawing.Size(614, 269);
             this.grpCountry.TabIndex = 35;
             this.grpCountry.TabStop = false;
             // 
-            // btnDeleteDealer
+            // btnDeleteDealerBranch
             // 
-            this.btnDeleteDealer.Enabled = false;
-            this.btnDeleteDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteDealer.ImageIndex = 2;
-            this.btnDeleteDealer.ImageList = this.imageListButtons;
-            this.btnDeleteDealer.Location = new System.Drawing.Point(562, 16);
-            this.btnDeleteDealer.Name = "btnDeleteDealer";
-            this.btnDeleteDealer.Size = new System.Drawing.Size(36, 35);
-            this.btnDeleteDealer.TabIndex = 26;
-            this.btnDeleteDealer.UseVisualStyleBackColor = true;
-            this.btnDeleteDealer.Click += new System.EventHandler(this.btnDeleteDealer_Click);
+            this.btnDeleteDealerBranch.Enabled = false;
+            this.btnDeleteDealerBranch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteDealerBranch.ImageIndex = 2;
+            this.btnDeleteDealerBranch.ImageList = this.imageListButtons;
+            this.btnDeleteDealerBranch.Location = new System.Drawing.Point(562, 16);
+            this.btnDeleteDealerBranch.Name = "btnDeleteDealerBranch";
+            this.btnDeleteDealerBranch.Size = new System.Drawing.Size(36, 35);
+            this.btnDeleteDealerBranch.TabIndex = 26;
+            this.btnDeleteDealerBranch.UseVisualStyleBackColor = true;
+            this.btnDeleteDealerBranch.Click += new System.EventHandler(this.btnDeleteDealer_Click);
             // 
             // imageListButtons
             // 
@@ -97,30 +97,30 @@
             this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
             this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
             // 
-            // btnEditDealer
+            // btnEditDealerBranch
             // 
-            this.btnEditDealer.Enabled = false;
-            this.btnEditDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditDealer.ImageIndex = 1;
-            this.btnEditDealer.ImageList = this.imageListButtons;
-            this.btnEditDealer.Location = new System.Drawing.Point(520, 16);
-            this.btnEditDealer.Name = "btnEditDealer";
-            this.btnEditDealer.Size = new System.Drawing.Size(36, 35);
-            this.btnEditDealer.TabIndex = 27;
-            this.btnEditDealer.UseVisualStyleBackColor = true;
-            this.btnEditDealer.Click += new System.EventHandler(this.btnEditDealer_Click);
+            this.btnEditDealerBranch.Enabled = false;
+            this.btnEditDealerBranch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditDealerBranch.ImageIndex = 1;
+            this.btnEditDealerBranch.ImageList = this.imageListButtons;
+            this.btnEditDealerBranch.Location = new System.Drawing.Point(520, 16);
+            this.btnEditDealerBranch.Name = "btnEditDealerBranch";
+            this.btnEditDealerBranch.Size = new System.Drawing.Size(36, 35);
+            this.btnEditDealerBranch.TabIndex = 27;
+            this.btnEditDealerBranch.UseVisualStyleBackColor = true;
+            this.btnEditDealerBranch.Click += new System.EventHandler(this.btnEditDealer_Click);
             // 
-            // btnNewDealer
+            // btnNewDealerBranch
             // 
-            this.btnNewDealer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewDealer.ImageIndex = 0;
-            this.btnNewDealer.ImageList = this.imageListButtons;
-            this.btnNewDealer.Location = new System.Drawing.Point(478, 16);
-            this.btnNewDealer.Name = "btnNewDealer";
-            this.btnNewDealer.Size = new System.Drawing.Size(36, 35);
-            this.btnNewDealer.TabIndex = 28;
-            this.btnNewDealer.UseVisualStyleBackColor = true;
-            this.btnNewDealer.Click += new System.EventHandler(this.btnNewDealer_Click);
+            this.btnNewDealerBranch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewDealerBranch.ImageIndex = 0;
+            this.btnNewDealerBranch.ImageList = this.imageListButtons;
+            this.btnNewDealerBranch.Location = new System.Drawing.Point(478, 16);
+            this.btnNewDealerBranch.Name = "btnNewDealerBranch";
+            this.btnNewDealerBranch.Size = new System.Drawing.Size(36, 35);
+            this.btnNewDealerBranch.TabIndex = 28;
+            this.btnNewDealerBranch.UseVisualStyleBackColor = true;
+            this.btnNewDealerBranch.Click += new System.EventHandler(this.btnNewDealer_Click);
             // 
             // lblClearSearchDealer
             // 
@@ -133,7 +133,6 @@
             this.lblClearSearchDealer.TabIndex = 25;
             this.lblClearSearchDealer.Text = "X";
             this.lblClearSearchDealer.Visible = false;
-            this.lblClearSearchDealer.Click += new System.EventHandler(this.lblClearSearchDealer_Click);
             // 
             // txtSearchDealer
             // 
@@ -147,7 +146,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 288);
+            this.ClientSize = new System.Drawing.Size(631, 285);
             this.Controls.Add(this.grpCountry);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -165,10 +164,10 @@
 
         private System.Windows.Forms.DataGridView dgvDealer;
         private System.Windows.Forms.GroupBox grpCountry;
-        private System.Windows.Forms.Button btnDeleteDealer;
+        private System.Windows.Forms.Button btnDeleteDealerBranch;
         private System.Windows.Forms.ImageList imageListButtons;
-        private System.Windows.Forms.Button btnEditDealer;
-        private System.Windows.Forms.Button btnNewDealer;
+        private System.Windows.Forms.Button btnEditDealerBranch;
+        private System.Windows.Forms.Button btnNewDealerBranch;
         private System.Windows.Forms.Label lblClearSearchDealer;
         private System.Windows.Forms.TextBox txtSearchDealer;
     }

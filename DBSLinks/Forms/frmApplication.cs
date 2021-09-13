@@ -91,7 +91,7 @@ namespace Links.Forms
 
         private void btnNewApplication_Click(object sender, EventArgs e)
         {
-            bool HasTheSaveButtonPressed;
+            bool HasTheSaveButtonPressed = false;
 
             App app = new App();
 
@@ -121,7 +121,7 @@ namespace Links.Forms
             if ((dgvApplications.Rows.Count > 0))
             {
                 App app = new App();
-                bool HasTheSaveButtonPressed;
+                bool HasTheSaveButtonPressed = false;
 
                 app.ApplicationId = Convert.ToInt32(dgvApplications.CurrentRow.Cells[0].Value.ToString());
                 app.ApplicationName = dgvApplications.CurrentRow.Cells[1].Value.ToString();
@@ -178,11 +178,6 @@ namespace Links.Forms
                 btnEditApplication.Enabled = false;
                 btnDeleteApplication.Enabled = false;
             }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private List<App> loadApplications()

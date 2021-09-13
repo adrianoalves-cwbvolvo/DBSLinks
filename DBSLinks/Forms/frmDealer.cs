@@ -91,7 +91,7 @@ namespace Links.Forms
 
         private void btnNewDealer_Click(object sender, EventArgs e)
         {
-            bool HasTheSaveButtonPressed;
+            bool HasTheSaveButtonPressed = false;
 
             Dealer dealer = new Dealer();
 
@@ -122,7 +122,7 @@ namespace Links.Forms
             {
                 Dealer dealer = new Dealer();
 
-                bool HasTheSaveButtonPressed;
+                bool HasTheSaveButtonPressed = false;
 
                 dealer.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
                 dealer.DealerName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
@@ -192,11 +192,6 @@ namespace Links.Forms
                 btnEditDealer.Enabled = false;
                 btnDeleteDealer.Enabled = false;
             }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private List<Dealer> loadDealers()

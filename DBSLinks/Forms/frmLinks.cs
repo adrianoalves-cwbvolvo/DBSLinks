@@ -1001,20 +1001,20 @@ namespace LinksForm
                 }
                 else //DealerBranch
                 {
-                    DealerBranch dealer = new DealerBranch();
+                    DealerBranch dealerBranch = new DealerBranch();
                     bool HasTheSaveButtonPressed = false;
 
-                    dealer.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
-                    dealer.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
-                    dealer.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
-                    dealer.BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
-                    dealer.PhoneNumber = dgvDealers.CurrentRow.Cells[4].Value.ToString();
-                    dealer.BaldoPartner = dgvDealers.CurrentRow.Cells[5].Value.ToString();
-                    dealer.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[6].Value.ToString());
-                    dealer.CountryName = dgvDealers.CurrentRow.Cells[7].Value.ToString();
-                    dealer.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
+                    dealerBranch.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                    dealerBranch.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
+                    dealerBranch.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
+                    dealerBranch.BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+                    dealerBranch.PhoneNumber = dgvDealers.CurrentRow.Cells[4].Value.ToString();
+                    dealerBranch.BaldoPartner = dgvDealers.CurrentRow.Cells[5].Value.ToString();
+                    dealerBranch.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[6].Value.ToString());
+                    dealerBranch.CountryName = dgvDealers.CurrentRow.Cells[7].Value.ToString();
+                    dealerBranch.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
 
-                    frmAddOrUpdateDealerBranch _frmAddOrUpdateDealer = new frmAddOrUpdateDealerBranch(dealer);
+                    frmAddOrUpdateDealerBranch _frmAddOrUpdateDealer = new frmAddOrUpdateDealerBranch(dealerBranch);
                     this.TopMost = false;
                     _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealer.ShowDialog();
@@ -1062,12 +1062,23 @@ namespace LinksForm
                 }
                 else
                 {
-                    int DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
-                    string BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+                    DealerBranch dealerBranch = new DealerBranch();
 
-                    if (MessageBox.Show("Are you sure you want to delete the Dealer Branch: " + BranchName + "?", "Delete Dealer Branch", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    dealerBranch.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
+                    dealerBranch.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
+                    dealerBranch.DealerName = dgvDealers.CurrentRow.Cells[2].Value.ToString();
+                    dealerBranch.BranchName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
+                    dealerBranch.PhoneNumber = dgvDealers.CurrentRow.Cells[4].Value.ToString();
+                    dealerBranch.BaldoPartner = dgvDealers.CurrentRow.Cells[5].Value.ToString();
+                    dealerBranch.CountryId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[6].Value.ToString());
+                    dealerBranch.CountryName = dgvDealers.CurrentRow.Cells[7].Value.ToString();
+                    dealerBranch.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[8].Value.ToString());
+
+                    if (MessageBox.Show("Are you sure you want to delete the Dealer Branch: " + dealerBranch.BranchName + "?", "Delete Dealer Branch", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-                        DALHelpers.DeleteDealerBranch(DealerBranchId);
+                        DALHelpers.DeleteDealerBranch(dealerBranch.DealerBranchId);
+
+                        ActivityLog.DealerBranchLogger(dealerBranch, "DELETE", "Dealer Branch", Environment.UserName);
 
                         Validation.localDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();

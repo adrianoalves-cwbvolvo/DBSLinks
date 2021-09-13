@@ -38,7 +38,6 @@
             this.lblClearSearchCountry = new System.Windows.Forms.Label();
             this.txtSearchCountry = new System.Windows.Forms.TextBox();
             this.dgvCountries = new System.Windows.Forms.DataGridView();
-            this.btnExit = new System.Windows.Forms.Button();
             this.grpCountry.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +52,7 @@
             this.grpCountry.Controls.Add(this.dgvCountries);
             this.grpCountry.Location = new System.Drawing.Point(9, 3);
             this.grpCountry.Name = "grpCountry";
-            this.grpCountry.Size = new System.Drawing.Size(358, 271);
+            this.grpCountry.Size = new System.Drawing.Size(358, 270);
             this.grpCountry.TabIndex = 28;
             this.grpCountry.TabStop = false;
             // 
@@ -144,23 +143,12 @@
             this.dgvCountries.TabIndex = 6;
             this.dgvCountries.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCountries_CellClick);
             // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(140, 284);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(94, 25);
-            this.btnExit.TabIndex = 27;
-            this.btnExit.Text = "Close";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // frmCountry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 320);
+            this.ClientSize = new System.Drawing.Size(373, 281);
             this.Controls.Add(this.grpCountry);
-            this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -183,7 +171,6 @@
         private System.Windows.Forms.Label lblClearSearchCountry;
         private System.Windows.Forms.TextBox txtSearchCountry;
         private System.Windows.Forms.DataGridView dgvCountries;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.ImageList imageListButtons;
     }
 }

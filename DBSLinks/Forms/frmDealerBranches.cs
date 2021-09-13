@@ -1,5 +1,7 @@
-﻿using LinksForm.Controller;
+﻿using Links.Logger;
+using LinksForm.Controller;
 using LinksForm.DAL;
+using LinksForm.Forms;
 using LinksForm.Model;
 using System;
 using System.Collections.Generic;
@@ -55,8 +57,8 @@ namespace Links.Forms
 
         private void dgvDealer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            btnEditDealer.Enabled = true;
-            btnDeleteDealer.Enabled = true;
+            btnEditDealerBranch.Enabled = true;
+            btnDeleteDealerBranch.Enabled = true;
         }
 
         private void txtSearchDealer_TextChanged(object sender, EventArgs e)
@@ -90,17 +92,105 @@ namespace Links.Forms
 
         private void btnNewDealer_Click(object sender, EventArgs e)
         {
+            bool HasTheSaveButtonPressed = false;
 
+            DealerBranch dealerBranch = new DealerBranch();
+
+            frmAddOrUpdateDealerBranch _frmAddOrUpdateDealerBranch = new frmAddOrUpdateDealerBranch(dealerBranch);
+            _frmAddOrUpdateDealerBranch.TopMost = true;
+            _frmAddOrUpdateDealerBranch.StartPosition = FormStartPosition.CenterParent;
+            _frmAddOrUpdateDealerBranch.ShowDialog();
+
+            HasTheSaveButtonPressed = _frmAddOrUpdateDealerBranch.HasTheSaveButtonPressed;
+
+            if (HasTheSaveButtonPressed == true)
+            {
+                Validation.localDatabaseConfig(true);
+                //databaseViewModel = Services.GetDataFromDatabase();
+                dealerBranchesList = loadDealerBranches();
+            }
+
+            dgvDealer.ClearSelection();
+            txtSearchDealer.Clear();
+            btnEditDealerBranch.Enabled = false;
+            btnDeleteDealerBranch.Enabled = false;
+
+            _frmAddOrUpdateDealerBranch.Dispose();
         }
 
         private void btnEditDealer_Click(object sender, EventArgs e)
         {
+            if ((dgvDealer.Rows.Count > 0))
+            {
+                DealerBranch dealerBranch = new DealerBranch();
 
+                bool HasTheSaveButtonPressed = false;
+
+                dealerBranch.DealerBranchId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
+                dealerBranch.CTDI = Convert.ToInt32(dgvDealer.CurrentRow.Cells[1].Value.ToString());
+                dealerBranch.DealerName = dgvDealer.CurrentRow.Cells[2].Value.ToString();
+                dealerBranch.BranchName = dgvDealer.CurrentRow.Cells[3].Value.ToString();
+                dealerBranch.PhoneNumber = dgvDealer.CurrentRow.Cells[4].Value.ToString();
+                dealerBranch.BaldoPartner = dgvDealer.CurrentRow.Cells[5].Value.ToString();
+                dealerBranch.CountryId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[6].Value.ToString());
+                dealerBranch.CountryName = dgvDealer.CurrentRow.Cells[7].Value.ToString();
+                dealerBranch.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[8].Value.ToString());
+
+                frmAddOrUpdateDealerBranch _frmAddOrUpdateDealerBranch = new frmAddOrUpdateDealerBranch(dealerBranch);
+                this.TopMost = false;
+                _frmAddOrUpdateDealerBranch.StartPosition = FormStartPosition.CenterParent;
+                _frmAddOrUpdateDealerBranch.ShowDialog();
+
+                HasTheSaveButtonPressed = _frmAddOrUpdateDealerBranch.HasTheSaveButtonPressed;
+
+                if (HasTheSaveButtonPressed == true)
+                {
+                    Validation.localDatabaseConfig(true);
+                    //databaseViewModel = Services.GetDataFromDatabase();
+                    dealerBranchesList = loadDealerBranches();
+                }
+
+                dgvDealer.ClearSelection();
+                txtSearchDealer.Clear();
+                btnEditDealerBranch.Enabled = false;
+                btnDeleteDealerBranch.Enabled = false;
+
+                _frmAddOrUpdateDealerBranch.Dispose();
+            }
         }
 
         private void btnDeleteDealer_Click(object sender, EventArgs e)
         {
+            if (dgvDealer.Rows.Count > 0)
+            {
 
+                DealerBranch dealerBranch = new DealerBranch();
+
+                dealerBranch.DealerBranchId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
+                dealerBranch.CTDI = Convert.ToInt32(dgvDealer.CurrentRow.Cells[1].Value.ToString());
+                dealerBranch.DealerName = dgvDealer.CurrentRow.Cells[2].Value.ToString();
+                dealerBranch.BranchName = dgvDealer.CurrentRow.Cells[3].Value.ToString();
+                dealerBranch.PhoneNumber = dgvDealer.CurrentRow.Cells[4].Value.ToString();
+                dealerBranch.BaldoPartner = dgvDealer.CurrentRow.Cells[5].Value.ToString();
+                dealerBranch.CountryId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[6].Value.ToString());
+                dealerBranch.CountryName = dgvDealer.CurrentRow.Cells[7].Value.ToString();
+                dealerBranch.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[8].Value.ToString());
+
+                if (MessageBox.Show("Are you sure you want to delete the Dealer Branch: " + dealerBranch.BranchName + "?", "Delete Dealer Branch", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    DALHelpers.DeleteDealerBranch(dealerBranch.DealerBranchId);
+
+                    ActivityLog.DealerBranchLogger(dealerBranch, "DELETE", "Dealer Branch", Environment.UserName);
+
+                    Validation.localDatabaseConfig(true);
+                    dealerBranchesList = loadDealerBranches();
+                }
+
+                dgvDealer.ClearSelection();
+                txtSearchDealer.Clear();
+                btnDeleteDealerBranch.Enabled = false;
+                btnEditDealerBranch.Enabled = false;
+            }
         }
 
         private void lblClearSearchDealer_Click(object sender, EventArgs e)
@@ -109,7 +199,7 @@ namespace Links.Forms
         }
 
 
-        public void loadDealerBranches()
+        public List<DealerBranch> loadDealerBranches()
         {
             dgvDealer.DataSource = null;
             dgvDealer.Rows.Clear();
@@ -151,22 +241,23 @@ namespace Links.Forms
             dgvDealer.Sort(dgvDealer.Columns["Sort"], ListSortDirection.Ascending);
 
             dgvDealer.ClearSelection();
-        }
 
+            return dealerBranchesList;
+        }
 
         private void StyleCountryButtons()
         {
-            btnNewDealer.TabStop = false;
-            btnNewDealer.FlatStyle = FlatStyle.Flat;
-            btnNewDealer.FlatAppearance.BorderSize = 0;
+            btnNewDealerBranch.TabStop = false;
+            btnNewDealerBranch.FlatStyle = FlatStyle.Flat;
+            btnNewDealerBranch.FlatAppearance.BorderSize = 0;
 
-            btnEditDealer.TabStop = false;
-            btnEditDealer.FlatStyle = FlatStyle.Flat;
-            btnEditDealer.FlatAppearance.BorderSize = 0;
+            btnEditDealerBranch.TabStop = false;
+            btnEditDealerBranch.FlatStyle = FlatStyle.Flat;
+            btnEditDealerBranch.FlatAppearance.BorderSize = 0;
 
-            btnDeleteDealer.TabStop = false;
-            btnDeleteDealer.FlatStyle = FlatStyle.Flat;
-            btnDeleteDealer.FlatAppearance.BorderSize = 0;
+            btnDeleteDealerBranch.TabStop = false;
+            btnDeleteDealerBranch.FlatStyle = FlatStyle.Flat;
+            btnDeleteDealerBranch.FlatAppearance.BorderSize = 0;
         }
     }
 }

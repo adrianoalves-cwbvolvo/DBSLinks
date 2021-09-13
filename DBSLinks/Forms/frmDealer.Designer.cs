@@ -38,7 +38,6 @@
             this.btnNewDealer = new System.Windows.Forms.Button();
             this.lblClearSearchDealer = new System.Windows.Forms.Label();
             this.txtSearchDealer = new System.Windows.Forms.TextBox();
-            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealer)).BeginInit();
             this.grpCountry.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +70,7 @@
             this.grpCountry.Controls.Add(this.dgvDealer);
             this.grpCountry.Location = new System.Drawing.Point(8, 5);
             this.grpCountry.Name = "grpCountry";
-            this.grpCountry.Size = new System.Drawing.Size(446, 271);
+            this.grpCountry.Size = new System.Drawing.Size(446, 267);
             this.grpCountry.TabIndex = 33;
             this.grpCountry.TabStop = false;
             // 
@@ -144,23 +143,12 @@
             this.txtSearchDealer.TabIndex = 24;
             this.txtSearchDealer.TextChanged += new System.EventHandler(this.txtSearchDealer_TextChanged);
             // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(190, 282);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(94, 30);
-            this.btnExit.TabIndex = 32;
-            this.btnExit.Text = "Close";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // frmDealer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 320);
+            this.ClientSize = new System.Drawing.Size(461, 279);
             this.Controls.Add(this.grpCountry);
-            this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -184,6 +172,5 @@
         private System.Windows.Forms.Button btnNewDealer;
         private System.Windows.Forms.Label lblClearSearchDealer;
         private System.Windows.Forms.TextBox txtSearchDealer;
-        private System.Windows.Forms.Button btnExit;
     }
 }

@@ -38,7 +38,6 @@
             this.btnNewCredential = new System.Windows.Forms.Button();
             this.lblClearSearchCredential = new System.Windows.Forms.Label();
             this.txtSearchCredential = new System.Windows.Forms.TextBox();
-            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCredentials)).BeginInit();
             this.grpCountry.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +70,7 @@
             this.grpCountry.Controls.Add(this.dgvCredentials);
             this.grpCountry.Location = new System.Drawing.Point(9, 7);
             this.grpCountry.Name = "grpCountry";
-            this.grpCountry.Size = new System.Drawing.Size(516, 271);
+            this.grpCountry.Size = new System.Drawing.Size(516, 268);
             this.grpCountry.TabIndex = 31;
             this.grpCountry.TabStop = false;
             // 
@@ -144,23 +143,12 @@
             this.txtSearchCredential.TabIndex = 24;
             this.txtSearchCredential.TextChanged += new System.EventHandler(this.txtSearchCredential_TextChanged);
             // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(229, 287);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(94, 30);
-            this.btnExit.TabIndex = 30;
-            this.btnExit.Text = "Close";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // frmCredential
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 325);
+            this.ClientSize = new System.Drawing.Size(535, 282);
             this.Controls.Add(this.grpCountry);
-            this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -184,6 +172,5 @@
         private System.Windows.Forms.Button btnNewCredential;
         private System.Windows.Forms.Label lblClearSearchCredential;
         private System.Windows.Forms.TextBox txtSearchCredential;
-        private System.Windows.Forms.Button btnExit;
     }
 }
