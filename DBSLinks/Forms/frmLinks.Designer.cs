@@ -34,8 +34,9 @@ namespace LinksForm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLinks));
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnDeleteContact = new System.Windows.Forms.Button();
+            this.btnExportContactsToExcel = new System.Windows.Forms.Button();
             this.imageListButtons = new System.Windows.Forms.ImageList(this.components);
+            this.btnDeleteContact = new System.Windows.Forms.Button();
             this.btnEditContact = new System.Windows.Forms.Button();
             this.btnNewContact = new System.Windows.Forms.Button();
             this.lblClearContactsSearch = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@ namespace LinksForm
             this.btnEditDealerBranch = new System.Windows.Forms.Button();
             this.btnNewDealerBranch = new System.Windows.Forms.Button();
             this.chkDealerContacts = new System.Windows.Forms.CheckBox();
+            this.imageListMenuIcons = new System.Windows.Forms.ImageList(this.components);
             this.lblClearDealersSearch = new System.Windows.Forms.Label();
             this.txtDealers = new System.Windows.Forms.TextBox();
             this.dgvDealers = new System.Windows.Forms.DataGridView();
@@ -83,12 +85,11 @@ namespace LinksForm
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStripApps = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updatePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnExportToExcel = new System.Windows.Forms.Button();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripContacts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripDealers = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.imageListMenuIcons = new System.Windows.Forms.ImageList(this.components);
+            this.btnExportDealersToExcel = new System.Windows.Forms.Button();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
@@ -108,7 +109,7 @@ namespace LinksForm
             this.tabMain.Controls.Add(this.tabPage2);
             this.tabMain.Controls.Add(this.tabPage3);
             this.tabMain.ImageList = this.imageListMenuIcons;
-            this.tabMain.ItemSize = new System.Drawing.Size(88, 25);
+            this.tabMain.ItemSize = new System.Drawing.Size(88, 30);
             this.tabMain.Location = new System.Drawing.Point(0, 1);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
@@ -119,7 +120,7 @@ namespace LinksForm
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
-            this.tabPage1.Controls.Add(this.btnExportToExcel);
+            this.tabPage1.Controls.Add(this.btnExportContactsToExcel);
             this.tabPage1.Controls.Add(this.btnDeleteContact);
             this.tabPage1.Controls.Add(this.btnEditContact);
             this.tabPage1.Controls.Add(this.btnNewContact);
@@ -127,12 +128,36 @@ namespace LinksForm
             this.tabPage1.Controls.Add(this.dgvContacts);
             this.tabPage1.Controls.Add(this.txtContacts);
             this.tabPage1.ImageKey = "Contact.png";
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(615, 458);
+            this.tabPage1.Size = new System.Drawing.Size(615, 453);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Phone Contacts";
+            // 
+            // btnExportContactsToExcel
+            // 
+            this.btnExportContactsToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportContactsToExcel.ImageIndex = 5;
+            this.btnExportContactsToExcel.ImageList = this.imageListButtons;
+            this.btnExportContactsToExcel.Location = new System.Drawing.Point(429, 7);
+            this.btnExportContactsToExcel.Name = "btnExportContactsToExcel";
+            this.btnExportContactsToExcel.Size = new System.Drawing.Size(35, 35);
+            this.btnExportContactsToExcel.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnExportContactsToExcel, "Export to Excel");
+            this.btnExportContactsToExcel.UseVisualStyleBackColor = true;
+            this.btnExportContactsToExcel.Click += new System.EventHandler(this.btnExportContactsToExcel_Click);
+            // 
+            // imageListButtons
+            // 
+            this.imageListButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButtons.ImageStream")));
+            this.imageListButtons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListButtons.Images.SetKeyName(0, "New.png");
+            this.imageListButtons.Images.SetKeyName(1, "Edit.png");
+            this.imageListButtons.Images.SetKeyName(2, "Delete.png");
+            this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
+            this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
+            this.imageListButtons.Images.SetKeyName(5, "export-to-excel.png");
             // 
             // btnDeleteContact
             // 
@@ -147,17 +172,6 @@ namespace LinksForm
             this.toolTip1.SetToolTip(this.btnDeleteContact, "Delete Contact");
             this.btnDeleteContact.UseVisualStyleBackColor = true;
             this.btnDeleteContact.Click += new System.EventHandler(this.btnDeleteContact_Click);
-            // 
-            // imageListButtons
-            // 
-            this.imageListButtons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListButtons.ImageStream")));
-            this.imageListButtons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListButtons.Images.SetKeyName(0, "New.png");
-            this.imageListButtons.Images.SetKeyName(1, "Edit.png");
-            this.imageListButtons.Images.SetKeyName(2, "Delete.png");
-            this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
-            this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
-            this.imageListButtons.Images.SetKeyName(5, "export-to-excel.png");
             // 
             // btnEditContact
             // 
@@ -229,6 +243,7 @@ namespace LinksForm
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnExportDealersToExcel);
             this.tabPage2.Controls.Add(this.btnDeleteDealerBranch);
             this.tabPage2.Controls.Add(this.btnEditDealerBranch);
             this.tabPage2.Controls.Add(this.btnNewDealerBranch);
@@ -236,13 +251,13 @@ namespace LinksForm
             this.tabPage2.Controls.Add(this.lblClearDealersSearch);
             this.tabPage2.Controls.Add(this.txtDealers);
             this.tabPage2.Controls.Add(this.dgvDealers);
-            this.tabPage2.ImageKey = "Truck-30.png";
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.ImageIndex = 2;
+            this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(615, 458);
+            this.tabPage2.Size = new System.Drawing.Size(615, 453);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Dealer Branches";
+            this.tabPage2.Text = "Dealers - Partner Branches";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnDeleteDealerBranch
@@ -287,7 +302,7 @@ namespace LinksForm
             // 
             this.chkDealerContacts.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkDealerContacts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkDealerContacts.ImageIndex = 9;
+            this.chkDealerContacts.ImageIndex = 10;
             this.chkDealerContacts.ImageList = this.imageListMenuIcons;
             this.chkDealerContacts.Location = new System.Drawing.Point(175, 7);
             this.chkDealerContacts.Margin = new System.Windows.Forms.Padding(0);
@@ -297,6 +312,23 @@ namespace LinksForm
             this.chkDealerContacts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDealerContacts.UseVisualStyleBackColor = true;
             this.chkDealerContacts.CheckedChanged += new System.EventHandler(this.chkDealerContacts_CheckedChanged);
+            // 
+            // imageListMenuIcons
+            // 
+            this.imageListMenuIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMenuIcons.ImageStream")));
+            this.imageListMenuIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListMenuIcons.Images.SetKeyName(0, "Contact.png");
+            this.imageListMenuIcons.Images.SetKeyName(1, "Applications.png");
+            this.imageListMenuIcons.Images.SetKeyName(2, "Truck-30.png");
+            this.imageListMenuIcons.Images.SetKeyName(3, "Truck-40 (2).png");
+            this.imageListMenuIcons.Images.SetKeyName(4, "Countries30,.png");
+            this.imageListMenuIcons.Images.SetKeyName(5, "Credential30.png");
+            this.imageListMenuIcons.Images.SetKeyName(6, "New.png");
+            this.imageListMenuIcons.Images.SetKeyName(7, "Edit.png");
+            this.imageListMenuIcons.Images.SetKeyName(8, "Delete.png");
+            this.imageListMenuIcons.Images.SetKeyName(9, "Reload-30.png");
+            this.imageListMenuIcons.Images.SetKeyName(10, "View Delaer Contacts.png");
+            this.imageListMenuIcons.Images.SetKeyName(11, "Viewing Dealer Contacts.png");
             // 
             // lblClearDealersSearch
             // 
@@ -349,10 +381,10 @@ namespace LinksForm
             this.tabPage3.Controls.Add(this.txtAppSearch);
             this.tabPage3.Controls.Add(this.treeView1);
             this.tabPage3.ImageKey = "Applications.png";
-            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Location = new System.Drawing.Point(4, 34);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(615, 458);
+            this.tabPage3.Size = new System.Drawing.Size(615, 453);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Applications";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -544,14 +576,14 @@ namespace LinksForm
             this.credentialsToolStripMenuItem});
             this.dataAdminToolStripMenuItem.Image = global::Links.Properties.Resources.DataAdmin30;
             this.dataAdminToolStripMenuItem.Name = "dataAdminToolStripMenuItem";
-            this.dataAdminToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.dataAdminToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.dataAdminToolStripMenuItem.Text = "Data Admin";
             // 
             // countriesToolStripMenuItem
             // 
             this.countriesToolStripMenuItem.Image = global::Links.Properties.Resources.Countries30_;
             this.countriesToolStripMenuItem.Name = "countriesToolStripMenuItem";
-            this.countriesToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.countriesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.countriesToolStripMenuItem.Text = "Countries";
             this.countriesToolStripMenuItem.Click += new System.EventHandler(this.countriesToolStripMenuItem_Click_1);
             // 
@@ -559,88 +591,88 @@ namespace LinksForm
             // 
             this.applicationsToolStripMenuItem.Image = global::Links.Properties.Resources.Applications;
             this.applicationsToolStripMenuItem.Name = "applicationsToolStripMenuItem";
-            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.applicationsToolStripMenuItem.Text = "Applications";
             this.applicationsToolStripMenuItem.Click += new System.EventHandler(this.applicationsToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(223, 6);
             // 
             // dealersToolStripMenuItem
             // 
-            this.dealersToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
+            this.dealersToolStripMenuItem.Image = global::Links.Properties.Resources.Main_Dealer;
             this.dealersToolStripMenuItem.Name = "dealersToolStripMenuItem";
-            this.dealersToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
-            this.dealersToolStripMenuItem.Text = "Dealers (Main)";
+            this.dealersToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.dealersToolStripMenuItem.Text = "Dealers (Main Partner Name)";
             this.dealersToolStripMenuItem.Click += new System.EventHandler(this.dealersToolStripMenuItem_Click);
             // 
             // dealerBranchesToolStripMenuItem
             // 
-            this.dealerBranchesToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
+            this.dealerBranchesToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_40__2_;
             this.dealerBranchesToolStripMenuItem.Name = "dealerBranchesToolStripMenuItem";
-            this.dealerBranchesToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
-            this.dealerBranchesToolStripMenuItem.Text = "Dealers (Branches)";
+            this.dealerBranchesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.dealerBranchesToolStripMenuItem.Text = "Dealers (Partner Branches)";
             this.dealerBranchesToolStripMenuItem.Click += new System.EventHandler(this.dealerBranchesToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(223, 6);
             // 
             // credentialsToolStripMenuItem
             // 
             this.credentialsToolStripMenuItem.Image = global::Links.Properties.Resources.Credential30;
             this.credentialsToolStripMenuItem.Name = "credentialsToolStripMenuItem";
-            this.credentialsToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.credentialsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.credentialsToolStripMenuItem.Text = "Credentials";
             this.credentialsToolStripMenuItem.Click += new System.EventHandler(this.credentialsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
             // 
             // reloadDataToolStripMenuItem
             // 
             this.reloadDataToolStripMenuItem.Image = global::Links.Properties.Resources.Reload_30;
             this.reloadDataToolStripMenuItem.Name = "reloadDataToolStripMenuItem";
-            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.reloadDataToolStripMenuItem.Text = "Data Reload";
             this.reloadDataToolStripMenuItem.Click += new System.EventHandler(this.reloadDataToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
-            this.settingsToolStripMenuItem.Image = global::Links.Properties.Resources.Settings30;
+            this.settingsToolStripMenuItem.Image = global::Links.Properties.Resources.CogWheelBoarder;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(154, 6);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Image = global::Links.Properties.Resources.About_30;
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(188, 30);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(154, 6);
             // 
             // exitApplicationToolStripMenuItem
             // 
-            this.exitApplicationToolStripMenuItem.Image = global::Links.Properties.Resources.Shutdown_30;
+            this.exitApplicationToolStripMenuItem.Image = global::Links.Properties.Resources.Shutdown_301;
             this.exitApplicationToolStripMenuItem.Name = "exitApplicationToolStripMenuItem";
-            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.exitApplicationToolStripMenuItem.Text = "Exit Application";
             this.exitApplicationToolStripMenuItem.Click += new System.EventHandler(this.exitApplicationToolStripMenuItem_Click);
             // 
@@ -664,19 +696,6 @@ namespace LinksForm
             this.updatePasswordToolStripMenuItem.Text = "Update Password";
             this.updatePasswordToolStripMenuItem.Visible = false;
             this.updatePasswordToolStripMenuItem.Click += new System.EventHandler(this.updatePasswordToolStripMenuItem_Click);
-            // 
-            // btnExportToExcel
-            // 
-            this.btnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportToExcel.ImageIndex = 5;
-            this.btnExportToExcel.ImageList = this.imageListButtons;
-            this.btnExportToExcel.Location = new System.Drawing.Point(429, 7);
-            this.btnExportToExcel.Name = "btnExportToExcel";
-            this.btnExportToExcel.Size = new System.Drawing.Size(35, 35);
-            this.btnExportToExcel.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.btnExportToExcel, "Export to Excel");
-            this.btnExportToExcel.UseVisualStyleBackColor = true;
-            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
             // 
             // copyToolStripMenuItem
             // 
@@ -706,21 +725,18 @@ namespace LinksForm
             this.contextMenuStripDealers.Size = new System.Drawing.Size(103, 26);
             this.contextMenuStripDealers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDealers_Opening);
             // 
-            // imageListMenuIcons
+            // btnExportDealersToExcel
             // 
-            this.imageListMenuIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMenuIcons.ImageStream")));
-            this.imageListMenuIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListMenuIcons.Images.SetKeyName(0, "Contact.png");
-            this.imageListMenuIcons.Images.SetKeyName(1, "Truck-30.png");
-            this.imageListMenuIcons.Images.SetKeyName(2, "Applications.png");
-            this.imageListMenuIcons.Images.SetKeyName(3, "Countries30,.png");
-            this.imageListMenuIcons.Images.SetKeyName(4, "Credential30.png");
-            this.imageListMenuIcons.Images.SetKeyName(5, "New.png");
-            this.imageListMenuIcons.Images.SetKeyName(6, "Edit.png");
-            this.imageListMenuIcons.Images.SetKeyName(7, "Delete.png");
-            this.imageListMenuIcons.Images.SetKeyName(8, "Reload-30.png");
-            this.imageListMenuIcons.Images.SetKeyName(9, "View Delaer Contacts.png");
-            this.imageListMenuIcons.Images.SetKeyName(10, "Viewing Dealer Contacts.png");
+            this.btnExportDealersToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportDealersToExcel.ImageIndex = 5;
+            this.btnExportDealersToExcel.ImageList = this.imageListButtons;
+            this.btnExportDealersToExcel.Location = new System.Drawing.Point(429, 7);
+            this.btnExportDealersToExcel.Name = "btnExportDealersToExcel";
+            this.btnExportDealersToExcel.Size = new System.Drawing.Size(35, 35);
+            this.btnExportDealersToExcel.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.btnExportDealersToExcel, "Export to Excel");
+            this.btnExportDealersToExcel.UseVisualStyleBackColor = true;
+            this.btnExportDealersToExcel.Click += new System.EventHandler(this.btnExportDealersToExcel_Click);
             // 
             // frmLinks
             // 
@@ -809,12 +825,13 @@ namespace LinksForm
         private System.Windows.Forms.ToolStripMenuItem dealersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem dealerBranchesToolStripMenuItem;
-        private System.Windows.Forms.Button btnExportToExcel;
+        private System.Windows.Forms.Button btnExportContactsToExcel;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripContacts;
         private System.Windows.Forms.ImageList imageListMenuIcons;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDealers;
+        private System.Windows.Forms.Button btnExportDealersToExcel;
     }
 }
 

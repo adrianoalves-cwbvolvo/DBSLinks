@@ -153,6 +153,7 @@
             this.MinimizeBox = false;
             this.Name = "frmDealerBranches";
             this.ShowIcon = false;
+            this.Text = "Data Admin = Dealer (Partner Branches)";
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealer)).EndInit();
             this.grpCountry.ResumeLayout(false);
             this.grpCountry.PerformLayout();

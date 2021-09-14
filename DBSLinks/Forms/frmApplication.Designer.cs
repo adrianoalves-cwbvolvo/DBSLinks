@@ -154,6 +154,7 @@
             this.MinimizeBox = false;
             this.Name = "frmApplication";
             this.ShowIcon = false;
+            this.Text = "Data Admin = Applications";
             this.grpCountry.ResumeLayout(false);
             this.grpCountry.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplications)).EndInit();

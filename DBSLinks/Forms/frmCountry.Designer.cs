@@ -155,6 +155,7 @@
             this.Name = "frmCountry";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Text = "Data Admin = Countries";
             this.grpCountry.ResumeLayout(false);
             this.grpCountry.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCountries)).EndInit();

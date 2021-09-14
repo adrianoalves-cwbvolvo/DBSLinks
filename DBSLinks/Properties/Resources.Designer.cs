@@ -233,6 +233,26 @@ namespace Links.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Main_Dealer {
+            get {
+                object obj = ResourceManager.GetObject("Main Dealer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Matriz1 {
+            get {
+                object obj = ResourceManager.GetObject("Matriz1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Menu_30 {
             get {
                 object obj = ResourceManager.GetObject("Menu-30", resourceCulture);
@@ -303,6 +323,16 @@ namespace Links.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Shutdown_301 {
+            get {
+                object obj = ResourceManager.GetObject("Shutdown-301", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Shuttdown {
             get {
                 object obj = ResourceManager.GetObject("Shuttdown", resourceCulture);
@@ -336,6 +366,26 @@ namespace Links.Properties {
         internal static System.Drawing.Bitmap Truck_30 {
             get {
                 object obj = ResourceManager.GetObject("Truck-30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Truck_40 {
+            get {
+                object obj = ResourceManager.GetObject("Truck-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Truck_40__2_ {
+            get {
+                object obj = ResourceManager.GetObject("Truck-40 (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

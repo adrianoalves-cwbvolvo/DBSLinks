@@ -155,6 +155,7 @@
             this.Name = "frmDealer";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Text = "Data Admin = Dealer (Main Partner Name)";
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealer)).EndInit();
             this.grpCountry.ResumeLayout(false);
             this.grpCountry.PerformLayout();

@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Links.exe" size="630696">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Links.exe" size="852392">
       <assemblyIdentity name="Links" version="1.2.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VVHdmNO2cx9KsXICUrzSs9lk13NIRc5IAcc7OUPSiwA=</dsig:DigestValue>
+        <dsig:DigestValue>pKq+fXqRWnPhbnNF1e4y4M4Fee+Lrf4hXFfuUnfekFw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

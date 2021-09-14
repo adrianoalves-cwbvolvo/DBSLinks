@@ -155,6 +155,7 @@
             this.Name = "frmCredential";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.Text = "Data Admin = Credentials";
             ((System.ComponentModel.ISupportInitialize)(this.dgvCredentials)).EndInit();
             this.grpCountry.ResumeLayout(false);
             this.grpCountry.PerformLayout();
