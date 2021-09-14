@@ -24,6 +24,7 @@ using LinksForm.DAL;
 using LinksForm.Forms;
 using LinksForm.Model;
 using LinksForms.Model;
+using excel = Microsoft.Office.Interop.Excel;
 
 
 namespace LinksForm
@@ -65,6 +66,8 @@ namespace LinksForm
         //TREEVIEW VARIABLE - KEEP TRACK OF WHAT NODE HAS BEEN CLICKED
         string treeviewNodeExpandText;
         bool HasTheTreeviewNodeSelected = false;
+
+        ToolTip toolTip = new ToolTip(); 
 
         #endregion
 
@@ -490,6 +493,11 @@ namespace LinksForm
 
         private void StyleContactButtons()
         {
+
+            btnExportToExcel.TabStop = false;
+            btnExportToExcel.FlatStyle = FlatStyle.Flat;
+            btnExportToExcel.FlatAppearance.BorderSize = 0;
+
             btnNewContact.TabStop = false;
             btnNewContact.FlatStyle = FlatStyle.Flat;
             btnNewContact.FlatAppearance.BorderSize = 0;
@@ -686,6 +694,13 @@ namespace LinksForm
             btnDeleteDealerBranch.TabStop = false;
             btnDeleteDealerBranch.FlatStyle = FlatStyle.Flat;
             btnDeleteDealerBranch.FlatAppearance.BorderSize = 0;
+
+            toolTip.SetToolTip(btnNewDealerBranch, "New Dealer Branch");
+            toolTip.SetToolTip(btnEditDealerBranch, "Edit Dealer Branch");
+            toolTip.SetToolTip(btnDeleteDealerBranch, "Delete Dealer Branch");
+
+            chkDealerContacts.TabStop = false;
+            chkDealerContacts.FlatAppearance.BorderSize = 0;
         }
 
         #endregion
@@ -882,14 +897,36 @@ namespace LinksForm
         }
         private void chkDealerContacts_CheckedChanged(object sender, EventArgs e)
         {
+            toolTip.ShowAlways = true;
+
             if (chkDealerContacts.Checked == true)
             {
+                toolTip.SetToolTip(chkDealerContacts, "Viewing Dealer Contacts");
+                //chkDealerContacts.Text = "Viewing Dealer Contacts";
+
+                chkDealerContacts.ImageIndex = 10;
+                tabPage2.Text = "Dealer Contacts";
+
                 IsDealerContactView = true;
+                toolTip.SetToolTip(btnNewDealerBranch, "New Dealer Contact");
+                toolTip.SetToolTip(btnEditDealerBranch, "Edit Dealer Contact");
+                toolTip.SetToolTip(btnDeleteDealerBranch, "Delete Dealer Contact");
+
                 loadDealerContacts();
             }
             else
             {
+                toolTip.SetToolTip(chkDealerContacts, "View Dealer Contacts");
+                //chkDealerContacts.Text = "View Dealer Contacts";
+
+                chkDealerContacts.ImageIndex = 9;
+                tabPage2.Text = "Dealer Branches";
+
                 IsDealerContactView = false;
+                toolTip.SetToolTip(btnNewDealerBranch, "New Dealer Branch");
+                toolTip.SetToolTip(btnEditDealerBranch, "Edit Dealer Branch");
+                toolTip.SetToolTip(btnDeleteDealerBranch, "Delete Dealer Branch");
+
                 loadDealerBranches();
             }
         }
@@ -1722,6 +1759,44 @@ namespace LinksForm
             frmDealerBranches _frmDealerBranches = new frmDealerBranches(left, top, width, height);
             _frmDealerBranches.TopMost = true;
             _frmDealerBranches.ShowDialog();
+        }
+
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            excel.Application app = new excel.Application();
+            excel.Workbook workbook = app.Workbooks.Add();
+            excel.Worksheet worksheet = null;
+
+            app.Visible = true;
+
+            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.ActiveSheet;
+            
+
+            //Headers
+            for (int i = 0; i < dgvContacts.Columns.Count -1; i++)
+            {
+            
+                worksheet.Cells[1, i + 1] = dgvContacts.Columns[i].HeaderText;
+            }
+
+            //Data
+            for (int i = 0; i < dgvContacts.Rows.Count; i++)
+            {
+                for (int j = 0; j < dgvContacts.Columns.Count -1; j++)
+                {
+                    worksheet.Cells[i +2 , j + 1] = dgvContacts.Rows[i].Cells[j].Value.ToString();
+
+                    if (dgvContacts.Rows[i].Cells[j].Value.ToString() == "A028465")
+                    {
+                        MessageBox.Show("A028465");
+                    }
+                }
+            }
+
+            worksheet.Columns.AutoFit();
+            
+            
         }
     }
 }

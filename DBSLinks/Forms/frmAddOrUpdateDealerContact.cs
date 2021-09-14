@@ -94,7 +94,7 @@ namespace LinksForm.Forms
                     counter++;
                 }
 
-                this.Text = "New Dealer Brach";
+                this.Text = "New Dealer Contact";
             }
 
             cmbDealerName.Focus();

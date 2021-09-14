@@ -63,14 +63,14 @@ namespace LinksForm
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.contextMenuStripContacts = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tspConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.dataAdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.countriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.dealersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dealerBranchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.credentialsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -81,12 +81,14 @@ namespace LinksForm
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.contextMenuStripDealers = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripApps = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updatePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dealerBranchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnExportToExcel = new System.Windows.Forms.Button();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripContacts = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripDealers = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.imageListMenuIcons = new System.Windows.Forms.ImageList(this.components);
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
@@ -94,10 +96,10 @@ namespace LinksForm
             ((System.ComponentModel.ISupportInitialize)(this.dgvDealers)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.contextMenuSystemTray.SuspendLayout();
-            this.contextMenuStripContacts.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.contextMenuStripDealers.SuspendLayout();
             this.contextMenuStripApps.SuspendLayout();
+            this.contextMenuStripContacts.SuspendLayout();
+            this.contextMenuStripDealers.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabMain
@@ -105,8 +107,9 @@ namespace LinksForm
             this.tabMain.Controls.Add(this.tabPage1);
             this.tabMain.Controls.Add(this.tabPage2);
             this.tabMain.Controls.Add(this.tabPage3);
-            this.tabMain.ItemSize = new System.Drawing.Size(88, 20);
-            this.tabMain.Location = new System.Drawing.Point(4, 2);
+            this.tabMain.ImageList = this.imageListMenuIcons;
+            this.tabMain.ItemSize = new System.Drawing.Size(88, 25);
+            this.tabMain.Location = new System.Drawing.Point(0, 1);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(623, 491);
@@ -115,19 +118,21 @@ namespace LinksForm
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.btnExportToExcel);
             this.tabPage1.Controls.Add(this.btnDeleteContact);
             this.tabPage1.Controls.Add(this.btnEditContact);
             this.tabPage1.Controls.Add(this.btnNewContact);
             this.tabPage1.Controls.Add(this.lblClearContactsSearch);
             this.tabPage1.Controls.Add(this.dgvContacts);
             this.tabPage1.Controls.Add(this.txtContacts);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.ImageKey = "Contact.png";
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(615, 463);
+            this.tabPage1.Size = new System.Drawing.Size(615, 458);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Phone Contacts";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnDeleteContact
             // 
@@ -139,6 +144,7 @@ namespace LinksForm
             this.btnDeleteContact.Name = "btnDeleteContact";
             this.btnDeleteContact.Size = new System.Drawing.Size(36, 35);
             this.btnDeleteContact.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnDeleteContact, "Delete Contact");
             this.btnDeleteContact.UseVisualStyleBackColor = true;
             this.btnDeleteContact.Click += new System.EventHandler(this.btnDeleteContact_Click);
             // 
@@ -151,6 +157,7 @@ namespace LinksForm
             this.imageListButtons.Images.SetKeyName(2, "Delete.png");
             this.imageListButtons.Images.SetKeyName(3, "CogWheelNoBoarder.png");
             this.imageListButtons.Images.SetKeyName(4, "Reload-30.png");
+            this.imageListButtons.Images.SetKeyName(5, "export-to-excel.png");
             // 
             // btnEditContact
             // 
@@ -162,6 +169,7 @@ namespace LinksForm
             this.btnEditContact.Name = "btnEditContact";
             this.btnEditContact.Size = new System.Drawing.Size(36, 35);
             this.btnEditContact.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnEditContact, "Edit Contact");
             this.btnEditContact.UseVisualStyleBackColor = true;
             this.btnEditContact.Click += new System.EventHandler(this.btnEditContact_Click);
             // 
@@ -174,6 +182,7 @@ namespace LinksForm
             this.btnNewContact.Name = "btnNewContact";
             this.btnNewContact.Size = new System.Drawing.Size(36, 35);
             this.btnNewContact.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnNewContact, "New Contact");
             this.btnNewContact.UseVisualStyleBackColor = true;
             this.btnNewContact.Click += new System.EventHandler(this.btnNewContact_Click);
             // 
@@ -227,12 +236,13 @@ namespace LinksForm
             this.tabPage2.Controls.Add(this.lblClearDealersSearch);
             this.tabPage2.Controls.Add(this.txtDealers);
             this.tabPage2.Controls.Add(this.dgvDealers);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.ImageKey = "Truck-30.png";
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(615, 463);
+            this.tabPage2.Size = new System.Drawing.Size(615, 458);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Dealers";
+            this.tabPage2.Text = "Dealer Branches";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnDeleteDealerBranch
@@ -275,12 +285,16 @@ namespace LinksForm
             // 
             // chkDealerContacts
             // 
-            this.chkDealerContacts.AutoSize = true;
-            this.chkDealerContacts.Location = new System.Drawing.Point(175, 20);
+            this.chkDealerContacts.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkDealerContacts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkDealerContacts.ImageIndex = 9;
+            this.chkDealerContacts.ImageList = this.imageListMenuIcons;
+            this.chkDealerContacts.Location = new System.Drawing.Point(175, 7);
+            this.chkDealerContacts.Margin = new System.Windows.Forms.Padding(0);
             this.chkDealerContacts.Name = "chkDealerContacts";
-            this.chkDealerContacts.Size = new System.Drawing.Size(102, 17);
+            this.chkDealerContacts.Size = new System.Drawing.Size(36, 35);
             this.chkDealerContacts.TabIndex = 7;
-            this.chkDealerContacts.Text = "Dealer Contacts";
+            this.chkDealerContacts.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkDealerContacts.UseVisualStyleBackColor = true;
             this.chkDealerContacts.CheckedChanged += new System.EventHandler(this.chkDealerContacts_CheckedChanged);
             // 
@@ -334,10 +348,11 @@ namespace LinksForm
             this.tabPage3.Controls.Add(this.chkHidePasswords);
             this.tabPage3.Controls.Add(this.txtAppSearch);
             this.tabPage3.Controls.Add(this.treeView1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.ImageKey = "Applications.png";
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(615, 463);
+            this.tabPage3.Size = new System.Drawing.Size(615, 458);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Applications";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -352,6 +367,7 @@ namespace LinksForm
             this.btnEditApplication.Name = "btnEditApplication";
             this.btnEditApplication.Size = new System.Drawing.Size(36, 35);
             this.btnEditApplication.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.btnEditApplication, "Edit Application Link");
             this.btnEditApplication.UseVisualStyleBackColor = true;
             this.btnEditApplication.Click += new System.EventHandler(this.btnEditApplication_Click);
             // 
@@ -364,6 +380,7 @@ namespace LinksForm
             this.btnNewApplication.Name = "btnNewApplication";
             this.btnNewApplication.Size = new System.Drawing.Size(36, 35);
             this.btnNewApplication.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.btnNewApplication, "New Application Link");
             this.btnNewApplication.UseVisualStyleBackColor = true;
             this.btnNewApplication.Click += new System.EventHandler(this.btnNewApplication_Click);
             // 
@@ -377,6 +394,7 @@ namespace LinksForm
             this.btnDeleteApplication.Name = "btnDeleteApplication";
             this.btnDeleteApplication.Size = new System.Drawing.Size(36, 35);
             this.btnDeleteApplication.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.btnDeleteApplication, "Delete Application Link");
             this.btnDeleteApplication.UseVisualStyleBackColor = true;
             this.btnDeleteApplication.Click += new System.EventHandler(this.btnDeleteApplication_Click);
             // 
@@ -487,20 +505,6 @@ namespace LinksForm
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(104, 6);
             // 
-            // contextMenuStripContacts
-            // 
-            this.contextMenuStripContacts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem});
-            this.contextMenuStripContacts.Name = "contextMenuStrip2";
-            this.contextMenuStripContacts.Size = new System.Drawing.Size(103, 26);
-            this.contextMenuStripContacts.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripContacts_Opening);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -559,6 +563,11 @@ namespace LinksForm
             this.applicationsToolStripMenuItem.Text = "Applications";
             this.applicationsToolStripMenuItem.Click += new System.EventHandler(this.applicationsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            // 
             // dealersToolStripMenuItem
             // 
             this.dealersToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
@@ -566,6 +575,14 @@ namespace LinksForm
             this.dealersToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.dealersToolStripMenuItem.Text = "Dealers (Main)";
             this.dealersToolStripMenuItem.Click += new System.EventHandler(this.dealersToolStripMenuItem_Click);
+            // 
+            // dealerBranchesToolStripMenuItem
+            // 
+            this.dealerBranchesToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
+            this.dealerBranchesToolStripMenuItem.Name = "dealerBranchesToolStripMenuItem";
+            this.dealerBranchesToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.dealerBranchesToolStripMenuItem.Text = "Dealers (Branches)";
+            this.dealerBranchesToolStripMenuItem.Click += new System.EventHandler(this.dealerBranchesToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -632,20 +649,6 @@ namespace LinksForm
             this.toolTip1.AutomaticDelay = 250;
             this.toolTip1.BackColor = System.Drawing.Color.Khaki;
             // 
-            // contextMenuStripDealers
-            // 
-            this.contextMenuStripDealers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToolStripMenuItem1});
-            this.contextMenuStripDealers.Name = "contextMenuStripDealers";
-            this.contextMenuStripDealers.Size = new System.Drawing.Size(103, 26);
-            this.contextMenuStripDealers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDealers_Opening);
-            // 
-            // copyToolStripMenuItem1
-            // 
-            this.copyToolStripMenuItem1.Name = "copyToolStripMenuItem1";
-            this.copyToolStripMenuItem1.Size = new System.Drawing.Size(102, 22);
-            this.copyToolStripMenuItem1.Text = "Copy";
-            // 
             // contextMenuStripApps
             // 
             this.contextMenuStripApps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -662,18 +665,62 @@ namespace LinksForm
             this.updatePasswordToolStripMenuItem.Visible = false;
             this.updatePasswordToolStripMenuItem.Click += new System.EventHandler(this.updatePasswordToolStripMenuItem_Click);
             // 
-            // dealerBranchesToolStripMenuItem
+            // btnExportToExcel
             // 
-            this.dealerBranchesToolStripMenuItem.Image = global::Links.Properties.Resources.Truck_30;
-            this.dealerBranchesToolStripMenuItem.Name = "dealerBranchesToolStripMenuItem";
-            this.dealerBranchesToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
-            this.dealerBranchesToolStripMenuItem.Text = "Dealers (Branches)";
-            this.dealerBranchesToolStripMenuItem.Click += new System.EventHandler(this.dealerBranchesToolStripMenuItem_Click);
+            this.btnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportToExcel.ImageIndex = 5;
+            this.btnExportToExcel.ImageList = this.imageListButtons;
+            this.btnExportToExcel.Location = new System.Drawing.Point(429, 7);
+            this.btnExportToExcel.Name = "btnExportToExcel";
+            this.btnExportToExcel.Size = new System.Drawing.Size(35, 35);
+            this.btnExportToExcel.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.btnExportToExcel, "Export to Excel");
+            this.btnExportToExcel.UseVisualStyleBackColor = true;
+            this.btnExportToExcel.Click += new System.EventHandler(this.btnExportToExcel_Click);
             // 
-            // toolStripSeparator4
+            // copyToolStripMenuItem
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(185, 6);
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            // 
+            // contextMenuStripContacts
+            // 
+            this.contextMenuStripContacts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem});
+            this.contextMenuStripContacts.Name = "contextMenuStrip2";
+            this.contextMenuStripContacts.Size = new System.Drawing.Size(103, 26);
+            this.contextMenuStripContacts.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripContacts_Opening);
+            // 
+            // copyToolStripMenuItem1
+            // 
+            this.copyToolStripMenuItem1.Name = "copyToolStripMenuItem1";
+            this.copyToolStripMenuItem1.Size = new System.Drawing.Size(102, 22);
+            this.copyToolStripMenuItem1.Text = "Copy";
+            // 
+            // contextMenuStripDealers
+            // 
+            this.contextMenuStripDealers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem1});
+            this.contextMenuStripDealers.Name = "contextMenuStripDealers";
+            this.contextMenuStripDealers.Size = new System.Drawing.Size(103, 26);
+            this.contextMenuStripDealers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDealers_Opening);
+            // 
+            // imageListMenuIcons
+            // 
+            this.imageListMenuIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListMenuIcons.ImageStream")));
+            this.imageListMenuIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListMenuIcons.Images.SetKeyName(0, "Contact.png");
+            this.imageListMenuIcons.Images.SetKeyName(1, "Truck-30.png");
+            this.imageListMenuIcons.Images.SetKeyName(2, "Applications.png");
+            this.imageListMenuIcons.Images.SetKeyName(3, "Countries30,.png");
+            this.imageListMenuIcons.Images.SetKeyName(4, "Credential30.png");
+            this.imageListMenuIcons.Images.SetKeyName(5, "New.png");
+            this.imageListMenuIcons.Images.SetKeyName(6, "Edit.png");
+            this.imageListMenuIcons.Images.SetKeyName(7, "Delete.png");
+            this.imageListMenuIcons.Images.SetKeyName(8, "Reload-30.png");
+            this.imageListMenuIcons.Images.SetKeyName(9, "View Delaer Contacts.png");
+            this.imageListMenuIcons.Images.SetKeyName(10, "Viewing Dealer Contacts.png");
             // 
             // frmLinks
             // 
@@ -700,11 +747,11 @@ namespace LinksForm
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.contextMenuSystemTray.ResumeLayout(false);
-            this.contextMenuStripContacts.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.contextMenuStripDealers.ResumeLayout(false);
             this.contextMenuStripApps.ResumeLayout(false);
+            this.contextMenuStripContacts.ResumeLayout(false);
+            this.contextMenuStripDealers.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -723,15 +770,11 @@ namespace LinksForm
         private System.Windows.Forms.DataGridView dgvDealers;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ImageList imageList;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripContacts;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem tspConfig;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.TextBox txtAppSearch;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripDealers;
-        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripApps;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
@@ -766,6 +809,12 @@ namespace LinksForm
         private System.Windows.Forms.ToolStripMenuItem dealersToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem dealerBranchesToolStripMenuItem;
+        private System.Windows.Forms.Button btnExportToExcel;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripContacts;
+        private System.Windows.Forms.ImageList imageListMenuIcons;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDealers;
     }
 }
 
