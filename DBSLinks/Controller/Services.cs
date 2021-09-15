@@ -29,40 +29,24 @@ namespace Links.Controller
             return databaseViewModel;
         }
 
-        public static void ExportToExcel(DataTable dataTable)
+        public static void ExportToExcel(List<ExportToExcelViewModel> exportToExcelList)
         {
-            try
+            excel.Application app = new excel.Application();
+            excel.Workbook workbook = app.Workbooks.Add();
+            excel.Worksheet worksheet = null;
+
+            app.Visible = false;
+
+            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.ActiveSheet;
+
+            foreach (ExportToExcelViewModel list in exportToExcelList)
             {
-                excel.Application app = new excel.Application();
-                excel.Workbook workbook = app.Workbooks.Add();
-                excel.Worksheet worksheet = null;
-
-                app.Visible = false;
-
-                worksheet = workbook.Sheets["Sheet1"];
-                worksheet = workbook.ActiveSheet;
-
-                for (int i = 0; i < dataTable.Columns.Count - 1; i++)
-                {
-                    worksheet.Cells[1, i + 1] = dataTable.Columns[i].Caption.ToString();
-                }
-
-                for (int i = 0; i < dataTable.Rows.Count; i++)
-                {
-                    for (int j = 0; j < dataTable.Columns.Count - 1; j++)
-                    {
-                        worksheet.Cells[i + 2, j + 1] = dataTable.Rows[i][j].ToString();
-                    }
-                }
-
-                worksheet.Columns.AutoFit();
-                app.Visible = true;
-
+                worksheet.Cells[list.Row, list.Col] = list.Text;
             }
-            catch (Exception err)
-            {
-                MessageBox.Show("An error has ocurred when trying to export the data to Excel: " + err.Message);
-            }
+
+            worksheet.Columns.AutoFit();
+            app.Visible = true;
         }
     }
 }
