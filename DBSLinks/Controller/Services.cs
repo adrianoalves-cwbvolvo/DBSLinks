@@ -31,22 +31,30 @@ namespace Links.Controller
 
         public static void ExportToExcel(List<ExportToExcelViewModel> exportToExcelList)
         {
-            excel.Application app = new excel.Application();
-            excel.Workbook workbook = app.Workbooks.Add();
-            excel.Worksheet worksheet = null;
-
-            app.Visible = false;
-
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
-
-            foreach (ExportToExcelViewModel list in exportToExcelList)
+            try
             {
-                worksheet.Cells[list.Row, list.Col] = list.Text;
-            }
+                excel.Application app = new excel.Application();
+                excel.Workbook workbook = app.Workbooks.Add();
+                excel.Worksheet worksheet = null;
 
-            worksheet.Columns.AutoFit();
-            app.Visible = true;
+                app.Visible = false;
+
+                worksheet = workbook.Sheets["Sheet1"];
+                worksheet = workbook.ActiveSheet;
+
+                foreach (ExportToExcelViewModel list in exportToExcelList)
+                {
+                    worksheet.Cells[list.Row, list.Col] = list.Text;
+                }
+
+                worksheet.Columns.AutoFit();
+
+                app.Visible = true;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("An error has ocurred when trying to export the data to Excel: " + err.Message);
+            }
         }
     }
 }

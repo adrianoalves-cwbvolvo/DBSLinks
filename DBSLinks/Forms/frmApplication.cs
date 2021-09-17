@@ -91,7 +91,7 @@ namespace Links.Forms
 
         private void btnNewApplication_Click(object sender, EventArgs e)
         {
-            bool HasTheSaveButtonPressed = false;
+            bool hasTheSaveButtonPressed = false;
 
             App app = new App();
 
@@ -99,11 +99,11 @@ namespace Links.Forms
             _frmAddOrUpdateApplication.TopMost = true;
             _frmAddOrUpdateApplication.ShowDialog();
 
-            HasTheSaveButtonPressed = _frmAddOrUpdateApplication.HasTheSaveButtonPressed;
+            hasTheSaveButtonPressed = _frmAddOrUpdateApplication.hasTheSaveButtonPressed;
 
-            if (HasTheSaveButtonPressed == true)
+            if (hasTheSaveButtonPressed == true)
             {
-                Validation.localDatabaseConfig(true);
+                Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
                 applicationList = loadApplications();
             }
@@ -121,7 +121,7 @@ namespace Links.Forms
             if ((dgvApplications.Rows.Count > 0))
             {
                 App app = new App();
-                bool HasTheSaveButtonPressed = false;
+                bool hasTheSaveButtonPressed = false;
 
                 app.ApplicationId = Convert.ToInt32(dgvApplications.CurrentRow.Cells[0].Value.ToString());
                 app.ApplicationName = dgvApplications.CurrentRow.Cells[1].Value.ToString();
@@ -131,11 +131,11 @@ namespace Links.Forms
                 _frmAddOrUpdateApplication.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateApplication.ShowDialog();
 
-                HasTheSaveButtonPressed = _frmAddOrUpdateApplication.HasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmAddOrUpdateApplication.hasTheSaveButtonPressed;
 
-                if (HasTheSaveButtonPressed == true)
+                if (hasTheSaveButtonPressed == true)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     applicationList = loadApplications();
                 }
@@ -168,7 +168,7 @@ namespace Links.Forms
 
                     ActivityLog.ApplicationLogger(app, "DELETE", "", Environment.UserName);
 
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     loadApplications();
                 }

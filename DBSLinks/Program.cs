@@ -24,7 +24,7 @@ namespace LinksForm
             //CHECKING IF THE "Start Links when I start Windows" is set to True (checked)
             if (Settings.Default["StartLinksWhenWindowsIsStarted"].ToString() == "true")
             {
-                Validation.startLinksOnStartUp(true);
+                Validation.StartLinksOnStartUp(true);
             }
 
             #endregion

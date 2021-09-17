@@ -56,7 +56,7 @@ namespace Links.Forms
 
             btnReload.Enabled = false;
 
-            Validation.localDatabaseConfig(true);
+            Validation.LocalDatabaseConfig(true);
 
             System.Threading.Thread.Sleep(1000);
             picNetworkChecked.Visible = true;

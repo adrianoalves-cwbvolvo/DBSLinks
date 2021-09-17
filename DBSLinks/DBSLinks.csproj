@@ -29,7 +29,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.1.0</ApplicationVersion>
+    <ApplicationVersion>1.3.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -225,6 +225,7 @@
     <Compile Include="Model\DealerBranch.cs" />
     <Compile Include="Model\DealerContact.cs" />
     <Compile Include="Model\ModelView\DatabaseViewModel.cs" />
+    <Compile Include="Model\ModelView\ExportToExcelViewModel.cs" />
     <Compile Include="Model\Team.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -357,6 +358,7 @@
     <None Include="Resources\About-30.png" />
     <None Include="Resources\Circled-thin-20.png" />
     <None Include="Resources\Checked-20.png" />
+    <None Include="Resources\Checked-40.png" />
     <Content Include="Resources\LinksStartup.appref-ms">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -446,6 +448,8 @@
     <None Include="Resources\Main Dealer.png" />
     <None Include="Resources\Shutdown-301.png" />
     <None Include="Resources\Truck-40 %282%29.png" />
+    <None Include="Resources\password32.png" />
+    <None Include="Resources\Ok-40.png" />
     <Content Include="volvo_logo_icon_vector_RUk_icon.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -83,12 +83,12 @@ namespace Links.Forms
 
             if (chkStartup.Checked == true)
             {
-                Validation.startLinksOnStartUp(true); //Copy the shortcut file to the Windows startup folder
+                Validation.StartLinksOnStartUp(true); //Copy the shortcut file to the Windows startup folder
                 Settings.Default["StartLinksWhenWindowsIsStarted"] = "true"; //Updating the Application Settings
             }
             else
             {
-                Validation.startLinksOnStartUp(false); //Remove the shortcut file to the Windows startup folder
+                Validation.StartLinksOnStartUp(false); //Remove the shortcut file to the Windows startup folder
                 Settings.Default["StartLinksWhenWindowsIsStarted"] = "false"; //Updating the Application Settings
             }
 

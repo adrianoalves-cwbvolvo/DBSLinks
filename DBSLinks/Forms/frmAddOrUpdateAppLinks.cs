@@ -26,7 +26,7 @@ namespace LinksForm.Forms
         private List<Category> categoryList = new List<Category>();
         private List<Credential> credentialList = new List<Credential>();
 
-        public bool HasTheSaveButtonPressed { get; set; }
+        public bool hasTheSaveButtonPressed { get; set; }
 
         public frmAddOrUpdateAppLinks(AppLinks appLinks)
         {
@@ -47,6 +47,11 @@ namespace LinksForm.Forms
             countryList = DALHelpers.GetCountries();
             appList = DALHelpers.GetApplications();
             categoryList = DALHelpers.GetCategories();
+
+            StyleApplicationButtons();
+
+            this.Size = new Size(536, 466);
+            grpCredential.Location = new Point(12, 12);
 
             if (GlobalLinkId > 0)
             {
@@ -127,6 +132,15 @@ namespace LinksForm.Forms
                 credentialList = loadCredentials();
                 dgvCredentials.ClearSelection();
             }
+
+            if (btnRemoveCredential.Text == "Select Credential")
+            {
+                pictureBox1.Visible = false;
+            }
+            else
+            {
+                pictureBox1.Visible = true;
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -136,7 +150,7 @@ namespace LinksForm.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            HasTheSaveButtonPressed = true;
+            hasTheSaveButtonPressed = true;
 
             bool ok = false;
 
@@ -267,18 +281,7 @@ namespace LinksForm.Forms
 
         private void btnSelectCredential_Click(object sender, EventArgs e)
         {
-            if((dgvCredentials.Rows.Count > 0) || (dgvCredentials.SelectedRows.Count > 0))
-            {
-                CredentialId = Convert.ToInt32(dgvCredentials.CurrentRow.Cells[0].Value.ToString());
-                txtCredentialId.Text = dgvCredentials.CurrentRow.Cells[2].Value.ToString();
-
-                btnRemoveCredential.Text = "Remove Credential";
-
-                grpAppLink.Visible = true;
-                grpCredential.Visible = false;
-
-                btnSave.Enabled = true;
-            }
+            CallBtnRemoveCredential();
         }
 
         private void txSearchCredential_TextChanged(object sender, EventArgs e)
@@ -323,6 +326,7 @@ namespace LinksForm.Forms
                 btnRemoveCredential.Text = "Select Credential";
                 txtCredentialId.Clear();
                 CredentialId = 0;
+                pictureBox1.Visible = false;
                 
             }
             else
@@ -330,7 +334,39 @@ namespace LinksForm.Forms
                 btnRemoveCredential.Text = "Remove Credential";
                 grpAppLink.Visible = false;
                 grpCredential.Visible = true;
+                grpSelectCredential.Visible = false;
                 btnSave.Enabled = false;
+
+                //pictureBox1.Visible = true;
+            }
+        }
+
+        private void StyleApplicationButtons()
+        {
+            //btnRemoveCredential.TabStop = false;
+            btnRemoveCredential.FlatStyle = FlatStyle.Flat;
+            //btnRemoveCredential.FlatAppearance.BorderSize = 0;
+        }
+
+        private void dgvCredentials_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CallBtnRemoveCredential();
+        }
+        private void CallBtnRemoveCredential()
+        {
+            if ((dgvCredentials.Rows.Count > 0) || (dgvCredentials.SelectedRows.Count > 0))
+            {
+                CredentialId = Convert.ToInt32(dgvCredentials.CurrentRow.Cells[0].Value.ToString());
+                txtCredentialId.Text = dgvCredentials.CurrentRow.Cells[2].Value.ToString();
+
+                btnRemoveCredential.Text = "Remove Credential";
+                pictureBox1.Visible = true;
+
+                grpAppLink.Visible = true;
+                grpCredential.Visible = false;
+                grpSelectCredential.Visible = true;
+
+                btnSave.Enabled = true;
             }
         }
     }

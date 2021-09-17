@@ -93,11 +93,11 @@ namespace Links.Forms
             _frmAddOrUpdateCredential.TopMost = true;
             _frmAddOrUpdateCredential.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateCredential.HasTheSaveButtonPressed;
+            HasTheCancelButtonPressed = _frmAddOrUpdateCredential.hasTheSaveButtonPressed;
 
             if (HasTheCancelButtonPressed == false)
             {
-                Validation.localDatabaseConfig(true);
+                Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
                 credentialList = loadCredentials();
             }
@@ -127,11 +127,11 @@ namespace Links.Forms
                 _frmAddOrUpdateCredential.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCredential.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateCredential.HasTheSaveButtonPressed;
+                HasTheCancelButtonPressed = _frmAddOrUpdateCredential.hasTheSaveButtonPressed;
 
                 if (HasTheCancelButtonPressed == false)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     credentialList = loadCredentials();
                 }
@@ -166,7 +166,7 @@ namespace Links.Forms
 
                     ActivityLog.CredentialLogger(credential, "DELETE", "Credential", Environment.UserName);
 
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     loadCredentials();
                 }

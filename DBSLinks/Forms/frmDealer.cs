@@ -91,7 +91,7 @@ namespace Links.Forms
 
         private void btnNewDealer_Click(object sender, EventArgs e)
         {
-            bool HasTheSaveButtonPressed = false;
+            bool hasTheSaveButtonPressed = false;
 
             Dealer dealer = new Dealer();
 
@@ -99,11 +99,11 @@ namespace Links.Forms
             _frmAddOrUpdateDealer.TopMost = true;
             _frmAddOrUpdateDealer.ShowDialog();
 
-            HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
+            hasTheSaveButtonPressed = _frmAddOrUpdateDealer.hasTheSaveButtonPressed;
 
-            if (HasTheSaveButtonPressed == true)
+            if (hasTheSaveButtonPressed == true)
             {
-                Validation.localDatabaseConfig(true);
+                Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
                 dealerlList = loadDealers();
             }
@@ -122,7 +122,7 @@ namespace Links.Forms
             {
                 Dealer dealer = new Dealer();
 
-                bool HasTheSaveButtonPressed = false;
+                bool hasTheSaveButtonPressed = false;
 
                 dealer.DealerId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
                 dealer.DealerName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
@@ -133,11 +133,11 @@ namespace Links.Forms
                 _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateDealer.ShowDialog();
 
-                HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmAddOrUpdateDealer.hasTheSaveButtonPressed;
 
-                if (HasTheSaveButtonPressed == true)
+                if (hasTheSaveButtonPressed == true)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     dealerlList = loadDealers();
                 }
@@ -177,7 +177,7 @@ namespace Links.Forms
 
                         ActivityLog.DealerLogger(dealer, "DELETE", "Main Dealer", Environment.UserName);
 
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         //databaseViewModel = Services.GetDataFromDatabase();
                         dealerlList = loadDealers();
                     }

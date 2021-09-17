@@ -92,7 +92,7 @@ namespace Links.Forms
 
         private void btnNewDealer_Click(object sender, EventArgs e)
         {
-            bool HasTheSaveButtonPressed = false;
+            bool hasTheSaveButtonPressed = false;
 
             DealerBranch dealerBranch = new DealerBranch();
 
@@ -101,11 +101,11 @@ namespace Links.Forms
             _frmAddOrUpdateDealerBranch.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateDealerBranch.ShowDialog();
 
-            HasTheSaveButtonPressed = _frmAddOrUpdateDealerBranch.HasTheSaveButtonPressed;
+            hasTheSaveButtonPressed = _frmAddOrUpdateDealerBranch.hasTheSaveButtonPressed;
 
-            if (HasTheSaveButtonPressed == true)
+            if (hasTheSaveButtonPressed == true)
             {
-                Validation.localDatabaseConfig(true);
+                Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
                 dealerBranchesList = loadDealerBranches();
             }
@@ -124,7 +124,7 @@ namespace Links.Forms
             {
                 DealerBranch dealerBranch = new DealerBranch();
 
-                bool HasTheSaveButtonPressed = false;
+                bool hasTheSaveButtonPressed = false;
 
                 dealerBranch.DealerBranchId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[0].Value.ToString());
                 dealerBranch.CTDI = Convert.ToInt32(dgvDealer.CurrentRow.Cells[1].Value.ToString());
@@ -141,11 +141,11 @@ namespace Links.Forms
                 _frmAddOrUpdateDealerBranch.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateDealerBranch.ShowDialog();
 
-                HasTheSaveButtonPressed = _frmAddOrUpdateDealerBranch.HasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmAddOrUpdateDealerBranch.hasTheSaveButtonPressed;
 
-                if (HasTheSaveButtonPressed == true)
+                if (hasTheSaveButtonPressed == true)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     dealerBranchesList = loadDealerBranches();
                 }
@@ -182,7 +182,7 @@ namespace Links.Forms
 
                     ActivityLog.DealerBranchLogger(dealerBranch, "DELETE", "Dealer Branch", Environment.UserName);
 
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     dealerBranchesList = loadDealerBranches();
                 }
 

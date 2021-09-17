@@ -25,6 +25,7 @@ using LinksForm.Forms;
 using LinksForm.Model;
 
 
+
 namespace LinksForm
 {
     public partial class frmLinks : Form
@@ -39,7 +40,7 @@ namespace LinksForm
         private DataTable dtDealerContacts = new DataTable();
 
         //DICTIONARY USED BY THE TREEVIEW
-        private Dictionary<int, string> PasswordList = new Dictionary<int, string>();
+        private Dictionary<int, string> passwordList = new Dictionary<int, string>();
         private List<string> links = new List<string>();
 
         //VARIABLE TO STORE DATA FROM THE DATABASE
@@ -48,12 +49,12 @@ namespace LinksForm
         private DatabaseViewModel databaseViewModel = new DatabaseViewModel();
 
         //SEARCH BOXES VARIABLES
-        private string FilterContactField = "StringToSearch";
-        private string FilterDealerContactField = "StringToSearch";
-        private List<string> CurrentTreeViewNode = new List<string>();
+        private string filterContactField = "StringToSearch";
+        private string filterDealerContactField = "StringToSearch";
+        private List<string> currentTreeViewNode = new List<string>();
 
         //DEALER AND DEALER CONTACT VARIABLE SWITCH FOR THE NEW/EDIT/DELETE BUTTONS
-        private bool IsDealerContactView = false;
+        private bool isDealerContactView = false;
 
         //MAIN WINDOW POSITION
         private int left;
@@ -62,10 +63,10 @@ namespace LinksForm
         private int height;
 
         //TREEVIEW VARIABLE - KEEP TRACK OF WHAT NODE HAS BEEN CLICKED
-        string treeviewNodeExpandText;
-        bool HasTheTreeviewNodeSelected = false;
+        private string treeviewNodeExpandText;
+        private bool hasTheTreeviewNodeSelected = false;
 
-        ToolTip toolTip = new ToolTip(); 
+        private ToolTip toolTip = new ToolTip(); 
 
         #endregion
 
@@ -81,7 +82,7 @@ namespace LinksForm
             this.Location = new Point(workingArea.Right - Size.Width,
                                       workingArea.Bottom - Size.Height);
 
-            setTopMostWindowSetting();
+            SetTopMostWindowSetting();
             this.ShowInTaskbar = false;
 
             StyleContactButtons();
@@ -93,7 +94,7 @@ namespace LinksForm
         #endregion
 
         #region "FORM LOADING"
-        private void frmContacts_Load(object sender, EventArgs e)
+        private void frmLinks_Load(object sender, EventArgs e)
         {
             try
             {
@@ -119,7 +120,7 @@ namespace LinksForm
 
                 #region "CHECKING FOR THE LOCAL DATABASE"
 
-                Validation.localDatabaseConfig(false);
+                Validation.LocalDatabaseConfig(false);
 
                 #endregion
 
@@ -142,7 +143,7 @@ namespace LinksForm
                     dtContacts.Columns.Add("Computer Name", typeof(string));
                     dtContacts.Columns.Add("StringToSearch", typeof(string));
 
-                    loadContacts();
+                    LoadContacts();
                 }
                 catch (Exception ex)
                 {
@@ -191,7 +192,7 @@ namespace LinksForm
                     dtDealers.Columns.Add("StringToSearch", typeof(string));
                     dtDealers.Columns.Add("Sort", typeof(string));
 
-                    loadDealerBranches();
+                    LoadDealerBranches();
                 }
                 catch (Exception ex)
                 {
@@ -203,10 +204,7 @@ namespace LinksForm
 
                 #region "Loading AppLinks TreeView"
 
-                //ApplicationsList = DALHelpers.GetApplications();
-                //AppLinksFromDatabase = DALHelpers.GetAppLinks();
-
-                loadTreeview(false, null);
+                LoadTreeview(false, null);
 
                 #endregion
 
@@ -229,7 +227,7 @@ namespace LinksForm
         #endregion
 
         #region "FORM EVENTS"
-        private void frmContacts_Resize(object sender, EventArgs e)
+        private void frmLinks_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
@@ -237,7 +235,7 @@ namespace LinksForm
                 notifyIcon.Visible = true;
             }
         }
-        private void frmContacts_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmLinks_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
@@ -258,7 +256,7 @@ namespace LinksForm
             this.TopMost = true;
             this.Show();
             this.WindowState = FormWindowState.Normal;
-            setTopMostWindowSetting();
+            SetTopMostWindowSetting();
         }
         private void tabMain_MouseClick(object sender, MouseEventArgs e)
         {
@@ -285,7 +283,7 @@ namespace LinksForm
         private void updatePasswordToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string ReturnedUsername;
-            bool HasTheSaveButtonPressed = false;
+            bool hasTheSaveButtonPressed = false;
 
             int CredentialId=0;
 
@@ -293,7 +291,7 @@ namespace LinksForm
 
             if (tn != null)
             {
-                foreach (var password in PasswordList)
+                foreach (var password in passwordList)
                 {
                     if (treeView1.SelectedNode.Text.ToString() == password.Value.ToString())
                     {
@@ -307,12 +305,12 @@ namespace LinksForm
                 _frmUpdatePassword.ShowDialog();
 
                 ReturnedUsername = _frmUpdatePassword.UsernameToBeReturned;
-                HasTheSaveButtonPressed = _frmUpdatePassword.HasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmUpdatePassword.hasTheSaveButtonPressed;
 
-                if (HasTheSaveButtonPressed == true)
+                if (hasTheSaveButtonPressed == true)
                 {
-                    PasswordList.Clear();
-                    Validation.localDatabaseConfig(true);
+                    passwordList.Clear();
+                    Validation.LocalDatabaseConfig(true);
 
                     databaseViewModel = Services.GetDataFromDatabase();
                     
@@ -334,7 +332,7 @@ namespace LinksForm
             _frmConfig.TopMost = true;
             _frmConfig.ShowDialog();
 
-            setTopMostWindowSetting();
+            SetTopMostWindowSetting();
 
             //this.Show();
         }
@@ -348,7 +346,7 @@ namespace LinksForm
         {
             //DatabaseViewModel _databaseViewModel = new DatabaseViewModel();
 
-            bool HasTheOkButtonPressed = false;
+            bool hasTheOkButtonPressed = false;
 
             frmDataReload _frmDataReload = new frmDataReload(left, top, width, height);
 
@@ -356,16 +354,16 @@ namespace LinksForm
             _frmDataReload.TopMost = true;
             _frmDataReload.ShowDialog();
 
-            HasTheOkButtonPressed = _frmDataReload.HasTheOkButtonPressed;
+            hasTheOkButtonPressed = _frmDataReload.HasTheOkButtonPressed;
 
-            if (HasTheOkButtonPressed == false)
+            if (hasTheOkButtonPressed == false)
             {
                 databaseViewModel = _frmDataReload.databaseViewModel;
 
-                loadContacts();
-                loadDealerContacts();
-                loadDealerBranches();
-                loadTreeview(false, null);
+                LoadContacts();
+                LoadDealerContacts();
+                LoadDealerBranches();
+                LoadTreeview(false, null);
             }
         }
         private void countriesToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -392,13 +390,20 @@ namespace LinksForm
             _frmDealer.TopMost = true;
             _frmDealer.ShowDialog();
         }
+        private void dealerBranchesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDealerBranches _frmDealerBranches = new frmDealerBranches(left, top, width, height);
+            _frmDealerBranches.TopMost = true;
+            _frmDealerBranches.ShowDialog();
+        }
+
         #endregion
 
         #region "TAB - CONTACTS"
 
         #region "DATAGRIDVIEW - LOAD CONTACTS DATA"
 
-        public void loadContacts()
+        public void LoadContacts()
         {
             dgvContacts.DataSource = null;
             dgvContacts.Rows.Clear();
@@ -458,7 +463,7 @@ namespace LinksForm
 
             txtContacts.SelectionStart = txtContacts.Text.Length;
 
-            dtContacts.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterContactField, txtContacts.Text);
+            dtContacts.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", filterContactField, txtContacts.Text);
 
             if (string.IsNullOrEmpty(txtContacts.Text))
             {
@@ -572,20 +577,20 @@ namespace LinksForm
             if ((dgvContacts.Rows.Count > 0))
             {
                 Contact contact = new Contact();
-                bool HasTheSaveButtonPressed = false;
+                bool hasTheSaveButtonPressed = false;
 
                 frmAddOrUpdateContact _frmAddOrUpdateContact = new frmAddOrUpdateContact(contact);
                 this.TopMost = false;
                 _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateContact.ShowDialog();
 
-                HasTheSaveButtonPressed = _frmAddOrUpdateContact.HasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmAddOrUpdateContact.hasTheSaveButtonPressed;
 
-                if (HasTheSaveButtonPressed == true)
+                if (hasTheSaveButtonPressed == true)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     databaseViewModel = Services.GetDataFromDatabase();
-                    loadContacts();
+                    LoadContacts();
                 }
 
                 dgvContacts.ClearSelection();
@@ -603,7 +608,7 @@ namespace LinksForm
             if ((dgvContacts.Rows.Count > 0))
             {
                 Contact contact = new Contact();
-                bool HasTheSaveButtonPressed = false;
+                bool hasTheSaveButtonPressed = false;
 
                 contact.Id = dgvContacts.CurrentRow.Cells[0].Value.ToString();
                 contact.Name = dgvContacts.CurrentRow.Cells[1].Value.ToString();
@@ -618,13 +623,13 @@ namespace LinksForm
                 _frmAddOrUpdateContact.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateContact.ShowDialog();
                 
-                HasTheSaveButtonPressed = _frmAddOrUpdateContact.HasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmAddOrUpdateContact.hasTheSaveButtonPressed;
 
-                if (HasTheSaveButtonPressed == true)
+                if (hasTheSaveButtonPressed == true)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     databaseViewModel = Services.GetDataFromDatabase();
-                    loadContacts();
+                    LoadContacts();
                 }
 
                 dgvContacts.ClearSelection();
@@ -659,15 +664,30 @@ namespace LinksForm
 
                     ActivityLog.ContactLogger(contact, "DELETE", "Contact", Environment.UserName);
 
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     databaseViewModel = Services.GetDataFromDatabase();
-                    loadContacts();
+                    LoadContacts();
                 }
 
                 dgvContacts.ClearSelection();
                 txtContacts.Clear();
                 btnDeleteContact.Enabled = false;
                 btnEditContact.Enabled = false;
+            }
+        }
+
+        #endregion
+
+        #region "EXPORT TO EXCEL"
+
+        private void btnExportContactsToExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvContacts.Rows.Count > 0)
+            {
+                List<ExportToExcelViewModel> exportToExcelList = new List<ExportToExcelViewModel>();
+
+                exportToExcelList = GetExportToExcelList(dgvContacts);
+                Services.ExportToExcel(exportToExcelList);
             }
         }
 
@@ -709,7 +729,7 @@ namespace LinksForm
         #endregion
 
         #region "DATAGRIDVIEW - LOAD DEALERS DATA"
-        public void loadDealerBranches()
+        public void LoadDealerBranches()
         {
             dgvDealers.DataSource = null;
             dgvDealers.Rows.Clear();
@@ -753,7 +773,7 @@ namespace LinksForm
         #endregion
 
         #region "DATAGRIDVIEW - LOAD DEALER CONTACTS DATA"
-        public void loadDealerContacts()
+        public void LoadDealerContacts()
         {
             dgvDealers.DataSource = null;
             dgvDealers.Rows.Clear();
@@ -798,10 +818,18 @@ namespace LinksForm
                 dgvDealers.FirstDisplayedScrollingRowIndex = 0;
             }           
         }
-                #endregion
+        #endregion
+
+        #region "DATAGRIDVIEW - CELL CLICK"
+        private void dgvDealers_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            EnableOrDisableDealerBranchButtons(true);
+        }
+
+        #endregion
 
         #region "DEALERS - POP UP MENU"
-        //DEALERS
+
         private void dgvDealers_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -829,7 +857,6 @@ namespace LinksForm
             }
         }
 
-        //DEALERS
         private void contextMenuStripDealers_Opening(object sender, CancelEventArgs e)
         {
             if (!string.IsNullOrEmpty(dgvDealers.CurrentCell.Value.ToString()) || (!string.IsNullOrWhiteSpace(dgvDealers.CurrentCell.Value.ToString())))
@@ -839,6 +866,8 @@ namespace LinksForm
         }
 
         #endregion
+
+        #region "SEARCH BOX"
 
         private void txtDealers_TextChanged(object sender, EventArgs e)
         {
@@ -859,7 +888,7 @@ namespace LinksForm
 
             if (chkDealerContacts.Checked == true)
             {
-                dtDealerContacts.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterDealerContactField, txtDealers.Text);
+                dtDealerContacts.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", filterDealerContactField, txtDealers.Text);
 
                 if (string.IsNullOrEmpty(txtDealers.Text))
                 {
@@ -872,7 +901,7 @@ namespace LinksForm
             }
             else
             {
-                dtDealers.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", FilterDealerContactField, txtDealers.Text);
+                dtDealers.DefaultView.RowFilter = string.Format("[{0}] LIKE '%{1}%'", filterDealerContactField, txtDealers.Text);
 
                 if (string.IsNullOrEmpty(txtDealers.Text))
                 {
@@ -898,9 +927,17 @@ namespace LinksForm
         {
             lblClearDealersSearch.ForeColor = Color.Gray;
         }
+
+        #endregion
+
+        #region "CHECKBOX DEALER BRANCHES/DEALER CONTACTS"
+
         private void chkDealerContacts_CheckedChanged(object sender, EventArgs e)
         {
             toolTip.ShowAlways = true;
+            string MystringToSearch = txtDealers.Text;
+            txtDealers.Clear();
+            txtDealers.Text = MystringToSearch;
 
             if (chkDealerContacts.Checked == true)
             {
@@ -911,12 +948,14 @@ namespace LinksForm
                 tabPage2.Text = "Dealer Contacts";
                 tabPage2.ImageIndex = 10;
 
-                IsDealerContactView = true;
+                isDealerContactView = true;
                 toolTip.SetToolTip(btnNewDealerBranch, "New Dealer Contact");
                 toolTip.SetToolTip(btnEditDealerBranch, "Edit Dealer Contact");
                 toolTip.SetToolTip(btnDeleteDealerBranch, "Delete Dealer Contact");
 
-                loadDealerContacts();
+                EnableOrDisableDealerBranchButtons(false);
+
+                LoadDealerContacts();
             }
             else
             {
@@ -927,46 +966,47 @@ namespace LinksForm
                 tabPage2.Text = "Dealer Branches";
                 tabPage2.ImageIndex = 2;
 
-                IsDealerContactView = false;
+                isDealerContactView = false;
                 toolTip.SetToolTip(btnNewDealerBranch, "New Dealer Branch");
                 toolTip.SetToolTip(btnEditDealerBranch, "Edit Dealer Branch");
                 toolTip.SetToolTip(btnDeleteDealerBranch, "Delete Dealer Branch");
 
-                loadDealerBranches();
+                EnableOrDisableDealerBranchButtons(false);
+
+                LoadDealerBranches();
             }
         }
-        private void dgvDealers_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            btnEditDealerBranch.Enabled = true;
-            btnDeleteDealerBranch.Enabled = true;
-        }
+
+        #endregion
+
+        #region "BUTTONS: NEW/EDIT/DELETE"
         private void btnNewDealerBranch_Click(object sender, EventArgs e)
         {
             if ((dgvDealers.Rows.Count > 0))
             {
-                if (IsDealerContactView == true)
+                if (isDealerContactView == true)
                 {
                     DealerContact dealerContact = new DealerContact();
-                    bool HasTheSaveButtonPressed = false;
+                    bool hasTheSaveButtonPressed = false;
 
                     frmAddOrUpdateDealerContact _frmAddOrUpdateDealerContact = new frmAddOrUpdateDealerContact(dealerContact);
                     this.TopMost = false;
                     _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealerContact.ShowDialog();
 
-                    HasTheSaveButtonPressed = _frmAddOrUpdateDealerContact.HasTheSaveButtonPressed;
+                    hasTheSaveButtonPressed = _frmAddOrUpdateDealerContact.hasTheSaveButtonPressed;
 
-                    if (HasTheSaveButtonPressed == true)
+                    if (hasTheSaveButtonPressed == true)
                     {
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
-                        loadDealerContacts();
+                        LoadDealerContacts();
                     }
 
                     dgvDealers.ClearSelection();
                     txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
+
+                    EnableOrDisableDealerBranchButtons(false);
 
                     _frmAddOrUpdateDealerContact.Dispose();
 
@@ -974,26 +1014,26 @@ namespace LinksForm
                 else
                 {
                     DealerBranch dealer = new DealerBranch();
-                    bool HasTheSaveButtonPressed = false;
+                    bool hasTheSaveButtonPressed = false;
 
                     frmAddOrUpdateDealerBranch _frmAddOrUpdateDealer = new frmAddOrUpdateDealerBranch(dealer);
                     this.TopMost = false;
                     _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealer.ShowDialog();
 
-                    HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
+                    hasTheSaveButtonPressed = _frmAddOrUpdateDealer.hasTheSaveButtonPressed;
 
-                    if (HasTheSaveButtonPressed == true)
+                    if (hasTheSaveButtonPressed == true)
                     {
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
-                        loadDealerBranches();
+                        LoadDealerBranches();
                     }
 
                     dgvDealers.ClearSelection();
                     txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
+
+                    EnableOrDisableDealerBranchButtons(false);
 
                     _frmAddOrUpdateDealer.Dispose();
 
@@ -1004,10 +1044,10 @@ namespace LinksForm
         {
             if ((dgvDealers.Rows.Count > 0))
             {
-                if (IsDealerContactView == true) //DealerContact
+                if (isDealerContactView == true) //DealerContact
                 {
                     DealerContact dealerContact = new DealerContact();
-                    bool HasTheSaveButtonPressed = false;
+                    bool hasTheSaveButtonPressed = false;
 
                     dealerContact.DealerContactId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
                     dealerContact.DealerId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
@@ -1025,26 +1065,26 @@ namespace LinksForm
                     _frmAddOrUpdateDealerContact.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealerContact.ShowDialog();
 
-                    HasTheSaveButtonPressed = _frmAddOrUpdateDealerContact.HasTheSaveButtonPressed;
+                    hasTheSaveButtonPressed = _frmAddOrUpdateDealerContact.hasTheSaveButtonPressed;
 
-                    if (HasTheSaveButtonPressed == true)
+                    if (hasTheSaveButtonPressed == true)
                     {
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
-                        loadDealerContacts();
+                        LoadDealerContacts();
                     }
 
                     dgvDealers.ClearSelection();
                     txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
+
+                    EnableOrDisableDealerBranchButtons(false);
 
                     _frmAddOrUpdateDealerContact.Dispose();
                 }
                 else //DealerBranch
                 {
                     DealerBranch dealerBranch = new DealerBranch();
-                    bool HasTheSaveButtonPressed = false;
+                    bool hasTheSaveButtonPressed = false;
 
                     dealerBranch.DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
                     dealerBranch.CTDI = Convert.ToInt32(dgvDealers.CurrentRow.Cells[1].Value.ToString());
@@ -1061,19 +1101,19 @@ namespace LinksForm
                     _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                     _frmAddOrUpdateDealer.ShowDialog();
 
-                    HasTheSaveButtonPressed = _frmAddOrUpdateDealer.HasTheSaveButtonPressed;
+                    hasTheSaveButtonPressed = _frmAddOrUpdateDealer.hasTheSaveButtonPressed;
 
-                    if (HasTheSaveButtonPressed == true)
+                    if (hasTheSaveButtonPressed == true)
                     {
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
-                        loadDealerBranches();
+                        LoadDealerBranches();
                     }
 
                     dgvDealers.ClearSelection();
                     txtDealers.Clear();
-                    btnEditDealerBranch.Enabled = false;
-                    btnDeleteDealerBranch.Enabled = false;
+
+                    EnableOrDisableDealerBranchButtons(false);
 
                     _frmAddOrUpdateDealer.Dispose();
                 }
@@ -1083,7 +1123,7 @@ namespace LinksForm
         {
             if ((dgvDealers.Rows.Count > 0))
             {
-                if (IsDealerContactView == true)
+                if (isDealerContactView == true)
                 {
                     int DealerBranchId = Convert.ToInt32(dgvDealers.CurrentRow.Cells[0].Value.ToString());
                     string DealerContactName = dgvDealers.CurrentRow.Cells[3].Value.ToString();
@@ -1092,15 +1132,15 @@ namespace LinksForm
                     {
                         DALHelpers.DeleteDealerContact(DealerBranchId);
 
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
-                        loadDealerContacts();
+                        LoadDealerContacts();
                     }
 
                     dgvDealers.ClearSelection();
                     txtDealers.Clear();
-                    btnDeleteDealerBranch.Enabled = false;
-                    btnEditDealerBranch.Enabled = false;
+
+                    EnableOrDisableDealerBranchButtons(false);
                 }
                 else
                 {
@@ -1122,18 +1162,54 @@ namespace LinksForm
 
                         ActivityLog.DealerBranchLogger(dealerBranch, "DELETE", "Dealer Branch", Environment.UserName);
 
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         databaseViewModel = Services.GetDataFromDatabase();
-                        loadDealerBranches();
+                        LoadDealerBranches();
                     }
 
                     dgvDealers.ClearSelection();
                     txtDealers.Clear();
-                    btnDeleteDealerBranch.Enabled = false;
-                    btnEditDealerBranch.Enabled = false;
+
+                    EnableOrDisableDealerBranchButtons(false);
                 }
             }
         }
+
+        #endregion
+
+        #region "EXPORT TO EXCEL"
+
+        private void btnExportDealersToExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvDealers.Rows.Count > 0)
+            {
+                List<ExportToExcelViewModel> exportToExcelList = new List<ExportToExcelViewModel>();
+
+                exportToExcelList = GetExportToExcelList(dgvDealers);
+                Services.ExportToExcel(exportToExcelList);
+            }
+        }
+
+        #endregion
+
+        #region "FUNCTIONS"
+
+        private void EnableOrDisableDealerBranchButtons(bool ShouldTheButtonBeEnabled)
+        {
+            if (ShouldTheButtonBeEnabled == true)
+            {
+                btnEditDealerBranch.Enabled = true;
+                btnDeleteDealerBranch.Enabled = true;
+            }
+            else
+            {
+                btnEditDealerBranch.Enabled = false;
+                btnDeleteDealerBranch.Enabled = false;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region "TAB - APPLICATIONS"
@@ -1153,6 +1229,10 @@ namespace LinksForm
             btnDeleteApplication.TabStop = false;
             btnDeleteApplication.FlatStyle = FlatStyle.Flat;
             btnDeleteApplication.FlatAppearance.BorderSize = 0;
+
+            //chkHidePasswords.TabStop = false;
+            //chkHidePasswords.FlatStyle = FlatStyle.Flat;
+            //chkHidePasswords.FlatAppearance.BorderSize = 0;
         }
 
         #endregion
@@ -1161,7 +1241,7 @@ namespace LinksForm
 
         #region "LOAD TREEVIEW"
 
-        public void loadTreeview(bool loadingFromSearchBox, List<AppLinks> AppLinksFromSearchBox)
+        public void LoadTreeview(bool loadingFromSearchBox, List<AppLinks> AppLinksFromSearchBox)
 
         {
             bool found = false;
@@ -1175,13 +1255,13 @@ namespace LinksForm
             {
                 var _appLinks = new List<AppLinks>();
 
-                //REMOVING THE APPLINKS THAT ARE NOT RELATED TO THE APPLICATION THAT IS BEING ADDED TO THIS NODE
+                // REMOVING THE APPLINKS THAT ARE NOT RELATED TO THE APPLICATION THAT IS BEING ADDED TO THIS NODE
 
-                //TREEVIEW
+                // TREEVIEW
                 // false = LOADING TREEVIEW WITH ALL THE DATA FROM THE DATABASE
                 // true = LOADING THE TREEVIEW WITH THE DATA FOUND FROM THE WORD TYPED IN THE SEARCH BOX.
 
-                //LOADING TREEVIEW
+                // LOADING TREEVIEW
                 if (loadingFromSearchBox == false)
                 {
                     foreach (AppLinks item in databaseViewModel.AppLinksList)
@@ -1192,7 +1272,7 @@ namespace LinksForm
                         }
                     }
                 }
-                else //LOADING TREEVIEW FROM SEARCH BOX
+                else // LOADING TREEVIEW FROM SEARCH BOX
                 {
                     foreach (AppLinks item in AppLinksFromSearchBox)
                     {
@@ -1210,7 +1290,7 @@ namespace LinksForm
 
                     var countriesDictionary = new Dictionary<int, string>();
 
-                    //ADDING THE APPLICATION NAME
+                    // ADDING THE APPLICATION NAME
                     treeView1.Nodes.Add(application.ApplicationName.ToString());
                     treeView1.Nodes[parentNodeCounter].ForeColor = Color.DarkBlue;
                     treeView1.Nodes[parentNodeCounter].ImageIndex = 15;
@@ -1240,14 +1320,14 @@ namespace LinksForm
                                 countryNode += 1;
                             }
 
-                            //ADDING COUNTRY NAME
+                            // ADDING COUNTRY NAME
                             treeView1.Nodes[parentNodeCounter].Nodes.Add(apps.CountryName);
                             countriesDictionary.Add(countryNode, apps.CountryName);
 
-                            //GETTING THE COUNTRY FLAG ID
+                            // GETTING THE COUNTRY FLAG ID
                             int countryFlagId = Validation.GetCountryFlagId(apps.CountryName);
 
-                            //ADDING THE FLAG BY THE ID
+                            // ADDING THE FLAG BY THE ID
                             treeView1.Nodes[parentNodeCounter].Nodes[countryNode].ImageIndex = countryFlagId;
                             treeView1.Nodes[parentNodeCounter].Nodes[countryNode].SelectedImageIndex = countryFlagId;
                         }
@@ -1285,7 +1365,7 @@ namespace LinksForm
                                 if (apps.Link.ToString() != "")
                                 {
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add(apps.Link.ToString());
-                                    addToLinks(apps.Link.ToString());
+                                    AddToLinks(apps.Link.ToString());
 
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[0].ImageIndex = 7;
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[0].SelectedImageIndex = 7;
@@ -1302,7 +1382,7 @@ namespace LinksForm
                                     //USERNAME WITH THE CREDENTIAL DESCRIPTION, For Example: Admin, Manager
                                     //treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add(apps.Username.ToString() + " (" + apps.CredentialDescription + ")");
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add(apps.Username.ToString());
-                                    addToLinks(apps.Username.ToString());
+                                    AddToLinks(apps.Username.ToString());
 
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[1].ImageIndex = 8;
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[1].SelectedImageIndex = 8;
@@ -1319,9 +1399,8 @@ namespace LinksForm
                                         treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes.Add("**********");
                                     }
 
-
-                                    addToLinks(DescriptedPassword);
-                                    addToPasswordList(apps.CredentialId, DescriptedPassword);
+                                    AddToLinks(DescriptedPassword);
+                                    AddToPasswordList(apps.CredentialId, DescriptedPassword);
 
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[2].ImageIndex = 9;
                                     treeView1.Nodes[parentNodeCounter].Nodes[country.Key].Nodes[descriptionNode[country.Key]].Nodes[2].SelectedImageIndex = 9;
@@ -1344,7 +1423,7 @@ namespace LinksForm
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                foreach (var password in PasswordList.Values)
+                foreach (var password in passwordList.Values)
                 {
                     TreeNode tnPwd = treeView1.SelectedNode;
 
@@ -1398,14 +1477,22 @@ namespace LinksForm
 
         private void chkHidePasswords_CheckedChanged(object sender, EventArgs e)
         {
-            if (HasTheTreeviewNodeSelected == false)
+            if (hasTheTreeviewNodeSelected == false)
             {
                 txtAppSearch.Text = treeviewNodeExpandText;
             }
 
+            if (chkHidePasswords.Checked)
+            {
+                chkHidePasswords.ImageIndex = 12;
+            }else
+            {
+                chkHidePasswords.ImageIndex = 13;
+            }
+
             if (string.IsNullOrEmpty(txtAppSearch.Text))
             {
-                loadTreeview(false, null);
+                LoadTreeview(false, null);
             }
             else
             {
@@ -1422,7 +1509,7 @@ namespace LinksForm
                 if (_appLinks.Count > 0)
                 {
                     treeView1.Nodes.Clear();
-                    loadTreeview(true, _appLinks);
+                    LoadTreeview(true, _appLinks);
                     treeView1.ExpandAll();
                 }
                 else
@@ -1441,11 +1528,11 @@ namespace LinksForm
                 btnEditApplication.Enabled = false;
                 btnDeleteApplication.Enabled = false;
 
-                List<AppLinks> AppLinksFromDatabase = new List<AppLinks>();
+                List<AppLinks> appLinksFromDatabase = new List<AppLinks>();
 
-                AppLinksFromDatabase = DALHelpers.GetAppLinkByDescription(e.Node.Text);
+                appLinksFromDatabase = DALHelpers.GetAppLinkByDescription(e.Node.Text);
 
-                if (AppLinksFromDatabase.Count > 0)
+                if (appLinksFromDatabase.Count > 0)
                 {
                     btnEditApplication.Enabled = true;
                     btnDeleteApplication.Enabled = true;
@@ -1454,7 +1541,7 @@ namespace LinksForm
                 try
                 {
                     Clipboard.SetText(e.Node.Text);
-                    HasTheTreeviewNodeSelected = true;
+                    hasTheTreeviewNodeSelected = true;
                 }
                 catch (Exception err)
                 {
@@ -1468,8 +1555,9 @@ namespace LinksForm
         private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
         {
             treeviewNodeExpandText = e.Node.Text;
-            HasTheTreeviewNodeSelected = false;
+            hasTheTreeviewNodeSelected = false;
         }
+
         #endregion
 
         #endregion
@@ -1500,13 +1588,13 @@ namespace LinksForm
 
                 if (!string.IsNullOrEmpty(txtAppSearch.Text) && (txtAppSearch.Text.Length > 1))
                 {
-                    loadAppsFromSearchBox();
+                    LoadAppsFromSearchBox();
                 }
 
                 if (string.IsNullOrEmpty(txtAppSearch.Text))
                 {
                     treeView1.Nodes.Clear();
-                    loadTreeview(false, null);
+                    LoadTreeview(false, null);
                     lblClearAppSearch.Visible = false;
                 }
                 else
@@ -1547,20 +1635,20 @@ namespace LinksForm
         {
             AppLinks appLinks = new AppLinks();
 
-            bool HasTheSaveButtonPressed = false;
+            bool hasTheSaveButtonPressed = false;
 
             frmAddOrUpdateAppLinks _frmAddOrUpdateAppLinks = new frmAddOrUpdateAppLinks(appLinks);
             this.TopMost = false;
             _frmAddOrUpdateAppLinks.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateAppLinks.ShowDialog();
 
-            HasTheSaveButtonPressed = _frmAddOrUpdateAppLinks.HasTheSaveButtonPressed;
+            hasTheSaveButtonPressed = _frmAddOrUpdateAppLinks.hasTheSaveButtonPressed;
 
-            if (HasTheSaveButtonPressed == true)
+            if (hasTheSaveButtonPressed == true)
             {
-                Validation.localDatabaseConfig(true);
+                Validation.LocalDatabaseConfig(true);
                 databaseViewModel = Services.GetDataFromDatabase();
-                loadTreeview(false, null);
+                LoadTreeview(false, null);
             }
 
             txtAppSearch.Clear();
@@ -1585,7 +1673,7 @@ namespace LinksForm
                         //MessageBox.Show(treeView1.SelectedNode.Text);
 
                         AppLinks appLinks = new AppLinks();
-                        bool HasTheSaveButtonPressed = false;
+                        bool hasTheSaveButtonPressed = false;
 
                         appLinks.AppLinkId = AppLinksFromDatabase[0].AppLinkId;
                         appLinks.AppCategoryId = AppLinksFromDatabase[0].AppCategoryId;
@@ -1605,13 +1693,13 @@ namespace LinksForm
                         _frmAddOrUpdateAppLinks.StartPosition = FormStartPosition.CenterParent;
                         _frmAddOrUpdateAppLinks.ShowDialog();
 
-                        HasTheSaveButtonPressed = _frmAddOrUpdateAppLinks.HasTheSaveButtonPressed;
+                        hasTheSaveButtonPressed = _frmAddOrUpdateAppLinks.hasTheSaveButtonPressed;
 
-                        if (HasTheSaveButtonPressed == true)
+                        if (hasTheSaveButtonPressed == true)
                         {
-                            Validation.localDatabaseConfig(true);
+                            Validation.LocalDatabaseConfig(true);
                             databaseViewModel = Services.GetDataFromDatabase();
-                            loadTreeview(false, null);
+                            LoadTreeview(false, null);
                         }
 
                         txtAppSearch.Clear();
@@ -1668,11 +1756,11 @@ namespace LinksForm
                             {
                                 ActivityLog.AppLinksLogger(appLinks, "DELETE", "AppLinks", Environment.UserName);
 
-                                Validation.localDatabaseConfig(true);
+                                Validation.LocalDatabaseConfig(true);
                                 databaseViewModel = Services.GetDataFromDatabase();
                                 txtAppSearch.Clear();
 
-                                loadTreeview(false, null);
+                                LoadTreeview(false, null);
                             }
                         }
                     }
@@ -1682,11 +1770,13 @@ namespace LinksForm
 
         #endregion
 
+
+
         #endregion
 
         #region "FUNCTIONS"
 
-        private void addToLinks(string stringToCompare)
+        private void AddToLinks(string stringToCompare)
         {
             var found = false;
 
@@ -1704,11 +1794,11 @@ namespace LinksForm
                 links.Add(stringToCompare);
             }
         }
-        private void addToPasswordList(int Key, string stringToCompare)
+        private void AddToPasswordList(int Key, string stringToCompare)
         {
             var found = false;
 
-            foreach (var password in PasswordList.Values)
+            foreach (var password in passwordList.Values)
             {
                 if (password.ToString() == stringToCompare)
                 {
@@ -1719,10 +1809,10 @@ namespace LinksForm
 
             if (found == false)
             {
-                PasswordList.Add(Key, stringToCompare);
+                passwordList.Add(Key, stringToCompare);
             }
         }
-        private void setTopMostWindowSetting()
+        private void SetTopMostWindowSetting()
         {
             if (Settings.Default["TopMost"].ToString() == "true")
             {
@@ -1733,7 +1823,7 @@ namespace LinksForm
                 this.TopMost = false;
             }
         }
-        private void loadAppsFromSearchBox()
+        private void LoadAppsFromSearchBox()
         {
             List<AppLinks> _appLinks = new List<AppLinks>();
            
@@ -1747,7 +1837,7 @@ namespace LinksForm
 
             if (_appLinks.Count > 0)
             {
-                loadTreeview(true, _appLinks);
+                LoadTreeview(true, _appLinks);
                 treeView1.ExpandAll();
             }
             else //IF NO RESULTS IS RETURNED, THE TREEVIEW IS CLEARED.
@@ -1755,38 +1845,54 @@ namespace LinksForm
                 treeView1.Nodes.Clear();
             }
         }
+        private List<ExportToExcelViewModel> GetExportToExcelList(DataGridView dataGrid)
+        {
+            int colCounter = 1;
 
+            List<ExportToExcelViewModel> exportToExcelList = new List<ExportToExcelViewModel>();
 
+            //HEADER
+            for (int i = 1; i < dataGrid.Columns.Count; i++)
+            {
+                if (dataGrid.Columns[i -1].Visible)
+                {
+                    ExportToExcelViewModel exportToExcelViewModel = new ExportToExcelViewModel();
+                    exportToExcelViewModel.Row = 1;
+                    exportToExcelViewModel.Col = colCounter;
+                    exportToExcelViewModel.Text = dataGrid.Columns[i - 1].HeaderText;
+
+                    Console.WriteLine(dataGrid.Columns[i - 1].HeaderText);
+
+                    exportToExcelList.Add(exportToExcelViewModel);
+
+                    colCounter++;
+                }
+            }
+
+            //DATA
+            for (int i = 0; i < dataGrid.Rows.Count; i++)
+            {
+                colCounter = 0;
+
+                for (int j = 0; j < dataGrid.Columns.Count; j++)
+                {
+                    if (dataGrid.Columns[j].Visible)
+                    {
+                        ExportToExcelViewModel exportToExcelViewModel = new ExportToExcelViewModel();
+                        exportToExcelViewModel.Row = i + 2;
+                        exportToExcelViewModel.Col = colCounter + 1;
+                        exportToExcelViewModel.Text = dataGrid.Rows[i].Cells[j].Value.ToString();
+
+                        exportToExcelList.Add(exportToExcelViewModel);
+
+                        colCounter++;
+                    }
+                }
+            }
+
+            return exportToExcelList;
+        }
         #endregion
 
-        private void dealerBranchesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmDealerBranches _frmDealerBranches = new frmDealerBranches(left, top, width, height);
-            _frmDealerBranches.TopMost = true;
-            _frmDealerBranches.ShowDialog();
-        }
-
-        private void btnExportContactsToExcel_Click(object sender, EventArgs e)
-        {
-            if (dgvContacts.Rows.Count > 0)
-            {
-                Services.ExportToExcel(dtContacts);
-            }
-        }
-
-        private void btnExportDealersToExcel_Click(object sender, EventArgs e)
-        {
-            if (dgvDealers.Rows.Count > 0)
-            {
-                 if (chkDealerContacts.Checked == true)
-                {
-                    Services.ExportToExcel(dtDealerContacts);
-                }
-                else
-                {
-                    Services.ExportToExcel(dtDealers);
-                }
-            }
-        }
     }
 }

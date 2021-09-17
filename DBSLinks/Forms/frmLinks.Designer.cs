@@ -43,6 +43,7 @@ namespace LinksForm
             this.dgvContacts = new System.Windows.Forms.DataGridView();
             this.txtContacts = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnExportDealersToExcel = new System.Windows.Forms.Button();
             this.btnDeleteDealerBranch = new System.Windows.Forms.Button();
             this.btnEditDealerBranch = new System.Windows.Forms.Button();
             this.btnNewDealerBranch = new System.Windows.Forms.Button();
@@ -89,7 +90,6 @@ namespace LinksForm
             this.contextMenuStripContacts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripDealers = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btnExportDealersToExcel = new System.Windows.Forms.Button();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
@@ -260,6 +260,19 @@ namespace LinksForm
             this.tabPage2.Text = "Dealers - Partner Branches";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnExportDealersToExcel
+            // 
+            this.btnExportDealersToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportDealersToExcel.ImageIndex = 5;
+            this.btnExportDealersToExcel.ImageList = this.imageListButtons;
+            this.btnExportDealersToExcel.Location = new System.Drawing.Point(429, 7);
+            this.btnExportDealersToExcel.Name = "btnExportDealersToExcel";
+            this.btnExportDealersToExcel.Size = new System.Drawing.Size(35, 35);
+            this.btnExportDealersToExcel.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.btnExportDealersToExcel, "Export to Excel");
+            this.btnExportDealersToExcel.UseVisualStyleBackColor = true;
+            this.btnExportDealersToExcel.Click += new System.EventHandler(this.btnExportDealersToExcel_Click);
+            // 
             // btnDeleteDealerBranch
             // 
             this.btnDeleteDealerBranch.Enabled = false;
@@ -329,6 +342,8 @@ namespace LinksForm
             this.imageListMenuIcons.Images.SetKeyName(9, "Reload-30.png");
             this.imageListMenuIcons.Images.SetKeyName(10, "View Delaer Contacts.png");
             this.imageListMenuIcons.Images.SetKeyName(11, "Viewing Dealer Contacts.png");
+            this.imageListMenuIcons.Images.SetKeyName(12, "view-password.png");
+            this.imageListMenuIcons.Images.SetKeyName(13, "hide-password.png");
             // 
             // lblClearDealersSearch
             // 
@@ -725,19 +740,6 @@ namespace LinksForm
             this.contextMenuStripDealers.Size = new System.Drawing.Size(103, 26);
             this.contextMenuStripDealers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDealers_Opening);
             // 
-            // btnExportDealersToExcel
-            // 
-            this.btnExportDealersToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExportDealersToExcel.ImageIndex = 5;
-            this.btnExportDealersToExcel.ImageList = this.imageListButtons;
-            this.btnExportDealersToExcel.Location = new System.Drawing.Point(429, 7);
-            this.btnExportDealersToExcel.Name = "btnExportDealersToExcel";
-            this.btnExportDealersToExcel.Size = new System.Drawing.Size(35, 35);
-            this.btnExportDealersToExcel.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.btnExportDealersToExcel, "Export to Excel");
-            this.btnExportDealersToExcel.UseVisualStyleBackColor = true;
-            this.btnExportDealersToExcel.Click += new System.EventHandler(this.btnExportDealersToExcel_Click);
-            // 
             // frmLinks
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -751,8 +753,8 @@ namespace LinksForm
             this.Name = "frmLinks";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmContacts_FormClosing);
-            this.Load += new System.EventHandler(this.frmContacts_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLinks_FormClosing);
+            this.Load += new System.EventHandler(this.frmLinks_Load);
             this.tabMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

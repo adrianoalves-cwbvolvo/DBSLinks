@@ -145,11 +145,11 @@ namespace Links.Forms
             _frmAddOrUpdateCountry.TopMost = true;
             _frmAddOrUpdateCountry.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateCountry.HasTheSaveButtonPressed;
+            HasTheCancelButtonPressed = _frmAddOrUpdateCountry.hasTheSaveButtonPressed;
 
             if (HasTheCancelButtonPressed == false)
             {
-                Validation.localDatabaseConfig(true);
+                Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
                 countryList = loadCountries();
             }
@@ -177,11 +177,11 @@ namespace Links.Forms
                 _frmAddOrUpdateCountry.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCountry.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateCountry.HasTheSaveButtonPressed;
+                HasTheCancelButtonPressed = _frmAddOrUpdateCountry.hasTheSaveButtonPressed;
 
                 if (HasTheCancelButtonPressed == false)
                 {
-                    Validation.localDatabaseConfig(true);
+                    Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
                     countryList = loadCountries();
                 }
@@ -221,7 +221,7 @@ namespace Links.Forms
 
                         ActivityLog.CountryLogger(country, "DELETE", "", 0, Environment.UserName);
 
-                        Validation.localDatabaseConfig(true);
+                        Validation.LocalDatabaseConfig(true);
                         //databaseViewModel = Services.GetDataFromDatabase();
                         countryList = loadCountries();
 
