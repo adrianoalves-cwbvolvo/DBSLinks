@@ -113,6 +113,16 @@ namespace Links.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Checked_40 {
+            get {
+                object obj = ResourceManager.GetObject("Checked-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Circled_thin_20 {
             get {
                 object obj = ResourceManager.GetObject("Circled-thin-20", resourceCulture);
@@ -273,9 +283,29 @@ namespace Links.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Ok_40 {
+            get {
+                object obj = ResourceManager.GetObject("Ok-40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PadLock_BW {
             get {
                 object obj = ResourceManager.GetObject("PadLock_BW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap password32 {
+            get {
+                object obj = ResourceManager.GetObject("password32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
