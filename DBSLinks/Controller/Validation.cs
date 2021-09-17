@@ -98,7 +98,7 @@ namespace LinksForm.Controller
             }
         }
         #endregion
-        public static void startLinksOnStartUp(bool startup)
+        public static void StartLinksOnStartUp(bool startup)
         {
             string username = Environment.UserName;
             string localFile = "C:\\Users\\" + username + "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\" + "LinksStartup.appref-ms";
@@ -130,7 +130,7 @@ namespace LinksForm.Controller
                 }
             }
         }
-        public static void localDatabaseConfig(bool reload)
+        public static void LocalDatabaseConfig(bool reload)
         {
 
             string localDatabaseFolder = "C:\\Temp\\Links";
