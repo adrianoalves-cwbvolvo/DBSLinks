@@ -64,8 +64,6 @@ namespace LinksForm
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuSystemTray = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tspConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.dataAdminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +88,8 @@ namespace LinksForm
             this.contextMenuStripContacts = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripDealers = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContacts)).BeginInit();
@@ -529,28 +529,21 @@ namespace LinksForm
             // 
             // contextMenuSystemTray
             // 
+            this.contextMenuSystemTray.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuSystemTray.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.toolStripSeparator6,
-            this.toolStripSeparator5});
+            this.exitToolStripMenuItem});
             this.contextMenuSystemTray.Name = "contextMenuStrip1";
-            this.contextMenuSystemTray.Size = new System.Drawing.Size(108, 38);
+            this.contextMenuSystemTray.Size = new System.Drawing.Size(189, 92);
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.Image = global::Links.Properties.Resources.About_30;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(104, 6);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(104, 6);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
@@ -591,7 +584,7 @@ namespace LinksForm
             this.credentialsToolStripMenuItem});
             this.dataAdminToolStripMenuItem.Image = global::Links.Properties.Resources.DataAdmin30;
             this.dataAdminToolStripMenuItem.Name = "dataAdminToolStripMenuItem";
-            this.dataAdminToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.dataAdminToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.dataAdminToolStripMenuItem.Text = "Data Admin";
             // 
             // countriesToolStripMenuItem
@@ -647,13 +640,13 @@ namespace LinksForm
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
             // 
             // reloadDataToolStripMenuItem
             // 
             this.reloadDataToolStripMenuItem.Image = global::Links.Properties.Resources.Reload_30;
             this.reloadDataToolStripMenuItem.Name = "reloadDataToolStripMenuItem";
-            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.reloadDataToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.reloadDataToolStripMenuItem.Text = "Data Reload";
             this.reloadDataToolStripMenuItem.Click += new System.EventHandler(this.reloadDataToolStripMenuItem_Click);
             // 
@@ -661,33 +654,33 @@ namespace LinksForm
             // 
             this.settingsToolStripMenuItem.Image = global::Links.Properties.Resources.CogWheelBoarder;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(185, 6);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Image = global::Links.Properties.Resources.About_30;
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(188, 30);
             this.aboutToolStripMenuItem1.Text = "About";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.aboutToolStripMenuItem1_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(154, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(185, 6);
             // 
             // exitApplicationToolStripMenuItem
             // 
             this.exitApplicationToolStripMenuItem.Image = global::Links.Properties.Resources.Shutdown_301;
             this.exitApplicationToolStripMenuItem.Name = "exitApplicationToolStripMenuItem";
-            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.exitApplicationToolStripMenuItem.Text = "Exit Application";
             this.exitApplicationToolStripMenuItem.Click += new System.EventHandler(this.exitApplicationToolStripMenuItem_Click);
             // 
@@ -739,6 +732,19 @@ namespace LinksForm
             this.contextMenuStripDealers.Name = "contextMenuStripDealers";
             this.contextMenuStripDealers.Size = new System.Drawing.Size(103, 26);
             this.contextMenuStripDealers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDealers_Opening);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(185, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = global::Links.Properties.Resources.Shutdown_301;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
+            this.exitToolStripMenuItem.Text = "Exit Application";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // frmLinks
             // 
@@ -795,8 +801,6 @@ namespace LinksForm
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripApps;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.CheckBox chkHidePasswords;
         private System.Windows.Forms.Label lblClearContactsSearch;
         private System.Windows.Forms.Label lblClearDealersSearch;
@@ -834,6 +838,8 @@ namespace LinksForm
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDealers;
         private System.Windows.Forms.Button btnExportDealersToExcel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

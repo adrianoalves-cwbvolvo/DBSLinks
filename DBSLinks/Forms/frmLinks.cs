@@ -1894,5 +1894,24 @@ namespace LinksForm
         }
         #endregion
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAbout aboutWindow = new frmAbout(left, top, width, height);
+            aboutWindow.TopMost = true;
+            aboutWindow.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = new DialogResult();
+
+            dialog = MessageBox.Show("Do you want to Exit the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dialog == DialogResult.Yes)
+            {
+                notifyIcon.Visible = false;
+                Application.Exit();
+            }
+        }
     }
 }
