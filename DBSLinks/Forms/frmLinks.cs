@@ -327,9 +327,10 @@ namespace LinksForm
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //this.Hide();
-            frmGeneralSettings _frmConfig = new frmGeneralSettings(left, top, width, height);
+            frmGeneralSettings _frmConfig = new frmGeneralSettings();
 
             _frmConfig.TopMost = true;
+            _frmConfig.StartPosition = FormStartPosition.CenterParent;
             _frmConfig.ShowDialog();
 
             SetTopMostWindowSetting();
@@ -340,6 +341,7 @@ namespace LinksForm
         {
             frmAbout aboutWindow = new frmAbout(left, top, width, height);
             aboutWindow.TopMost = true;
+            aboutWindow.StartPosition = FormStartPosition.CenterParent;
             aboutWindow.ShowDialog();
         }
         private void reloadDataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -354,9 +356,9 @@ namespace LinksForm
             _frmDataReload.TopMost = true;
             _frmDataReload.ShowDialog();
 
-            hasTheOkButtonPressed = _frmDataReload.HasTheOkButtonPressed;
+            hasTheOkButtonPressed = _frmDataReload.hasTheOkButtonPressed;
 
-            if (hasTheOkButtonPressed == false)
+            if (hasTheOkButtonPressed == true)
             {
                 databaseViewModel = _frmDataReload.databaseViewModel;
 
@@ -370,6 +372,7 @@ namespace LinksForm
         {
             frmCountry _frmCountry = new frmCountry(left, top, width, height);
             _frmCountry.TopMost = true;
+            _frmCountry.StartPosition = FormStartPosition.CenterParent;
             _frmCountry.ShowDialog();
         }
         private void credentialsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1906,7 +1909,7 @@ namespace LinksForm
             DialogResult dialog = new DialogResult();
 
             dialog = MessageBox.Show("Do you want to Exit the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
+            
             if (dialog == DialogResult.Yes)
             {
                 notifyIcon.Visible = false;
