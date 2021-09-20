@@ -167,7 +167,7 @@ namespace Links.Forms
             if ((dgvCountries.Rows.Count > 0))
             {
                 Country country = new Country();
-                bool HasTheCancelButtonPressed;
+                bool hasThSaveButtonPressed;
 
                 country.CountryId = Convert.ToInt32(dgvCountries.CurrentRow.Cells[0].Value.ToString());
                 country.CountryName = dgvCountries.CurrentRow.Cells[1].Value.ToString();
@@ -177,9 +177,9 @@ namespace Links.Forms
                 _frmAddOrUpdateCountry.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCountry.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateCountry.hasTheSaveButtonPressed;
+                hasThSaveButtonPressed = _frmAddOrUpdateCountry.hasTheSaveButtonPressed;
 
-                if (HasTheCancelButtonPressed == false)
+                if (hasThSaveButtonPressed == true)
                 {
                     Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();
