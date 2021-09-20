@@ -19,7 +19,7 @@ namespace Links.Forms
         private bool ReloadButtonClicked = false;
         private DatabaseViewModel _databaseViewModel = new DatabaseViewModel();
 
-        public bool HasTheOkButtonPressed { get; set; }
+        public bool hasTheOkButtonPressed { get; set; }
 
         public DatabaseViewModel databaseViewModel { get; set; }
 
@@ -33,7 +33,7 @@ namespace Links.Forms
             this.StartPosition = FormStartPosition.Manual;
             this.Location = new Point(left, top);
 
-            HasTheOkButtonPressed = false;
+            hasTheOkButtonPressed = false;
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace Links.Forms
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            HasTheOkButtonPressed = true;
+            hasTheOkButtonPressed = true;
 
             prgDataReload.Minimum = 0;
             prgDataReload.Maximum = 100;
