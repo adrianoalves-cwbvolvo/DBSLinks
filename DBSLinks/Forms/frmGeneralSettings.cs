@@ -19,16 +19,16 @@ namespace Links.Forms
 {
     public partial class frmGeneralSettings : Form
     {
-        public frmGeneralSettings(int left, int top, int width, int height)
+        public frmGeneralSettings()
         {
             InitializeComponent();
 
             //SETTING THE FORM LOCATION
-            left = left + (width / 4);
-            top = top + (height / 4);
+            //left = left + (width / 4);
+            //top = top + (height / 4);
 
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
+            //this.StartPosition = FormStartPosition.Manual;
+            //this.Location = new Point(left, top);
 
             //GETTING THE TOP MOST SETTINGS AND UPDATING THE CHECK BOX
             getTopMostCheckBoxSettings();
@@ -157,16 +157,18 @@ namespace Links.Forms
 
         private void btnCheckForUpdates_Click(object sender, EventArgs e)
         {
-            ApplicationDeployment updateCheck = ApplicationDeployment.CurrentDeployment;
-            UpdateCheckInfo info = updateCheck.CheckForDetailedUpdate();
-            //
-            if (info.UpdateAvailable)
+            if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
             {
-                updateCheck.Update();
-                MessageBox.Show("The application has been upgraded, and will now restart.");
-                Application.Restart();
+                ApplicationDeployment updateCheck = ApplicationDeployment.CurrentDeployment;
+                UpdateCheckInfo info = updateCheck.CheckForDetailedUpdate();
+                //
+                if (info.UpdateAvailable)
+                {
+                    updateCheck.Update();
+                    MessageBox.Show("The application has been upgraded, and will now restart.");
+                    Application.Restart();
+                }
             }
-
         }
     }
 }
