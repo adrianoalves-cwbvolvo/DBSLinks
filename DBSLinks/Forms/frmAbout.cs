@@ -18,7 +18,7 @@ namespace Links.Forms
         {
             InitializeComponent();
 
-            left = left + (width / 4);
+            left = (left - 20) + (width / 4);
             top = top + (height / 4);
 
             this.StartPosition = FormStartPosition.Manual;
