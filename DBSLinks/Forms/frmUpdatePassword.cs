@@ -19,16 +19,9 @@ namespace Links.FormsAdmin
         public string UsernameToBeReturned { get; set; }
         public bool hasTheSaveButtonPressed { get; set; }
 
-        public frmUpdatePassword(int CredentialId, int left,int top, int width, int height)
+        public frmUpdatePassword(int CredentialId)
         {
             InitializeComponent();
-
-            //SETTING THE FORM LOCATION
-            left = left + (width / 4);
-            top = top + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             hasTheSaveButtonPressed = false;
 

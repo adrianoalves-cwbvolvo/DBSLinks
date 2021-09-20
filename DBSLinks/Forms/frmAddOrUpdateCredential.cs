@@ -17,15 +17,9 @@ namespace LinksForm.Forms
     {
         private int CredentialId = 0;
         public bool hasTheSaveButtonPressed { get; set; }
-        public frmAddOrUpdateCredential(int left, int top, int width, int height, Credential credential)
+        public frmAddOrUpdateCredential(Credential credential)
         {
             InitializeComponent();
-
-            left = (left ) + (width / 4);
-            top = (top - 20) + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             hasTheSaveButtonPressed = false;
 

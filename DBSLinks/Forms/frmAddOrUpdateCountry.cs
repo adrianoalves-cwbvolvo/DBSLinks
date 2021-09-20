@@ -20,15 +20,9 @@ namespace Links.Forms
         private string CountryName;
         public bool hasTheSaveButtonPressed { get; set; }
 
-        public frmAddOrUpdateCountry(int left, int top, int width, int height, Country country)
+        public frmAddOrUpdateCountry(Country country)
         {
             InitializeComponent();
-
-            left = (left - 120) + (width / 4);
-            top = (top - 20) + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             CountryID = country.CountryId;
             CountryName = country.CountryName;

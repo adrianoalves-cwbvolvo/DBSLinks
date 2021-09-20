@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+  
+    <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+      <section name="Links.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+    </sectionGroup>
+  </configSections>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.1" />
+  </startup>
+  
+  <userSettings>
+    <Links.Properties.Settings>
+      <setting name="TopMost" serializeAs="String">
+        <value>true</value>
+      </setting>
+	  <setting name="localDatabaseConnectionString" serializeAs="String">
+		<value>Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Temp\\Links\\NewLinksDB.accdb; Persist Security Info=False;</value>
+	  </setting>
+      <setting name="networkDatabaseConnectionString" serializeAs="String">
+        <value>Provider=Microsoft.ACE.OLEDB.12.0;Data Source=//vcn.ds.volvo.net/it-cta/ITPROJ02/002378/DESENV/DBS/AUTOMATOR/LINKS FORM/Database/NewLinksDB.accdb; Persist Security Info=False;</value>
+      </setting>
+      <setting name="ApplicationPath" serializeAs="String">
+        <value>\\vcn.ds.volvo.net\it-cta\ITPROJ02\002378\DESENV\DBS\AUTOMATOR\LINKS FORM\</value>
+      </setting>
+      <setting name="ApplicationWaitForNetworkMinutes" serializeAs="String">
+        <value>1</value>
+      </setting>
+      <setting name="ApplicationWaitForNetwork" serializeAs="String">
+        <value>true</value>
+      </setting>
+      <setting name="StartLinksWhenWindowsIsStarted" serializeAs="String">
+        <value>true</value>
+      </setting>
+    </Links.Properties.Settings>
+  </userSettings>
+</configuration>

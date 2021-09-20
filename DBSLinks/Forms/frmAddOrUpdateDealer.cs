@@ -20,15 +20,9 @@ namespace Links.Forms
         int GlobalDealerId;
 
         List<Country> countryList = new List<Country>();
-        public frmAddOrUpdateDealer(int left, int top, int width, int height, Dealer dealer)
+        public frmAddOrUpdateDealer(Dealer dealer)
         {
             InitializeComponent();
-
-            left = (left - 190) + (width / 4);
-            top = (top) + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             GlobalDealerId = dealer.DealerId;
 

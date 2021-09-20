@@ -24,22 +24,9 @@ namespace Links.Forms
 
         //private DatabaseViewModel databaseViewModel = new DatabaseViewModel();
 
-        private int left, top, width, height;
-
-        public frmCountry(int _left, int _top, int _width, int _height)
+        public frmCountry()
         {
-            left = _left;
-            top = _top;
-            width = _width;
-            height = _height;
-
             InitializeComponent();
-
-            //left = (left -20) + (width / 4);
-            //top = top + (height / 4);
-
-            //this.StartPosition = FormStartPosition.Manual;
-            //this.Location = new Point(left, top);
 
             StyleCountryButtons();
 
@@ -137,17 +124,18 @@ namespace Links.Forms
 
         private void btnNewCountry_Click(object sender, EventArgs e)
         {
-            bool HasTheCancelButtonPressed;
+            bool hasTheSaveButtonPressed;
 
             Country country = new Country();
 
-            frmAddOrUpdateCountry _frmAddOrUpdateCountry = new frmAddOrUpdateCountry(left, top, width, height, country);
+            frmAddOrUpdateCountry _frmAddOrUpdateCountry = new frmAddOrUpdateCountry(country);
             _frmAddOrUpdateCountry.TopMost = true;
+            _frmAddOrUpdateCountry.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateCountry.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateCountry.hasTheSaveButtonPressed;
+            hasTheSaveButtonPressed = _frmAddOrUpdateCountry.hasTheSaveButtonPressed;
 
-            if (HasTheCancelButtonPressed == false)
+            if (hasTheSaveButtonPressed == true)
             {
                 Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
@@ -172,7 +160,7 @@ namespace Links.Forms
                 country.CountryId = Convert.ToInt32(dgvCountries.CurrentRow.Cells[0].Value.ToString());
                 country.CountryName = dgvCountries.CurrentRow.Cells[1].Value.ToString();
 
-                frmAddOrUpdateCountry _frmAddOrUpdateCountry = new frmAddOrUpdateCountry(left, top, width, height, country);
+                frmAddOrUpdateCountry _frmAddOrUpdateCountry = new frmAddOrUpdateCountry(country);
                 this.TopMost = false;
                 _frmAddOrUpdateCountry.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCountry.ShowDialog();

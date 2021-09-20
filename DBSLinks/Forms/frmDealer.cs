@@ -20,22 +20,9 @@ namespace Links.Forms
         private DataTable dtDealers= new DataTable();
         private string FilteDealerField = "StringToSearch";
 
-        private int left, top, width, height;
-
-        public frmDealer(int _left, int _top, int _width, int _height)
+        public frmDealer()
         {
-            left = _left;
-            top = _top;
-            width = _width;
-            height = _height;
-
             InitializeComponent();
-
-            left = (left - 100) + (width / 4);
-            top = top + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             StyleCountryButtons();
 
@@ -95,8 +82,9 @@ namespace Links.Forms
 
             Dealer dealer = new Dealer();
 
-            frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(left, top, width, height, dealer);
+            frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(dealer);
             _frmAddOrUpdateDealer.TopMost = true;
+            _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateDealer.ShowDialog();
 
             hasTheSaveButtonPressed = _frmAddOrUpdateDealer.hasTheSaveButtonPressed;
@@ -128,7 +116,7 @@ namespace Links.Forms
                 dealer.DealerName = dgvDealer.CurrentRow.Cells[1].Value.ToString();
                 dealer.CountryId = Convert.ToInt32(dgvDealer.CurrentRow.Cells[2].Value.ToString());
 
-                frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(left, top, width, height, dealer);
+                frmAddOrUpdateDealer _frmAddOrUpdateDealer = new frmAddOrUpdateDealer(dealer);
                 this.TopMost = false;
                 _frmAddOrUpdateDealer.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateDealer.ShowDialog();

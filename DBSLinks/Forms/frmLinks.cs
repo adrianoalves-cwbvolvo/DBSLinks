@@ -300,8 +300,9 @@ namespace LinksForm
                     }
                 }
 
-                frmUpdatePassword _frmUpdatePassword = new frmUpdatePassword(CredentialId, left, top, width, height);
+                frmUpdatePassword _frmUpdatePassword = new frmUpdatePassword(CredentialId);
                 _frmUpdatePassword.TopMost = true;
+                _frmUpdatePassword.StartPosition = FormStartPosition.CenterParent;
                 _frmUpdatePassword.ShowDialog();
 
                 ReturnedUsername = _frmUpdatePassword.UsernameToBeReturned;
@@ -339,7 +340,7 @@ namespace LinksForm
         }
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmAbout aboutWindow = new frmAbout(left, top, width, height);
+            frmAbout aboutWindow = new frmAbout();
             aboutWindow.TopMost = true;
             aboutWindow.StartPosition = FormStartPosition.CenterParent;
             aboutWindow.ShowDialog();
@@ -350,10 +351,11 @@ namespace LinksForm
 
             bool hasTheOkButtonPressed = false;
 
-            frmDataReload _frmDataReload = new frmDataReload(left, top, width, height);
+            frmDataReload _frmDataReload = new frmDataReload();
 
             //_frmReloadData.MdiParent = this;
             _frmDataReload.TopMost = true;
+            _frmDataReload.StartPosition = FormStartPosition.CenterParent;
             _frmDataReload.ShowDialog();
 
             hasTheOkButtonPressed = _frmDataReload.hasTheOkButtonPressed;
@@ -370,34 +372,56 @@ namespace LinksForm
         }
         private void countriesToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            frmCountry _frmCountry = new frmCountry(left, top, width, height);
+            frmCountry _frmCountry = new frmCountry();
             _frmCountry.TopMost = true;
             _frmCountry.StartPosition = FormStartPosition.CenterParent;
             _frmCountry.ShowDialog();
         }
         private void credentialsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmCredential _frmCredential = new frmCredential(left, top, width, height);
+            frmCredential _frmCredential = new frmCredential();
             _frmCredential.TopMost = true;
+            _frmCredential.StartPosition = FormStartPosition.CenterParent;
             _frmCredential.ShowDialog();
         }
         private void applicationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmApplication _frmApplication = new frmApplication(left, top, width, height);
+            frmApplication _frmApplication = new frmApplication();
             _frmApplication.TopMost = true;
+            _frmApplication.StartPosition = FormStartPosition.CenterParent;
             _frmApplication.ShowDialog();
         }
         private void dealersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDealer _frmDealer = new frmDealer(left, top, width, height);
+            frmDealer _frmDealer = new frmDealer();
             _frmDealer.TopMost = true;
+            _frmDealer.StartPosition = FormStartPosition.CenterParent;
             _frmDealer.ShowDialog();
         }
         private void dealerBranchesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDealerBranches _frmDealerBranches = new frmDealerBranches(left, top, width, height);
+            frmDealerBranches _frmDealerBranches = new frmDealerBranches();
             _frmDealerBranches.TopMost = true;
+            _frmDealerBranches.StartPosition = FormStartPosition.CenterParent;
             _frmDealerBranches.ShowDialog();
+        }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAbout aboutWindow = new frmAbout();
+            aboutWindow.TopMost = true;
+            aboutWindow.ShowDialog();
+        }
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = new DialogResult();
+
+            dialog = MessageBox.Show("Do you want to Exit the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
+            if (dialog == DialogResult.Yes)
+            {
+                notifyIcon.Visible = false;
+                Application.Exit();
+            }
         }
 
         #endregion
@@ -1897,24 +1921,5 @@ namespace LinksForm
         }
         #endregion
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmAbout aboutWindow = new frmAbout(left, top, width, height);
-            aboutWindow.TopMost = true;
-            aboutWindow.ShowDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult dialog = new DialogResult();
-
-            dialog = MessageBox.Show("Do you want to Exit the application?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            
-            if (dialog == DialogResult.Yes)
-            {
-                notifyIcon.Visible = false;
-                Application.Exit();
-            }
-        }
     }
 }

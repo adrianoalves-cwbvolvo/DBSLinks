@@ -21,22 +21,9 @@ namespace Links.Forms
         private DataTable dtDealers = new DataTable();
         private string FilteDealerField = "StringToSearch";
 
-        private int left, top, width, height;
-
-        public frmDealerBranches(int _left, int _top, int _width, int _height)
+        public frmDealerBranches()
         {
-            left = _left;
-            top = _top;
-            width = _width;
-            height = _height;
-
             InitializeComponent();
-
-            left = (left - 160) + (width / 4);
-            top = top + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             StyleCountryButtons();
 

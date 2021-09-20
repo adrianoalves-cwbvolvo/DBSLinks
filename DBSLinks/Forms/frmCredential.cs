@@ -25,21 +25,9 @@ namespace Links.Forms
 
         //private DatabaseViewModel databaseViewModel = new DatabaseViewModel();
 
-        private int left, top, width, height;
-        public frmCredential(int _left, int _top, int _width, int _height)
+        public frmCredential()
         {
-            left = _left;
-            top = _top;
-            width = _width;
-            height = _height;
-
             InitializeComponent();
-
-            left = (left - 100) + (width / 4);
-            top = top + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             StyleCountryButtons();
 
@@ -85,17 +73,18 @@ namespace Links.Forms
 
         private void btnNewCredential_Click(object sender, EventArgs e)
         {
-            bool HasTheCancelButtonPressed;
+            bool hasTheSaveButtonPressed;
 
             Credential credential = new Credential();
 
-            frmAddOrUpdateCredential _frmAddOrUpdateCredential= new frmAddOrUpdateCredential(left, top, width, height, credential);
+            frmAddOrUpdateCredential _frmAddOrUpdateCredential= new frmAddOrUpdateCredential(credential);
             _frmAddOrUpdateCredential.TopMost = true;
+            _frmAddOrUpdateCredential.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateCredential.ShowDialog();
 
-            HasTheCancelButtonPressed = _frmAddOrUpdateCredential.hasTheSaveButtonPressed;
+            hasTheSaveButtonPressed = _frmAddOrUpdateCredential.hasTheSaveButtonPressed;
 
-            if (HasTheCancelButtonPressed == false)
+            if (hasTheSaveButtonPressed == true)
             {
                 Validation.LocalDatabaseConfig(true);
                 //databaseViewModel = Services.GetDataFromDatabase();
@@ -115,21 +104,21 @@ namespace Links.Forms
             if ((dgvCredentials.Rows.Count > 0))
             {
                 Credential credential = new Credential();
-                bool HasTheCancelButtonPressed;
+                bool hasTheSaveButtonPressed;
 
                 credential.CredentialId = Convert.ToInt32(dgvCredentials.CurrentRow.Cells[0].Value.ToString());
                 credential.CredentialDescription = dgvCredentials.CurrentRow.Cells[1].Value.ToString();
                 credential.Username = dgvCredentials.CurrentRow.Cells[2].Value.ToString();
                 credential.Password = dgvCredentials.CurrentRow.Cells[3].Value.ToString();
 
-                frmAddOrUpdateCredential _frmAddOrUpdateCredential = new frmAddOrUpdateCredential(left, top, width, height, credential);
+                frmAddOrUpdateCredential _frmAddOrUpdateCredential = new frmAddOrUpdateCredential(credential);
                 this.TopMost = false;
                 _frmAddOrUpdateCredential.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateCredential.ShowDialog();
 
-                HasTheCancelButtonPressed = _frmAddOrUpdateCredential.hasTheSaveButtonPressed;
+                hasTheSaveButtonPressed = _frmAddOrUpdateCredential.hasTheSaveButtonPressed;
 
-                if (HasTheCancelButtonPressed == false)
+                if (hasTheSaveButtonPressed == true)
                 {
                     Validation.LocalDatabaseConfig(true);
                     //databaseViewModel = Services.GetDataFromDatabase();

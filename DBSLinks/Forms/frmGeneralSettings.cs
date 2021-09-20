@@ -23,13 +23,6 @@ namespace Links.Forms
         {
             InitializeComponent();
 
-            //SETTING THE FORM LOCATION
-            //left = left + (width / 4);
-            //top = top + (height / 4);
-
-            //this.StartPosition = FormStartPosition.Manual;
-            //this.Location = new Point(left, top);
-
             //GETTING THE TOP MOST SETTINGS AND UPDATING THE CHECK BOX
             getTopMostCheckBoxSettings();
 
@@ -167,6 +160,9 @@ namespace Links.Forms
                     updateCheck.Update();
                     MessageBox.Show("The application has been upgraded, and will now restart.");
                     Application.Restart();
+                }else
+                {
+                    MessageBox.Show("No available update could be found.");
                 }
             }
         }

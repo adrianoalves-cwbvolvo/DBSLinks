@@ -23,30 +23,15 @@ namespace Links.Forms
         private DataTable dtApplications = new DataTable();
         private string FilterContactField = "StringToSearch";
 
-        //private DatabaseViewModel databaseViewModel = new DatabaseViewModel();
-
-        private int left, top, width, height;
-
         private void dgvApplications_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             btnEditApplication.Enabled = true;
             btnDeleteApplication.Enabled = true;
         }
 
-        public frmApplication(int _left, int _top, int _width, int _height)
+        public frmApplication()
         {
-            left = _left;
-            top = _top;
-            width = _width;
-            height = _height;
-
             InitializeComponent();
-
-            left = (left - 20) + (width / 4);
-            top = top + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             dtApplications.Columns.Add("ApplicationId", typeof(int));
             dtApplications.Columns.Add("Application Name", typeof(string));
@@ -95,8 +80,9 @@ namespace Links.Forms
 
             App app = new App();
 
-            frmAddOrUpdateApplication _frmAddOrUpdateApplication = new frmAddOrUpdateApplication(left, top, width, height, app);
+            frmAddOrUpdateApplication _frmAddOrUpdateApplication = new frmAddOrUpdateApplication(app);
             _frmAddOrUpdateApplication.TopMost = true;
+            _frmAddOrUpdateApplication.StartPosition = FormStartPosition.CenterParent;
             _frmAddOrUpdateApplication.ShowDialog();
 
             hasTheSaveButtonPressed = _frmAddOrUpdateApplication.hasTheSaveButtonPressed;
@@ -126,7 +112,7 @@ namespace Links.Forms
                 app.ApplicationId = Convert.ToInt32(dgvApplications.CurrentRow.Cells[0].Value.ToString());
                 app.ApplicationName = dgvApplications.CurrentRow.Cells[1].Value.ToString();
 
-                frmAddOrUpdateApplication _frmAddOrUpdateApplication = new frmAddOrUpdateApplication(left, top, width, height, app);
+                frmAddOrUpdateApplication _frmAddOrUpdateApplication = new frmAddOrUpdateApplication(app);
                 this.TopMost = false;
                 _frmAddOrUpdateApplication.StartPosition = FormStartPosition.CenterParent;
                 _frmAddOrUpdateApplication.ShowDialog();

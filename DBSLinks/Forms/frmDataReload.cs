@@ -23,15 +23,9 @@ namespace Links.Forms
 
         public DatabaseViewModel databaseViewModel { get; set; }
 
-        public frmDataReload(int left, int top, int width, int height)
+        public frmDataReload()
         {
             InitializeComponent();
-
-            left = left + (width / 4);
-            top = top + (height / 4);
-
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
 
             hasTheOkButtonPressed = false;
         }
