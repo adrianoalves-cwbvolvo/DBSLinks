@@ -35,11 +35,11 @@ namespace Links.Forms
 
             InitializeComponent();
 
-            left = (left -20) + (width / 4);
-            top = top + (height / 4);
+            //left = (left -20) + (width / 4);
+            //top = top + (height / 4);
 
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(left, top);
+            //this.StartPosition = FormStartPosition.Manual;
+            //this.Location = new Point(left, top);
 
             StyleCountryButtons();
 
