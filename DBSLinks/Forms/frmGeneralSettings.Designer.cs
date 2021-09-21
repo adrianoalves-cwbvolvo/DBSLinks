@@ -144,6 +144,7 @@
             this.btnCheckForUpdates.TabIndex = 15;
             this.btnCheckForUpdates.Text = "Check For Updates";
             this.btnCheckForUpdates.UseVisualStyleBackColor = true;
+            this.btnCheckForUpdates.Visible = false;
             this.btnCheckForUpdates.Click += new System.EventHandler(this.btnCheckForUpdates_Click);
             // 
             // groupBox1
